@@ -5,11 +5,16 @@
 </template>
 
 <script>
+import TrainingProgram from './components/TrainingProgram.vue';
+
 export default {
   data: function () {
     return {
       message: "Hello Vue!"
     }
+  },
+  components: {
+    TrainingProgram,
   }
 }
 </script>

@@ -14,3 +14,10 @@
  *= require_self
  */
  @import "bootstrap";
+
+body {
+  background: linear-gradient(to left, hsla(221, 42%, 28%, 1),
+                                       hsla(247, 32%, 49%, 1),
+                                       hsla(274, 48%, 59%, 1),
+                                       hsla(300, 49%, 69%, 1));
+}
