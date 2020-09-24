@@ -1,17 +1,18 @@
 <template>
-  <div id="app">
+  <div id="app" data-training-programs="">
     <p>{{ message }}</p>
 
     <training-program
-      v-for="(program, index) in programs"
+      v-for="(trainingProgram, index) in trainingPrograms"
       :key="index"
+      :trainingProgram="trainingProgram"
     >
     </training-program>
 
     <training-program-form>
     </training-program-form>
 
-    <a href="#">Create new program</a>
+    <a href="#">New program</a>
 
     <div
       class="app-wrapper"
@@ -27,12 +28,19 @@ import TrainingProgram from './components/TrainingProgram.vue';
 import TrainingProgramForm from './components/TrainingProgramForm.vue';
 
 export default {
+  props: {
+      trainingPrograms: {
+        type: Array,
+        required: true,
+      },
+  },
   data: function () {
     return {
       showWrapper: false,
       message: "Training programs!",
-      programs: [],
     }
+  },
+  computed: {
   },
   components: {
     TrainingProgram,

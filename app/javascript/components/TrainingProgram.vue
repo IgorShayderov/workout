@@ -2,13 +2,18 @@
   <div
     class="training-program"
   >
-
+    {{ trainingProgram.title }}
   </div>
 </template>
 
 <script>
 export default {
-
+  props: {
+    trainingProgram: {
+      type: Object,
+      required: true,
+    }
+  }
 }
 </script>
 
