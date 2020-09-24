@@ -13,6 +13,12 @@
 
     <a href="#">Create new program</a>
 
+    <div
+      class="app-wrapper"
+      v-show="showWrapper"
+    >
+    </div>
+
   </div>
 </template>
 
@@ -23,6 +29,7 @@ import TrainingProgramForm from './components/TrainingProgramForm.vue';
 export default {
   data: function () {
     return {
+      showWrapper: false,
       message: "Training programs!",
       programs: [],
     }
@@ -35,6 +42,17 @@ export default {
 </script>
 
 <style scoped>
+.app-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  opacity: 0.5;
+  z-index: 10;
+}
+
 p {
   font-size: 2em;
   text-align: center;

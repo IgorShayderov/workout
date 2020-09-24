@@ -16,10 +16,10 @@ feature 'User can create training program', "
 
     context 'creates training program' do
       it 'without exercises' do
-        fill_in 'Program name', with: 'New program name'
+        fill_in 'Program title', with: 'New program title'
         click_on 'Create'
 
-        expect(page).to have_content 'New program name'
+        expect(page).to have_content 'New program title'
       end
 
       it 'with several exercises'
