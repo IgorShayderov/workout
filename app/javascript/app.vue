@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <h1 class="text-center">
+      Workout
+    </h1>
 
     <training-program
       v-for="(trainingProgram, index) in trainingPrograms"
@@ -9,17 +12,15 @@
     </training-program>
 
     <training-program-form
-      :showForm="showForm"
+      :shouldShowForm="shouldShowForm"
+      @showForm="shouldShowForm = true"
     >
     </training-program-form>
 
-    <a href="#">New program</a>
-
-    <div
-      class="app-wrapper"
-      v-show="showWrapper"
+    <the-wrapper
+      :showWrapper="showWrapper"
     >
-    </div>
+    </the-wrapper>
 
   </div>
 </template>
@@ -38,7 +39,8 @@ export default {
   data: function () {
     return {
       showWrapper: false,
-      showForm: false,
+      // later turn to false
+      shouldShowForm: true,
     }
   },
   computed: {
@@ -46,24 +48,11 @@ export default {
   components: {
     TrainingProgram,
     TrainingProgramForm,
+    TheWrapper,
   }
 }
 </script>
 
 <style scoped>
-.app-wrapper {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: black;
-  opacity: 0.5;
-  z-index: 10;
-}
 
-p {
-  font-size: 2em;
-  text-align: center;
-}
 </style>

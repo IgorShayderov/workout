@@ -1,14 +1,22 @@
 <template>
   <div>
-    <div
-      class="training-program-form"
+    <a
+      href="#"
+      @click.prevent="showForm"
     >
+      New program
+    </a>
+
+    <div
+      class="training-program-form-wrapper"
+      v-show="shouldShowForm"
+    >
+      <div class="training-program-form-btn-close">
+          <i class="far fa-2x fa-times-circle"></i>
+      </div>
+
       <form
-        action="training_programs" data-type="json"
-        enctype="multipart/form-data"  data-remote="true"
-        method="post" accept-charset="UTF-8"
         class="m-4"
-        id="create-training-program"
       >
 
         <label for="training_program_title">Title:</label>
@@ -16,7 +24,6 @@
         <input
           id="training_program_title"
           type="text"
-          name='training_program[title]'
           v-model="title"
         >
         <br>
@@ -38,7 +45,7 @@ import { checkForError } from '../helpers/requests';
 
 export default {
   props: {
-    showForm: {
+    shouldShowForm: {
       type: Boolean,
       required: true,
     }
@@ -49,6 +56,9 @@ export default {
     }
   },
   methods: {
+    showForm() {
+      this.$emit('showForm');
+    },
     createTrainingProgram(event) {
       const tokenNode = document.querySelector("meta[name='csrf-token']");
       let token = '';
@@ -84,7 +94,7 @@ export default {
 </script>
 
 <style scoped>
-.training-program-form {
+.training-program-form-wrapper {
   position: absolute;
   border: 1px solid black;
   top: 50%;
@@ -94,5 +104,9 @@ export default {
   width: 60vw;
   border-radius: 10px;
   z-index: 20
+}
+
+.training-program-form-btn-close {
+  position: absolute;
 }
 </style>
