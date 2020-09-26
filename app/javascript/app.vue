@@ -1,6 +1,5 @@
 <template>
-  <div id="app" data-training-programs="">
-    <p>{{ message }}</p>
+  <div id="app">
 
     <training-program
       v-for="(trainingProgram, index) in trainingPrograms"
@@ -9,7 +8,9 @@
     >
     </training-program>
 
-    <training-program-form>
+    <training-program-form
+      :showForm="showForm"
+    >
     </training-program-form>
 
     <a href="#">New program</a>
@@ -37,7 +38,7 @@ export default {
   data: function () {
     return {
       showWrapper: false,
-      message: "Training programs!",
+      showForm: false,
     }
   },
   computed: {

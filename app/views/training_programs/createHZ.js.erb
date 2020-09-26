@@ -1,8 +1,0 @@
-$('.answer-errors').html('<%= render 'shared/errors', resource: @answer %>');
-
-<% if @answer.persisted? %>
-  $('.new-answer #answer_body').val('');
-
-  $fileField = $('#answer_files');
-  $fileField.replaceWith($fileField.val('').clone(true));
-<% end %>

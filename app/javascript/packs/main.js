@@ -7,7 +7,6 @@ import data from '../store/data';
 Vue.use(TurbolinksAdapter);
 Vue.use(Vuex);
 
-
 const store = new Vuex.Store({
   modules: {
     data,
@@ -24,4 +23,4 @@ document.addEventListener('turbolinks:load', () => {
       }
     })
   })
-})
+});
