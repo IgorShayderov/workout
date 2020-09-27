@@ -17,8 +17,10 @@ RSpec.describe TrainingProgramsController, type: :controller do
       expect(assigns(:training_programs)).to match_array(training_programs)
     end
   end
-# проверить возвращаемые значения
+
   describe 'POST #create' do
+    before { post :create, params: { training_program: attributes_for(:training_program) } }
+
     context 'with valid attributes' do
       it 'saves training program in database' do
         expect { post :create, params: { training_program: attributes_for(:training_program) } }
@@ -26,9 +28,11 @@ RSpec.describe TrainingProgramsController, type: :controller do
       end
 
       it 'belongs to user who created it' do
-        post :create, params: { training_program: attributes_for(:training_program) }
-
         expect(assigns(:training_program).user_id).to be user.id
+      end
+
+      it 'response to have status 200' do
+        expect(response).to have_http_status(200)
       end
     end
 

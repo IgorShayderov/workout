@@ -5,7 +5,7 @@
     </h1>
 
     <training-program
-      v-for="(trainingProgram, index) in trainingPrograms"
+      v-for="(trainingProgram, index) in getTrainingPrograms"
       :key="index"
       :trainingProgram="trainingProgram"
     >
@@ -33,16 +33,14 @@
 </template>
 
 <script>
-import TrainingProgram from './components/TrainingProgram.vue';
-import TrainingProgramForm from './components/TrainingProgramForm.vue';
-import TheWrapper from './components/TheWrapper.vue';
+import { mapGetters } from 'vuex';
+
+import TrainingProgram from './components/TrainingProgram';
+import TrainingProgramForm from './components/TrainingProgramForm';
+import TheWrapper from './components/TheWrapper';
 
 export default {
   props: {
-      trainingPrograms: {
-        type: Array,
-        required: true,
-      },
   },
   data: function () {
     return {
@@ -57,6 +55,9 @@ export default {
     },
   },
   computed: {
+    ...mapGetters('trainingPrograms',
+      ['getTrainingPrograms']
+    )
   },
   components: {
     TrainingProgram,

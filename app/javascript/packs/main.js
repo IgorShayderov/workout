@@ -2,14 +2,14 @@ import TurbolinksAdapter from 'vue-turbolinks'
 import Vue from 'vue/dist/vue.esm'
 import App from '../app.vue'
 import Vuex from 'vuex';
-import data from '../store/data';
+import trainingPrograms from '../store/training_programs';
 
 Vue.use(TurbolinksAdapter);
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
   modules: {
-    data,
+    trainingPrograms,
   },
 });
 
@@ -19,7 +19,7 @@ document.addEventListener('turbolinks:load', () => {
     store,
     render: h => h(App, {
       props: {
-        trainingPrograms: gon.training_programs,
+        // trainingPrograms: gon.training_programs,
       }
     })
   })

@@ -15,10 +15,10 @@
         class="training-program-form m-4"
       >
 
-        <label for="training-program-title">Title:
+        <label>Title:
           <br>
           <input
-            id="training-program-title"
+            class="training-program-form_title"
             type="text"
             v-model="title"
           >
@@ -28,7 +28,10 @@
         <label>
           Description:
           <br>
-          <textarea cols="30" rows="10" class="training-program-form_description"></textarea>
+          <textarea cols="30" rows="10"
+            class="training-program-form_description"
+            v-model="description"
+          ></textarea>
         </label>
 
         <p>Exercises:</p>
@@ -70,8 +73,11 @@
 
 <script>
 import { checkForError } from '../helpers/requests';
+import { mapActions } from 'vuex';
 
-import TrainingProgramExercise from './TrainingProgramExercise.vue';
+import axios from 'axios';
+
+import TrainingProgramExercise from './TrainingProgramExercise';
 
 export default {
   props: {
@@ -83,11 +89,19 @@ export default {
   data() {
     return {
       title: '',
+      description: '',
     }
   },
   methods: {
+    ...mapActions('trainingPrograms',
+      ['addTrainingProgram'],
+    ),
     closeForm() {
       this.$emit('closeForm');
+    },
+    clearForm() {
+      this.title = '';
+      this.description = '';
     },
     createTrainingProgram(event) {
       const tokenNode = document.querySelector("meta[name='csrf-token']");
@@ -97,31 +111,34 @@ export default {
         token = tokenNode.content;
       }
 
-      fetch('training_programs', {
-        method: 'POST',
+      axios({
+        method: 'post',
+        url: 'training_programs',
+        data: {
+          training_program: {
+            title: this.title,
+            description: this.description,
+          }
+        },
         headers: {
           'Content-Type': 'application/json',
           'X-CSRF-Token': token,
           'Accept': 'application/json',
-        },
-        body: JSON.stringify({
-          training_program: {
-            title: this.title,
-          }
-        }),
+        }
       })
-        .then((response) => {
-          console.log(response, 'before json()');
-          checkForError(response);
-        })
-        .then((data) => {
-          console.log(data);
-        })
-        .catch((error) => console.log(error));
+      .then((response) => {
+        const { data } = response;
+
+        this.addTrainingProgram(data);
+        this.clearForm();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     },
   },
   components: {
-    TrainingProgramExercise
+    TrainingProgramExercise,
   },
 }
 </script>
