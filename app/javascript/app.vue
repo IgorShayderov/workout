@@ -13,9 +13,16 @@
 
     <training-program-form
       :shouldShowForm="shouldShowForm"
-      @showForm="shouldShowForm = true"
+      @closeForm="shouldShowForm = false"
     >
     </training-program-form>
+
+    <a
+      href="#"
+      @click.prevent="showForm"
+    >
+      New program
+    </a>
 
     <the-wrapper
       :showWrapper="showWrapper"
@@ -28,6 +35,7 @@
 <script>
 import TrainingProgram from './components/TrainingProgram.vue';
 import TrainingProgramForm from './components/TrainingProgramForm.vue';
+import TheWrapper from './components/TheWrapper.vue';
 
 export default {
   props: {
@@ -43,6 +51,11 @@ export default {
       shouldShowForm: true,
     }
   },
+  methods: {
+    showForm() {
+      this.shouldShowForm = true;
+    },
+  },
   computed: {
   },
   components: {
@@ -53,6 +66,6 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 
 </style>

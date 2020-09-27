@@ -17,7 +17,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .app-wrapper {
   position: fixed;
   top: 0;

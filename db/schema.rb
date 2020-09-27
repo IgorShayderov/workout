@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2020_09_17_204256) do
   create_table "training_programs", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "title", null: false
+    t.string "description", default: ""
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_training_programs_on_user_id"

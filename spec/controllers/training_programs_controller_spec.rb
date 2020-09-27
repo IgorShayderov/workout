@@ -17,7 +17,7 @@ RSpec.describe TrainingProgramsController, type: :controller do
       expect(assigns(:training_programs)).to match_array(training_programs)
     end
   end
-
+# проверить возвращаемые значения
   describe 'POST #create' do
     context 'with valid attributes' do
       it 'saves training program in database' do

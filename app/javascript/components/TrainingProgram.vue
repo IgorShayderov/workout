@@ -21,8 +21,8 @@ export default {
 .training-program {
   display: inline-block;
   border: 1px solid black;
-  height: 50px;
-  width: 50px;
+  height: 100px;
+  width: 100px;
   margin-left: 20px;
 }
 </style>

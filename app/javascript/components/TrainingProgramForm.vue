@@ -1,37 +1,65 @@
 <template>
   <div>
-    <a
-      href="#"
-      @click.prevent="showForm"
-    >
-      New program
-    </a>
-
     <div
-      class="training-program-form-wrapper"
+      class="training-program-form_wrapper"
       v-show="shouldShowForm"
     >
-      <div class="training-program-form-btn-close">
+      <div
+        class="training-program-form_btn-close"
+        @click="closeForm"
+      >
           <i class="far fa-2x fa-times-circle"></i>
       </div>
 
       <form
-        class="m-4"
+        class="training-program-form m-4"
       >
 
-        <label for="training_program_title">Title:</label>
+        <label for="training-program-title">Title:
+          <br>
+          <input
+            id="training-program-title"
+            type="text"
+            v-model="title"
+          >
+        </label>
         <br>
-        <input
-          id="training_program_title"
-          type="text"
-          v-model="title"
+
+        <label>
+          Description:
+          <br>
+          <textarea cols="30" rows="10" class="training-program-form_description"></textarea>
+        </label>
+
+        <p>Exercises:</p>
+
+        <p>Where to train?</p>
+
+        <label>
+          <input type="radio" name="where_to_train" value="gym" class="training-program-form_where-radio">
+            Gym
+        </label>
+
+        <label>
+          <input type="radio" name="where_to_train" value="outdoors" class="training-program-form_where-radio">
+            Outdoors
+        </label>
+        <br>
+
+        <div
+          class="training-program-form_exercises"
         >
-        <br>
+          <training-program-exercise
+            v-for="(number, index) in [1,2,3,4,5]"
+            :key="index"
+          >
+          </training-program-exercise>
+        </div>
 
         <input
           type="submit"
           value="Create new program"
-          class="my-2"
+          class="training-program-form_btn-submit"
           @click.prevent="createTrainingProgram"
           >
       </form>
@@ -42,6 +70,8 @@
 
 <script>
 import { checkForError } from '../helpers/requests';
+
+import TrainingProgramExercise from './TrainingProgramExercise.vue';
 
 export default {
   props: {
@@ -56,8 +86,8 @@ export default {
     }
   },
   methods: {
-    showForm() {
-      this.$emit('showForm');
+    closeForm() {
+      this.$emit('closeForm');
     },
     createTrainingProgram(event) {
       const tokenNode = document.querySelector("meta[name='csrf-token']");
@@ -90,11 +120,14 @@ export default {
         .catch((error) => console.log(error));
     },
   },
+  components: {
+    TrainingProgramExercise
+  },
 }
 </script>
 
 <style scoped>
-.training-program-form-wrapper {
+.training-program-form_wrapper {
   position: absolute;
   border: 1px solid black;
   top: 50%;
@@ -106,7 +139,30 @@ export default {
   z-index: 20
 }
 
-.training-program-form-btn-close {
+.training-program-form_description {
+  resize: none;
+}
+
+.training-program-form_btn-close {
   position: absolute;
+  top: 4px;
+  right: 4px;
+  cursor: pointer;
+}
+
+.training-program-form_btn-submit {
+  position: absolute;
+  margin-bottom: 16px;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.training-program-form_where-radio {
+
+}
+
+.training-program-form_exercises {
+  margin-top: 8px;
 }
 </style>
