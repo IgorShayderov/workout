@@ -14,7 +14,7 @@ class TrainingProgramsController < ApplicationController
     if @training_program.save
       render json: @training_program
     else
-      render json: @training_program.errors
+      render json: { errors: @training_program.errors }
     end
   end
 
@@ -29,6 +29,6 @@ class TrainingProgramsController < ApplicationController
   private
 
   def training_program_params
-    params.require(:training_program).permit(:title, :description)
+    params.require(:training_program).permit(:title, :description, :location)
   end
 end

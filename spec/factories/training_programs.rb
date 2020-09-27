@@ -6,6 +6,7 @@ FactoryBot.define do
   factory :training_program do
     title
     user
+    location { 'gym' }
 
     trait :invalid do
       title { nil }

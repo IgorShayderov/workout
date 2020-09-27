@@ -13,7 +13,7 @@
 
     <training-program-form
       :shouldShowForm="shouldShowForm"
-      @closeForm="shouldShowForm = false"
+      @closeForm="closeForm"
     >
     </training-program-form>
 
@@ -45,14 +45,18 @@ export default {
   data: function () {
     return {
       showWrapper: false,
-      // later turn to false
-      shouldShowForm: true,
+      shouldShowForm: false,
     }
   },
   methods: {
     showForm() {
       this.shouldShowForm = true;
-    },
+      this.showWrapper = true;
+    }, 
+    closeForm() {
+      this.shouldShowForm = false;
+      this.showWrapper = false;
+    }
   },
   computed: {
     ...mapGetters('trainingPrograms',
@@ -68,5 +72,4 @@ export default {
 </script>
 
 <style>
-
 </style>

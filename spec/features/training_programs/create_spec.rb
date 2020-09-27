@@ -11,25 +11,37 @@ feature 'User can create training program', "
     background do
       sign_in(user)
       visit root_path
-      # save_and_open_page
-      click_on 'Create new program'
+      click_on 'New program'
     end
 
-    context 'creates training program' do
-      it 'without exercises' do
+    context 'tries to create training program' do
+      it 'with valid attributes' do
         fill_in 'Title', with: 'New program title'
+        fill_in 'Description', with: 'Training program description'
+        find(:css, '.training-program-form').choose('Outdoors')
         click_on 'Create'
 
         expect(page).to have_content 'New program title'
       end
 
-      it 'with several exercises'
+      it 'with invalid attributes' do
+        find(:css, '.training-program-form').choose('Outdoors')
+        click_on 'Create'
+
+        within '.training_program-form_errors' do
+          expect(page).to have_content 'Title'
+          expect(page).to have_content "can't be blank"
+        end
+      end
     end
-
-
   end
 
-  describe 'unathenticated user' do
-    
+  describe 'unathenticated user', js: true do
+    background { visit root_path }
+
+    it 'redirect on sign in view' do
+      expect(page).to have_content 'Log in'
+      expect(page).to have_content 'Sign up'
+    end
   end
 end

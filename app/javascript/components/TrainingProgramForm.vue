@@ -39,24 +39,29 @@
         <p>Where to train?</p>
 
         <label>
-          <input type="radio" name="where_to_train" value="gym" class="training-program-form_where-radio">
+          <input type="radio" name="where_to_train" value="gym"
+            class="training-program-form_location"
+            v-model="location"
+          >
             Gym
         </label>
 
         <label>
-          <input type="radio" name="where_to_train" value="outdoors" class="training-program-form_where-radio">
+          <input type="radio" name="where_to_train" value="outdoors"
+            class="training-program-form_location"
+            v-model="location"
+          >
             Outdoors
         </label>
         <br>
 
         <div
-          class="training-program-form_exercises"
+          v-show="showErrors"
+          class="alert alert-danger"
         >
-          <training-program-exercise
-            v-for="(number, index) in [1,2,3,4,5]"
-            :key="index"
-          >
-          </training-program-exercise>
+          <h4>Errors encountered:</h4>
+          <div class="training_program-form_errors">
+          </div>
         </div>
 
         <input
@@ -88,8 +93,10 @@ export default {
   },
   data() {
     return {
+      showErrors: false,
       title: '',
       description: '',
+      location: '',
     }
   },
   methods: {
@@ -98,6 +105,7 @@ export default {
     ),
     closeForm() {
       this.$emit('closeForm');
+      errorsNode.innerHTML = '';
     },
     clearForm() {
       this.title = '';
@@ -118,6 +126,7 @@ export default {
           training_program: {
             title: this.title,
             description: this.description,
+            location: this.location,
           }
         },
         headers: {
@@ -127,10 +136,31 @@ export default {
         }
       })
       .then((response) => {
+        const errorsNode = document.querySelector('.training_program-form_errors');
         const { data } = response;
 
-        this.addTrainingProgram(data);
-        this.clearForm();
+        if (data.errors) {
+          const { errors } = data;
+          const errorsKeys = Object.keys(errors);
+
+          const errorsText = errorsKeys.reduce((finalMessage, errorKey) => {
+            finalMessage += `${errorKey[0].toUpperCase() + errorKey.substring(1)}:<br>`
+
+            errors[errorKey].forEach((errorMessage) => {
+              finalMessage += `${errorMessage}<br>`
+            });
+
+            return finalMessage;
+          }, '');
+
+          this.showErrors = true;
+          errorsNode.innerHTML = errorsText;
+        } else {
+          errorsNode.innerHTML = '';
+          this.addTrainingProgram(data);
+          this.clearForm();
+          this.closeForm();
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -153,7 +183,10 @@ export default {
   height: 80vh;
   width: 60vw;
   border-radius: 10px;
-  z-index: 20
+  z-index: 20;
+  background: linear-gradient(to left, hsla(221, 42%, 28%, 1),
+                                       hsla(247, 32%, 49%, 1),
+                                       hsla(274, 48%, 59%, 1));
 }
 
 .training-program-form_description {
@@ -175,7 +208,7 @@ export default {
   transform: translateX(-50%);
 }
 
-.training-program-form_where-radio {
+.training-program-form_location {
 
 }
 

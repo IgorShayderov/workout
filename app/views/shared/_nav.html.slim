@@ -1,0 +1,7 @@
+nav.navigation.px-4
+  - if user_signed_in?
+    span.mr-1
+      = "Welcome, #{current_user.email}"
+
+    span
+      = link_to 'Sign out', destroy_user_session_path, method: :delete
