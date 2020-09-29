@@ -5,13 +5,13 @@ feature 'User can create training program', "
   As an authenticated user
   I'd like to be able to create training program
 " do
-  given(:user) { create(:user) }
+  given!(:user) { create(:user) }
 
   describe 'Authenticated user', js: true do
     background do
       sign_in(user)
       visit root_path
-      click_on 'New program'
+      click_link 'Make new program'
     end
 
     context 'tries to create training program' do
