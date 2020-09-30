@@ -3,7 +3,8 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 import Root from '../app';
-import TrainingProgramCreateForm from '../components/TrainingProgramCreateForm';
+import ExercisesAddition from '../components/ExercisesAddition';
+import UserProfile from '../components/UserProfile';
 
 export default new VueRouter({
   // mode: 'history',
@@ -14,9 +15,15 @@ export default new VueRouter({
       name: 'root',
     },
     {
-      path: '/create',
-      component: TrainingProgramCreateForm,
-      name: 'createForm',
-    }
+      path: '/:trainingProgramIndex/exercises',
+      component: ExercisesAddition,
+      name: 'exercisesAddition',
+      props: true,
+    },
+    {
+      path: '/profile',
+      component: UserProfile,
+      name: 'profile',
+    },
   ]
 });

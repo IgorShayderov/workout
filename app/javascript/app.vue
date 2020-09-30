@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <the-toolbar>
+    </the-toolbar>
+
     <h1 class="text-center mb-4">
       Workout
     </h1>
@@ -21,8 +24,8 @@
         >
           <a
             class="training-program_create"
-            @click.prevent="showCreateForm"
-            href="#"
+            @click.prevent="showForm"
+            href="new_training_program"
           >
             Make new program
           </a>
@@ -31,16 +34,11 @@
 
     </div>
 
-    <training-program-create-form
-      :shouldShowForm="shouldShowCreateForm"
-      @closeForm="closeCreateForm"
+    <training-program-form
+      :shouldShowForm="shouldShowForm"
+      @closeForm="closeForm"
     >
-    </training-program-create-form>
-
-    <training-program-add-exercise-form
-      :shouldShowForm="shouldShowExerciseForm"
-    >
-    </training-program-add-exercise-form>
+    </training-program-form>
 
     <the-wrapper
       :showWrapper="showWrapper"
@@ -54,9 +52,9 @@
 import { mapGetters } from 'vuex';
 
 import TrainingProgram from './components/TrainingProgram';
-import TrainingProgramCreateForm from './components/TrainingProgramCreateForm';
-import TrainingProgramAddExerciseForm from './components/TrainingProgramAddExerciseForm';
+import TrainingProgramForm from './components/TrainingProgramForm';
 import TheWrapper from './components/TheWrapper';
+import TheToolbar from './components/TheToolbar';
 
 export default {
   props: {
@@ -64,17 +62,16 @@ export default {
   data: function () {
     return {
       showWrapper: false,
-      shouldShowCreateForm: false,
-      shouldShowExerciseForm: true,
+      shouldShowForm: false,
     }
   },
   methods: {
-    showCreateForm() {
-      this.shouldShowCreateForm = true;
+    showForm() {
+      this.shouldShowForm = true;
       this.showWrapper = true;
     }, 
-    closeCreateForm() {
-      this.shouldShowCreateForm = false;
+    closeForm() {
+      this.shouldShowForm = false;
       this.showWrapper = false;
     }
   },
@@ -85,9 +82,9 @@ export default {
   },
   components: {
     TrainingProgram,
-    TrainingProgramCreateForm,
-    TrainingProgramAddExerciseForm,
+    TrainingProgramForm,
     TheWrapper,
+    TheToolbar,
   }
 }
 </script>

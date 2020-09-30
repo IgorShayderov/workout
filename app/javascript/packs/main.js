@@ -1,9 +1,10 @@
-import TurbolinksAdapter from 'vue-turbolinks'
-import Vue from 'vue/dist/vue.esm'
-import App from '../app.vue'
+import TurbolinksAdapter from 'vue-turbolinks';
+import Vue from 'vue/dist/vue.esm';
+import App from '../app.vue';
 import Vuex from 'vuex';
-import trainingPrograms from '../store/training_programs';
 import routes from '../routes/routes';
+import trainingPrograms from '../store/training_programs';
+import system from '../store/system';
 
 Vue.use(TurbolinksAdapter);
 Vue.use(Vuex);
@@ -11,6 +12,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   modules: {
     trainingPrograms,
+    system,
   },
 });
 

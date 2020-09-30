@@ -81,8 +81,6 @@ import { mapActions } from 'vuex';
 
 import axios from 'axios';
 
-import TrainingProgramExercise from './TrainingProgramExercise';
-
 export default {
   props: {
     shouldShowForm: {
@@ -172,8 +170,8 @@ export default {
     },
   },
   components: {
-    TrainingProgramExercise,
-  },
+
+},
 }
 </script>
 

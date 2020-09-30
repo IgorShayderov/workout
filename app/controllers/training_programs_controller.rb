@@ -3,9 +3,11 @@ class TrainingProgramsController < ApplicationController
 
   def index
     @training_programs = current_user.training_programs
+
     gon.push({
       training_programs: @training_programs,
-      user: current_user
+      user: current_user,
+      root: root_path,
     })
   end
 

@@ -1,8 +1,11 @@
 <template>
   <div
     class="training-program"
+    @click="addExercises"
   >
-    <h5 class="training-program_title">
+    <h5
+      class="training-program_title"
+    >
       {{ title || trainingProgram.title }}
     </h5>
 
@@ -37,6 +40,13 @@ export default {
     title: {
       type: String,
     },
+  },
+  methods: {
+    addExercises() {
+      console.log('addExercises');
+
+      console.log(this.trainingProgram);
+    }
   }
 }
 </script>
