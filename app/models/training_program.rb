@@ -8,6 +8,7 @@ class TrainingProgram < ApplicationRecord
   validates :location, presence: true
   validates :exercises, length: { maximum: 10 }
 
-  # написать скоуп для получения всех упражнений, где location совпадает с location тренировочной программы
-  scope :avaliable_exercises, -> { Exercises.where(location: self.location) }
+  def avaliable_exercises
+    Exercise.where(location: self.location)
+  end
 end
