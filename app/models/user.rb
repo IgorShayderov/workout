@@ -5,4 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :training_programs, dependent: :destroy
+
+  validates :name, presence: true, uniqueness: true, length: { maximum: 20 }
 end

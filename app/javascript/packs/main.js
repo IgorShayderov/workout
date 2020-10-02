@@ -24,14 +24,14 @@ const router = new VueRouter({
 })
 
 document.addEventListener('turbolinks:load', () => {
-  const app = new Vue({
-    el: '#hello',
-    store,
-    router,
-    render: h => h(App, {
-      props: {
-        // trainingPrograms: gon.training_programs,
-      }
-    })
-  })
+  const vueHookElem = document.querySelector('#hello');
+
+  if (vueHookElem) {
+    const app = new Vue({
+      el: '#hello',
+      store,
+      router,
+      render: h => h(App, {}),
+    });
+  }
 });

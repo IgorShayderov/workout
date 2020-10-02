@@ -42,7 +42,7 @@ export default {
       ['getRootPath', 'getUserInfo']
     ),
     userWelcome() {
-      return `Welcome, ${this.getUserInfo.email}`;
+      return `Welcome, ${this.getUserInfo.name}`;
     }
   },
 }
