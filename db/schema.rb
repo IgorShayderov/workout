@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 2020_09_27_193419) do
 
   create_table "exercises", force: :cascade do |t|
     t.string "location", null: false
+    t.string "title", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

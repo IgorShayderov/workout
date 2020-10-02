@@ -43,9 +43,12 @@ export default {
   },
   methods: {
     addExercises() {
-      console.log('addExercises');
-
-      console.log(this.trainingProgram);
+      if (this.trainingProgram) {
+        this.$router.push({
+          name: 'exercisesAddition',
+          params: { trainingProgramId: this.trainingProgram.id },
+        })
+      }
     }
   }
 }

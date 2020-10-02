@@ -6,4 +6,8 @@ class TrainingProgram < ApplicationRecord
   validates :title, presence: true, uniqueness: true
   validates :description, length: { maximum: 250 }
   validates :location, presence: true
+  validates :exercises, length: { maximum: 10 }
+
+  # написать скоуп для получения всех упражнений, где location совпадает с location тренировочной программы
+  # scope :avaliable_exercises, -> {  }
 end

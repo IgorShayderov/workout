@@ -1,13 +1,26 @@
 <template>
-  
+  <div class="user-profile">
+    {{ getUserInfo }}
+  </div>
 </template>
 
 <script>
-export default {
+import { mapGetters } from 'vuex';
 
+export default {
+  methods: {
+    
+  },
+  computed: {
+    ...mapGetters('system',
+      ['getUserInfo']
+    ),
+  }
 }
 </script>
 
-<style>
+<style scoped>
+  .user-profile {
 
+  }
 </style>

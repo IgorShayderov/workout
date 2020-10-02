@@ -7,7 +7,10 @@ export default {
   getters: {
     getTrainingPrograms(state) {
       return state.training_programs;
-    }
+    },
+    getTrainingProgramById(state, id) {
+      return state.training_programs.find((program) => program.id === id);
+    },
   },
   mutations: {
     ADD_TRAINING_PROGRAM(state, trainingProgram) {
