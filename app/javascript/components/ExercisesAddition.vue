@@ -12,7 +12,7 @@
 
         <div class="exercises-list">
           <exercise-view
-            v-for="(exercise, index) in exercisesList"
+            v-for="(exercise, index) in getAvailableExercises"
             :key="index"
             :title="exercise.title"
           >
@@ -37,27 +37,37 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+
 import ExerciseView from './ExerciseView';
 
 export default {
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      if (vm.getAvailableExercises.length === 0) {
+        vm.addAvailableExercises(vm.trainingProgramId);
+      }
+    });
+  },
+  props: {
+    trainingProgramId: {
+      type: String,
+      required: true,
+    },
+  },
   data() {
     return {
-      exercisesList: [
-        { title: 'Hz1' },
-        { title: 'Hz2' },
-        { title: 'Hz3' },
-        { title: 'Hz4' },
-        { title: 'Hz5' },
-        { title: 'Hz6'},
-        { title: 'Hz7' },
-        { title: 'Hz8'},
-        { title: 'Hz9'},
-        { title: 'Hz10'},
-      ]
     };
   },
   methods: {
-
+    ...mapActions('trainingPrograms',
+      ['addAvailableExercises']
+    ),
+  },
+  computed: {
+    ...mapGetters('trainingPrograms',
+      ['getAvailableExercises']
+    ),
   },
   components: {
     ExerciseView

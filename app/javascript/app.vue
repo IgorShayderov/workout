@@ -24,7 +24,7 @@ export default {
   computed: {
     ...mapGetters('system',
       ['getWrapperStatus']
-    )
+    ),
   },
   components: {
     TheWrapper,

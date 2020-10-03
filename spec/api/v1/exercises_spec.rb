@@ -15,7 +15,7 @@ describe 'Exercises API', type: :request do
     end
 
     it 'returns list of available exercises' do
-      expect(JSON.parse(response.body).length).to eq 3
+      expect(@json.length).to eq 3
     end
   end
 end
