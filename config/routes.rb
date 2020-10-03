@@ -4,4 +4,10 @@ Rails.application.routes.draw do
   root to: 'training_programs#index'
 
   resources :training_programs, only: %i[index create update destroy]
+
+  namespace :api do
+    namespace :v1 do
+      get ':training_program_id/available_exercises', to:'exercises#available_exercises', as: 'available_exercises'
+    end
+  end
 end

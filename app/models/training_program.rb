@@ -6,9 +6,8 @@ class TrainingProgram < ApplicationRecord
   validates :title, presence: true, uniqueness: true
   validates :description, length: { maximum: 250 }
   validates :location, presence: true
-  validates :exercises, length: { maximum: 10 }
 
-  def avaliable_exercises
+  def available_exercises
     Exercise.where(location: self.location)
   end
 end
