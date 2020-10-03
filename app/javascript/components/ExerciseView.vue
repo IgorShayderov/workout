@@ -13,6 +13,11 @@ export default {
   props: {
     title: {
       type: String,
+      required: true,
+    },
+    id: {
+      type: Number,
+      required: true,
     }
   },
   data() {
@@ -24,8 +29,10 @@ export default {
     selectExercise() {
       if (this.isSelected) {
         this.isSelected = false;
+        this.$emit('unselected_exercise', this.id);
       } else {
         this.isSelected = true;
+        this.$emit('selected_exercise', this.id);
       }
     }
   }

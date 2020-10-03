@@ -7,7 +7,12 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      get ':training_program_id/available_exercises', to:'exercises#available_exercises', as: 'available_exercises'
+      get ':training_program_id/available_exercises',
+          to: 'exercises#available_exercises',
+          as: 'available_exercises'
+      get ':training_program_id/training_program_exercises',
+          to:'exercises#training_program_exercises',
+          as: 'training_program_exercises'
     end
   end
 end

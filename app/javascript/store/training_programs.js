@@ -14,8 +14,11 @@ export default {
     getTrainingPrograms(state) {
       return state.training_programs;
     },
-    getTrainingProgramById(state, id) {
-      return state.training_programs.find((program) => program.id === id);
+    getTrainingProgramById: (state) => (trainingProgramId) => {
+      return state.training_programs.find((program) => program.id === trainingProgramId);
+    },
+    getAvailableExerciseById: (state) => (exerciseId) => {
+      return state.available_exercises.find((exercise) => exercise.id === exerciseId);
     },
   },
   mutations: {
@@ -24,6 +27,12 @@ export default {
     },
     ADD_AVAILABLE_EXERCISES(state, exercises) {
       state.available_exercises = exercises;
+    },
+    ADD_TRAINING_PROGRAM_EXERCISES(state, { exercises, trainingProgram }) {
+      trainingProgram.exercises = [...trainingProgram.exercises, ...exercises];
+    },
+    CREATE_TRAINING_PROGRAM_EXERCISES(state, { exercises, trainingProgram }) {
+      trainingProgram.exercises = [...exercises];
     },
   },
   actions:
@@ -42,6 +51,32 @@ export default {
         console.log(error);
       });
     },
+    loadTrainingProgramExercises({ commit, getters }, trainingProgramId) {
+      return new Promise((resolve) => {
+        axios.get(`api/v1/${trainingProgramId}/training_program_exercises`)
+        .then((response) => {
+          const { data } = response;
+          const trainingProgram = getters.getTrainingProgramById(trainingProgramId);
+
+          if (trainingProgram.exercises) {
+            commit('ADD_TRAINING_PROGRAM_EXERCISES', {
+              exercises: data,
+              trainingProgram,
+            });
+          } else {
+            commit('CREATE_TRAINING_PROGRAM_EXERCISES', {
+              exercises: data,
+              trainingProgram,
+            });
+          }
+
+          resolve(data);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+      });
+    }
   }
 };
 
