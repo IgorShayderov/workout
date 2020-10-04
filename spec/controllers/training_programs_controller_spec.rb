@@ -9,6 +9,10 @@ RSpec.describe TrainingProgramsController, type: :controller do
   describe 'GET #index' do
     before { get :index }
 
+    it 'return 200 status' do
+      expect(response).to be_successful
+    end
+
     it 'renders index view' do
       expect(response).to render_template :index
     end
@@ -22,6 +26,12 @@ RSpec.describe TrainingProgramsController, type: :controller do
     before { post :create, params: { training_program: attributes_for(:training_program) } }
 
     context 'with valid attributes' do
+      it 'return 200 status' do
+        post :create, params: { training_program: attributes_for(:training_program) }
+
+        expect(response).to be_successful
+      end
+
       it 'saves training program in database' do
         expect { post :create, params: { training_program: attributes_for(:training_program) } }
         .to change(TrainingProgram, :count).by(1)
@@ -37,6 +47,18 @@ RSpec.describe TrainingProgramsController, type: :controller do
     end
 
     context 'with invalid attributes' do
+      it 'return 200 status' do
+        post :create, params: { training_program: attributes_for(:training_program, :invalid) }
+
+        expect(response).to be_successful
+      end
+
+      it 'returns error list' do
+        post :create, params: { training_program: attributes_for(:training_program, :invalid) }
+
+        expect(JSON.parse(response.body)['errors']).to have_key('title')
+      end
+
       it "doesn't save training program in databse" do
         expect { post :create, params: { training_program: attributes_for(:training_program, :invalid) } }
         .to_not change(TrainingProgram, :count)

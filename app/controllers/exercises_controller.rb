@@ -1,4 +1,4 @@
-class Api::V1::ExercisesController < Api::V1::BaseController
+class ExercisesController < ApplicationController
   before_action :get_training_program, only: %i[available_exercises training_program_exercises]
 
   def available_exercises

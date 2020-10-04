@@ -76,7 +76,7 @@ export default {
       }
     },
     addAvailableExercises({ commit }, trainingProgramId) {
-      axios.get(`api/v1/${trainingProgramId}/available_exercises`)
+      axios.get(`exercises/${trainingProgramId}/available_exercises`)
       .then((response) => {
         const { data } = response;
 
@@ -87,7 +87,7 @@ export default {
       });
     },
     loadTrainingProgramExercises({ dispatch }, trainingProgramId) {
-      axios.get(`api/v1/${trainingProgramId}/training_program_exercises`)
+      axios.get(`exercises/${trainingProgramId}/training_program_exercises`)
       .then((response) => {
         const { data } = response;
 
