@@ -9,6 +9,7 @@
         v-for="(trainingProgram, index) in getTrainingPrograms"
         :key="index"
         :trainingProgram="trainingProgram"
+        :data-id="trainingProgram.id"
       >
       </training-program>
 
@@ -33,7 +34,7 @@
 
     <training-program-form
       :shouldShowForm="shouldShowForm"
-      @closeForm="closeForm"
+      @close_form="closeForm"
     >
     </training-program-form>
 
@@ -83,11 +84,6 @@ export default {
 .training-programs {
   display: flex;
   margin: 0 10px;
-}
-
-.training-program_create {
-  margin: auto;
-  cursor: pointer;
 }
 
 </style>

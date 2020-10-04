@@ -16,6 +16,7 @@
             :key="index"
             :title="exercise.title"
             :id="exercise.id"
+            :data-id="exercise.id"
             @selected_exercise="addExerciseToList"
             @unselected_exercise="removeExerciseFromList"
           >
@@ -36,11 +37,30 @@
           v-for="(selectedExercise, index) in selectedExercises"
           :key="index"
         >
-          {{ selectedExercise }}
+          {{ selectedExercise.title }}
         </li>
       </ol>
 
-      <button class="btn btn-info">Confirm</button>
+      <button
+        class="btn btn-info"
+        :disabled="!this.selectedExercises.length"
+        @click="saveExercises"
+      >
+        Confirm
+      </button>
+    </div>
+
+    <div class="program-exercises">
+      <h2>Program exercises</h2>
+
+      <ol>
+        <li
+          v-for="(exercise, index) in trainingProgramExercises"
+          :key="index"
+        >
+          {{ exercise.title }}
+        </li>
+      </ol>
     </div>
 
   </div>
@@ -57,16 +77,13 @@ export default {
       if (vm.getAvailableExercises.length === 0) {
         vm.addAvailableExercises(vm.trainingProgramId);
       }
-      if (vm.selectedExercises.length === 0) {
-        const loadedExercises = vm.loadTrainingProgramExercises(vm.trainingProgramId);
 
-        vm.selectedExercises = loadedExercises;
-      }
+      vm.loadTrainingProgramExercises(vm.trainingProgramId);
     });
   },
   props: {
     trainingProgramId: {
-      type: String,
+      type: Number|String,
       required: true,
     },
   },
@@ -77,24 +94,38 @@ export default {
   },
   methods: {
     ...mapActions('trainingPrograms',
-      ['addAvailableExercises', 'loadTrainingProgramExercises']
+      ['addAvailableExercises', 'loadTrainingProgramExercises', 'processTrainingProgramExercises']
     ),
     addExerciseToList(exerciseId) {
-      console.log('add exercise');
-      const exerciseToAdd = getAvailableExerciseById(exerciseId);
+      const exerciseToAdd = this.getAvailableExerciseById(exerciseId);
 
       this.selectedExercises.push(exerciseToAdd);
-      console.log(this.selectedExercises, 'selected');
     },
-    removeExerciseFromList(event) {
-      console.log('remove exercise');
-      console.log(event);
+    removeExerciseFromList(exerciseId) {
+      const exerciseIndex = this.selectedExercises.findIndex((exercise) => exercise.id === exerciseId);
+
+      this.selectedExercises.splice(exerciseIndex, 1);
+    },
+    saveExercises() {
+      this.processTrainingProgramExercises({
+        trainingProgramId: this.trainingProgramId,
+        exercises: this.selectedExercises,
+      });
     },
   },
   computed: {
     ...mapGetters('trainingPrograms',
-      ['getAvailableExercises', 'getAvailableExerciseById']
+      ['getTrainingProgramById', 'getAvailableExercises', 'getAvailableExerciseById']
     ),
+    trainingProgramExercises() {
+      const trainingProgram = this.getTrainingProgramById(this.trainingProgramId);
+
+      if (trainingProgram.hasOwnProperty('exercises')) {
+        return trainingProgram.exercises
+      }
+
+      return [];
+    }
   },
   components: {
     ExerciseView,
@@ -122,7 +153,7 @@ export default {
   cursor: pointer;
 }
 
-.picked-exercises {
+.picked-exercises, .program-exercises {
   margin: 0 2vw;
 }
 </style>

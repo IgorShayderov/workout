@@ -98,12 +98,12 @@ export default {
   },
   methods: {
     ...mapActions('trainingPrograms',
-      ['addTrainingProgram'],
+      ['saveTrainingProgram'],
     ),
     closeForm() {
       const errorsNode = document.querySelector('.training_program-form_errors');
 
-      this.$emit('closeForm');
+      this.$emit('close_form');
       errorsNode.innerHTML = '';
       this.showErrors = false;
     },
@@ -159,7 +159,7 @@ export default {
         } else {
           errorsNode.innerHTML = '';
           this.showErrors = false;
-          this.addTrainingProgram(data);
+          this.saveTrainingProgram(data);
           this.clearForm();
           this.closeForm();
         }

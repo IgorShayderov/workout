@@ -18,7 +18,7 @@ export default {
     id: {
       type: Number,
       required: true,
-    }
+    },
   },
   data() {
     return {
@@ -69,6 +69,7 @@ export default {
     border: 1px solid black;
     margin: 0 10px;
     padding: 5px;
+    cursor: pointer;
   }
 
   .training-program-exercise_selected {

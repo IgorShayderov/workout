@@ -5,7 +5,17 @@ export default {
   state: 
   {
     available_exercises: [],
-    training_programs: gon.training_programs,
+    training_programs: gon.training_programs.map((trainingProgram) => {
+      // defining property in advance to use vue reactivity
+      Object.defineProperty(trainingProgram, 'exercises', {
+        configurable: true,
+        enumerable: true,
+        value: [],
+        writable: true,
+      });
+
+      return trainingProgram;
+    }),
   },
   getters: {
     getAvailableExercises(state) {
@@ -15,14 +25,14 @@ export default {
       return state.training_programs;
     },
     getTrainingProgramById: (state) => (trainingProgramId) => {
-      return state.training_programs.find((program) => program.id === trainingProgramId);
+      return state.training_programs.find((program) => program.id.toString() === trainingProgramId.toString());
     },
     getAvailableExerciseById: (state) => (exerciseId) => {
       return state.available_exercises.find((exercise) => exercise.id === exerciseId);
     },
   },
   mutations: {
-    ADD_TRAINING_PROGRAM(state, trainingProgram) {
+    SAVE_TRAINING_PROGRAM(state, trainingProgram) {
       state.training_programs.push(trainingProgram);
     },
     ADD_AVAILABLE_EXERCISES(state, exercises) {
@@ -32,13 +42,38 @@ export default {
       trainingProgram.exercises = [...trainingProgram.exercises, ...exercises];
     },
     CREATE_TRAINING_PROGRAM_EXERCISES(state, { exercises, trainingProgram }) {
-      trainingProgram.exercises = [...exercises];
+      trainingProgram.exercises = exercises;
     },
   },
   actions:
   {
-    addTrainingProgram({ commit }, trainingProgram) {
-      commit('ADD_TRAINING_PROGRAM', trainingProgram);
+    saveTrainingProgram({ commit }, trainingProgram) {
+      commit('SAVE_TRAINING_PROGRAM', trainingProgram);
+    },
+    processTrainingProgramExercises({ dispatch }, { trainingProgramId, exercises }) {
+      // TODO send update request
+
+      dispatch('saveTrainingProgramExercises', {
+        trainingProgramId,
+        exercises,
+      });
+    },
+    saveTrainingProgramExercises({ commit, getters }, { trainingProgramId, exercises }) {
+      const trainingProgram = getters.getTrainingProgramById(trainingProgramId);
+
+      if (trainingProgram.hasOwnProperty('exercises')) {
+        commit('ADD_TRAINING_PROGRAM_EXERCISES', {
+          exercises,
+          trainingProgram,
+        });
+      } else {
+        Vue.set(trainingProgram, 'exercises', []);
+
+        commit('CREATE_TRAINING_PROGRAM_EXERCISES', {
+          exercises,
+          trainingProgram,
+        });
+      }
     },
     addAvailableExercises({ commit }, trainingProgramId) {
       axios.get(`api/v1/${trainingProgramId}/available_exercises`)
@@ -51,31 +86,19 @@ export default {
         console.log(error);
       });
     },
-    loadTrainingProgramExercises({ commit, getters }, trainingProgramId) {
-      return new Promise((resolve) => {
-        axios.get(`api/v1/${trainingProgramId}/training_program_exercises`)
-        .then((response) => {
-          const { data } = response;
-          const trainingProgram = getters.getTrainingProgramById(trainingProgramId);
+    loadTrainingProgramExercises({ dispatch }, trainingProgramId) {
+      axios.get(`api/v1/${trainingProgramId}/training_program_exercises`)
+      .then((response) => {
+        const { data } = response;
 
-          if (trainingProgram.exercises) {
-            commit('ADD_TRAINING_PROGRAM_EXERCISES', {
-              exercises: data,
-              trainingProgram,
-            });
-          } else {
-            commit('CREATE_TRAINING_PROGRAM_EXERCISES', {
-              exercises: data,
-              trainingProgram,
-            });
-          }
-
-          resolve(data);
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-      });
+        dispatch('saveTrainingProgramExercises', {
+          trainingProgramId,
+          exercises: data,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      })
     }
   }
 };
