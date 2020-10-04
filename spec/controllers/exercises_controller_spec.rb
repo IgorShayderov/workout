@@ -29,7 +29,9 @@ RSpec.describe ExercisesController, type: :controller do
   end
 
   describe 'GET #training_program_exercises' do
-    let!(:training_program_exercise) { create(:training_program_exercise, training_program: training_program) }
+    let!(:training_program_exercise) { create(:training_program_exercise,
+                                              training_program: training_program,
+                                              exercise: exercises.first) }
 
     before { get :training_program_exercises, params: { training_program_id: training_program.id } }
 
@@ -42,9 +44,29 @@ RSpec.describe ExercisesController, type: :controller do
     end
 
     it 'returns all public fields' do
-      %w[id exercise_id training_program_id count created_at updated_at].each do |attr|
-        expect(exercise_response[attr]).to eq training_program_exercise.send(attr).as_json
+      %w[id title location created_at updated_at].each do |attr|
+        expect(exercise_response[attr]).to eq exercises.first.send(attr).as_json
       end
+    end
+  end
+
+  describe 'POST #save_exercises' do
+    before do
+      post :save_exercises,
+            params: { training_program_id: training_program.id, 
+                      exercises: [{ exercise_id: exercises.first.id ,count: 0}] }
+    end 
+
+    it 'returns 200 status' do
+      expect(response).to be_successful
+    end
+
+    it 'saves exercises in database' do
+
+      expect { post :save_exercises,
+              params: { training_program_id: training_program.id,
+                        exercises: [{ exercise_id: exercises.first.id ,count: 0}] } }
+      .to change(TrainingProgramExercise, :count).by(1)
     end
   end
 end

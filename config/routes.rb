@@ -9,9 +9,13 @@ Rails.application.routes.draw do
     get ':training_program_id/available_exercises',
         to: 'exercises#available_exercises',
         as: 'available_exercises'
+
     get ':training_program_id/training_program_exercises',
         to:'exercises#training_program_exercises',
         as: 'training_program_exercises'
-  end
 
+    post ':training_program_id/save_exercises',
+          to: 'exercises#save_exercises',
+          as: 'save_exercises'
+  end
 end

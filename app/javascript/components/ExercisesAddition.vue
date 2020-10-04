@@ -106,10 +106,37 @@ export default {
 
       this.selectedExercises.splice(exerciseIndex, 1);
     },
+    clearSelectedExercisesList() {
+      const selectedExercisesNodes = document.querySelectorAll('.training-program-exercise_selected');
+
+      selectedExercisesNodes.forEach((selectedExerciseNode) => {
+        selectedExerciseNode.classList.remove('training-program-exercise_selected');
+      });
+
+      this.selectedExercises = [];
+    },
     saveExercises() {
+      const tokenNode = document.querySelector("meta[name='csrf-token']");
+      let token = '';
+
+      if (tokenNode) {
+        token = tokenNode.content;
+      }
+
+      const exercises = this.selectedExercises.map((selectedExercise) => {
+        return {
+          exercise_id: selectedExercise.id,
+          count: selectedExercise.count || 0,
+        }
+      });
+
       this.processTrainingProgramExercises({
         trainingProgramId: this.trainingProgramId,
-        exercises: this.selectedExercises,
+        exercises,
+        token,
+      })
+      .then(() => {
+        this.clearSelectedExercisesList();
       });
     },
   },

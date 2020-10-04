@@ -50,12 +50,32 @@ export default {
     saveTrainingProgram({ commit }, trainingProgram) {
       commit('SAVE_TRAINING_PROGRAM', trainingProgram);
     },
-    processTrainingProgramExercises({ dispatch }, { trainingProgramId, exercises }) {
-      // TODO send update request
+    processTrainingProgramExercises({ dispatch }, { trainingProgramId, exercises, token }) {
+      return new Promise((resolve) => {
+        axios({
+          method: 'post',
+          url: `/exercises/${trainingProgramId}/save_exercises`,
+          data: {
+            exercises,
+          },
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': token,
+            'Accept': 'application/json',
+          }
+        })
+        .then((response) => {
+          const { data } = response;
 
-      dispatch('saveTrainingProgramExercises', {
-        trainingProgramId,
-        exercises,
+          resolve();
+          dispatch('saveTrainingProgramExercises', {
+            trainingProgramId,
+            exercises: data,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
       });
     },
     saveTrainingProgramExercises({ commit, getters }, { trainingProgramId, exercises }) {
@@ -67,8 +87,6 @@ export default {
           trainingProgram,
         });
       } else {
-        Vue.set(trainingProgram, 'exercises', []);
-
         commit('CREATE_TRAINING_PROGRAM_EXERCISES', {
           exercises,
           trainingProgram,

@@ -122,7 +122,7 @@ export default {
 
       axios({
         method: 'post',
-        url: 'training_programs',
+        url: '/training_programs',
         data: {
           training_program: {
             title: this.title,
