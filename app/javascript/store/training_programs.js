@@ -1,21 +1,25 @@
 import axios from 'axios';
 
+const trainingPrograms = gon.training_programs
+  ? gon.training_programs.map((trainingProgram) => {
+    // defining property in advance to use vue reactivity
+    Object.defineProperty(trainingProgram, 'exercises', {
+      configurable: true,
+      enumerable: true,
+      value: [],
+      writable: true,
+    });
+
+    return trainingProgram;
+  })
+  : [];
+
 export default {
   namespaced: true,
   state: 
   {
     available_exercises: [],
-    training_programs: gon.training_programs.map((trainingProgram) => {
-      // defining property in advance to use vue reactivity
-      Object.defineProperty(trainingProgram, 'exercises', {
-        configurable: true,
-        enumerable: true,
-        value: [],
-        writable: true,
-      });
-
-      return trainingProgram;
-    }),
+    training_programs: trainingPrograms,
   },
   getters: {
     getAvailableExercises(state) {

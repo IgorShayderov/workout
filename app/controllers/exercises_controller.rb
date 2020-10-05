@@ -8,7 +8,7 @@ class ExercisesController < ApplicationController
   end
 
   def training_program_exercises
-    render json: @training_program.sorted_exercises
+    render json: @training_program.exercises
   end
 
   def save_exercises
@@ -18,7 +18,7 @@ class ExercisesController < ApplicationController
       end
     end
 
-    render json: @training_program.training_program_exercises
+    render json: @training_program.created_exercises(@training_program.training_program_exercises.last.created_at)
   end
 
   private
