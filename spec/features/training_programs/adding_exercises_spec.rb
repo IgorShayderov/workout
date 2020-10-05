@@ -6,7 +6,8 @@ feature 'User can add exercises to training program', "
   I'd like to be able to write exercises to training program
 " do
   given!(:user) { create(:user) }
-  given(:training_program) { create(:training_program, title: 'Program for test') }
+  given!(:training_program) { create(:training_program, user: user, title: 'Program for test') }
+  given!(:exercise) { create(:exercise, title: 'Pull ups') }
 
   describe 'Athenticated user', js: true do
     background do
@@ -15,17 +16,21 @@ feature 'User can add exercises to training program', "
     end
 
     it 'adds exercise to program' do
-      click_on 'Program for test'
-      click_on 'add exercise'
-      click on 'close form'
+      find("div.training-program[data-id='#{training_program.id}'] h5.training-program_title").click
+      find("div.training-program-exercise[data-id='#{training_program.id}']").click
+      click_on 'Confirm'
 
-      within '.training_programs' do
-        expect(page).to have_content('1 exercise')
+      within '.program-exercises' do
+        expect(page).to have_content('Pull ups')
       end
     end
   end
 
   describe 'Unauthenticated user', js: true do
+    background { visit root_path }
 
+    it 'redicted to sign in path' do
+      expect(page).to have_content 'Log in'
+    end
   end
 end

@@ -4,6 +4,7 @@ export default {
   {
     userInfo: gon.user,
     rootPath: gon.root,
+    showWrapper: false,
   },
   getters: {
     getUserInfo(state) {
@@ -11,10 +12,25 @@ export default {
     },
     getRootPath(state) {
       return state.rootPath;
+    },
+    getWrapperStatus(state) {
+      return state.showWrapper;
     }
   },
   mutations: {
+    SHOW_WRAPPER(state) {
+      state.showWrapper = true;
+    },
+    HIDE_WRAPPER(state) {
+      state.showWrapper = false;
+    },
   },
   actions: {
+    showWrapper({ commit }) {
+      commit('SHOW_WRAPPER');
+    },
+    hideWrapper({ commit }) {
+      commit('HIDE_WRAPPER');
+    },
   }
 };

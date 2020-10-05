@@ -98,12 +98,12 @@ export default {
   },
   methods: {
     ...mapActions('trainingPrograms',
-      ['addTrainingProgram'],
+      ['saveTrainingProgram'],
     ),
     closeForm() {
       const errorsNode = document.querySelector('.training_program-form_errors');
 
-      this.$emit('closeForm');
+      this.$emit('close_form');
       errorsNode.innerHTML = '';
       this.showErrors = false;
     },
@@ -122,7 +122,7 @@ export default {
 
       axios({
         method: 'post',
-        url: 'training_programs',
+        url: '/training_programs',
         data: {
           training_program: {
             title: this.title,
@@ -159,7 +159,7 @@ export default {
         } else {
           errorsNode.innerHTML = '';
           this.showErrors = false;
-          this.addTrainingProgram(data);
+          this.saveTrainingProgram(data);
           this.clearForm();
           this.closeForm();
         }
@@ -169,13 +169,25 @@ export default {
       });
     },
   },
-  components: {
-
-},
 }
 </script>
 
 <style scoped>
+.training-program-form_wrapper {
+  position: absolute;
+  border: 1px solid black;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80vh;
+  width: 70vw;
+  border-radius: 10px;
+  z-index: 20;
+  background: linear-gradient(to left, hsla(221, 42%, 28%, 1),
+                                       hsla(247, 32%, 49%, 1),
+                                       hsla(274, 48%, 59%, 1));
+}
+
 .training-program-form_description {
   resize: none;
 }
