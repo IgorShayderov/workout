@@ -1,6 +1,14 @@
 {
   "name": "workout",
   "private": true,
+  "scripts" : {
+    "test": "jest"
+  },
+  "jest": {
+    "roots": [
+      "app/javascript/specs"
+    ]
+  },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.14.0",
     "@rails/actioncable": "^6.0.0",
