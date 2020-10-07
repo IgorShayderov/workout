@@ -2,7 +2,7 @@ class ExercisesController < ApplicationController
   before_action :get_training_program, only: %i[available_exercises training_program_exercises save_exercises]
 
   def available_exercises
-    available_exercises = @training_program.available_exercises
+    available_exercises = Exercise.available_exercises(@training_program.location)
 
     render json: available_exercises
   end
@@ -12,13 +12,17 @@ class ExercisesController < ApplicationController
   end
 
   def save_exercises
+    exercises_ids = []
+
     ActiveRecord::Base.transaction do
       params[:exercises].each do |exercise|
-        @training_program.training_program_exercises.create!(exercise_id: exercise[:exercise_id], count: exercise[:count])
+        new_exercise = @training_program.training_program_exercises.create!(exercise_id: exercise[:exercise_id], count: exercise[:count])
+
+        exercises_ids.push(new_exercise.id)
       end
     end
 
-    render json: @training_program.created_exercises(@training_program.training_program_exercises.last.created_at)
+    render json: Exercise.created_exercises(@training_program.id, exercises_ids)
   end
 
   private

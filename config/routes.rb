@@ -3,7 +3,20 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root to: 'training_programs#index'
 
-  resources :training_programs, only: %i[index create update destroy]
+  resources :training_programs, only: %i[index create update destroy] do
+
+    # member do
+    #   get :available_exercises
+    # end
+
+    # resources :exercises, only: %i[index create], shallow: true do
+    #   member do
+    #     get ':training_program_id/available_exercises',
+    #       to: 'exercises#available',
+    #       as: 'available_exercises'
+    #   end
+    # end
+  end
 
   scope '/exercises' do
     get ':training_program_id/available_exercises',

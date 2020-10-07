@@ -71,6 +71,8 @@ export default {
         .then((response) => {
           const { data } = response;
 
+          console.log(data);
+
           resolve();
           dispatch('saveTrainingProgramExercises', {
             trainingProgramId,

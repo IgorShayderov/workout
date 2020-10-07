@@ -128,7 +128,7 @@ export default {
             title: this.title,
             description: this.description,
             location: this.location,
-          }
+          },
         },
         headers: {
           'Content-Type': 'application/json',
