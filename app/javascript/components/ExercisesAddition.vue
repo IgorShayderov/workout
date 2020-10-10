@@ -63,6 +63,12 @@
       </ol>
     </div>
 
+    <errors-viewer
+      :showErrors="showErrors"
+      :errors="errors"
+    >
+    </errors-viewer>
+
   </div>
 </template>
 
@@ -70,6 +76,7 @@
 import { mapGetters, mapActions } from 'vuex';
 
 import ExerciseView from './ExerciseView';
+import ErrorsViewer from './ErrorsViewer';
 
 export default {
   beforeRouteEnter(to, from, next) {
@@ -78,8 +85,14 @@ export default {
         vm.addAvailableExercises(vm.trainingProgramId);
       }
 
-      vm.loadTrainingProgramExercises(vm.trainingProgramId);
+      if (vm.trainingProgramExercises.length === 0) {
+        vm.loadTrainingProgramExercises(vm.trainingProgramId);
+      }
     });
+  },
+  beforeRouteLeave(to, from, next) {
+    this.clearErrors();
+    next();
   },
   props: {
     trainingProgramId: {
@@ -90,12 +103,18 @@ export default {
   data() {
     return {
       selectedExercises: [],
+      showErrors: false,
+      errors: [],
     };
   },
   methods: {
     ...mapActions('trainingPrograms',
       ['addAvailableExercises', 'loadTrainingProgramExercises', 'processTrainingProgramExercises']
     ),
+    clearErrors() {
+      this.errors = [];
+      this.showErrors = false;
+    },
     addExerciseToList(exerciseId) {
       const exerciseToAdd = this.getAvailableExerciseById(exerciseId);
 
@@ -116,6 +135,8 @@ export default {
       this.selectedExercises = [];
     },
     saveExercises() {
+      this.clearErrors();
+
       const tokenNode = document.querySelector("meta[name='csrf-token']");
       let token = '';
 
@@ -135,7 +156,12 @@ export default {
         exercises,
         token,
       })
-      .then(() => {
+      .then((data) => {
+        if (data.hasOwnProperty('errors')) {
+          this.errors = data.errors;
+          this.showErrors = true;
+        }
+
         this.clearSelectedExercisesList();
       });
     },
@@ -156,6 +182,7 @@ export default {
   },
   components: {
     ExerciseView,
+    ErrorsViewer,
   },
 }
 </script>

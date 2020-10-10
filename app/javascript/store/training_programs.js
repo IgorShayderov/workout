@@ -71,13 +71,14 @@ export default {
         .then((response) => {
           const { data } = response;
 
-          console.log(data);
+          if (!data.hasOwnProperty('errors')) {
+            dispatch('saveTrainingProgramExercises', {
+              trainingProgramId,
+              exercises: data,
+            });
+          }
 
-          resolve();
-          dispatch('saveTrainingProgramExercises', {
-            trainingProgramId,
-            exercises: data,
-          });
+          resolve(data);
         })
         .catch((error) => {
           console.log(error);
