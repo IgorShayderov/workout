@@ -12,17 +12,13 @@ class ExercisesController < ApplicationController
   end
 
   def save_exercises
-    exercises_ids = []
+    result = @training_program.create_exercises(params[:exercises])
 
-    ActiveRecord::Base.transaction do
-      params[:exercises].each do |exercise|
-        new_exercise = @training_program.training_program_exercises.create!(exercise_id: exercise[:exercise_id], count: exercise[:count])
-
-        exercises_ids.push(new_exercise.id)
-      end
+    if result[:errors].empty?
+      render json: Exercise.created_exercises(@training_program.id, result[:exercises_ids])
+    else
+      render json: { errors: result[:errors] }
     end
-
-    render json: Exercise.created_exercises(@training_program.id, exercises_ids)
   end
 
   private
