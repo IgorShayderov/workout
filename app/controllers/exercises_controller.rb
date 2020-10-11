@@ -27,3 +27,5 @@ class ExercisesController < ApplicationController
     @training_program = TrainingProgram.find(params[:training_program_id])
   end
 end
+
+# params.require(:training_program).permit(:title, :description, :location)

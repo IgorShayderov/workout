@@ -56,5 +56,7 @@ export default {
 </script>
 
 <style scoped>
-
+.errors-viewer {
+  margin: 2vh 0;
+}
 </style>

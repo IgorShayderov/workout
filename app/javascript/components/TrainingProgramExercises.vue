@@ -29,45 +29,52 @@
 
     </div>
 
-    <div class="picked-exercises">
-      <h2>Picked exercises</h2>
-
-      <ol class="picked-exercises__list">
-        <li
-          v-for="(selectedExercise, index) in selectedExercises"
-          :key="index"
-        >
-          {{ selectedExercise.title }}
-        </li>
-      </ol>
-
-      <button
-        class="btn btn-info"
-        :disabled="!this.selectedExercises.length"
-        @click="saveExercises"
-      >
-        Confirm
-      </button>
-    </div>
-
-    <div class="program-exercises">
-      <h2>Program exercises</h2>
-
-      <ol>
-        <li
-          v-for="(exercise, index) in trainingProgramExercises"
-          :key="index"
-        >
-          {{ exercise.title }}
-        </li>
-      </ol>
-    </div>
-
     <errors-viewer
       :showErrors="showErrors"
       :errors="errors"
     >
     </errors-viewer>
+
+    <div class="exercises">
+      <div class="picked-exercises">
+        <h2>Picked exercises</h2>
+
+        <ol class="picked-exercises__list">
+          <li
+            v-for="(selectedExercise, index) in selectedExercises"
+            :key="index"
+          >
+            {{ selectedExercise.title }}
+          </li>
+        </ol>
+
+        <button
+          class="btn btn-info"
+          :disabled="!this.selectedExercises.length"
+          @click="saveExercises"
+        >
+          Confirm
+        </button>
+      </div>
+
+      <div class="program-exercises">
+        <h2>Program exercises</h2>
+
+        <ol>
+          <li
+            v-for="(exercise, index) in trainingProgramExercises"
+            :key="index"
+          >
+            {{ exercise.title }}
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <training-program-comments
+      :trainingProgramId="trainingProgramId.toString()"
+    >
+    </training-program-comments>
 
   </div>
 </template>
@@ -77,6 +84,7 @@ import { mapGetters, mapActions } from 'vuex';
 
 import ExerciseView from './ExerciseView';
 import ErrorsViewer from './ErrorsViewer';
+import TrainingProgramComments from './TrainingProgramComments';
 
 export default {
   beforeRouteEnter(to, from, next) {
@@ -137,13 +145,6 @@ export default {
     saveExercises() {
       this.clearErrors();
 
-      const tokenNode = document.querySelector("meta[name='csrf-token']");
-      let token = '';
-
-      if (tokenNode) {
-        token = tokenNode.content;
-      }
-
       const exercises = this.selectedExercises.map((selectedExercise) => {
         return {
           exercise_id: selectedExercise.id,
@@ -154,7 +155,6 @@ export default {
       this.processTrainingProgramExercises({
         trainingProgramId: this.trainingProgramId,
         exercises,
-        token,
       })
       .then((data) => {
         if (data.hasOwnProperty('errors')) {
@@ -183,6 +183,7 @@ export default {
   components: {
     ExerciseView,
     ErrorsViewer,
+    TrainingProgramComments,
   },
 }
 </script>

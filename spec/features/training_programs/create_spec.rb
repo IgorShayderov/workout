@@ -28,7 +28,7 @@ feature 'User can create training program', "
         find(:css, '.training-program-form').choose('Outdoors')
         click_on 'Create'
 
-        within '.training_program-form_errors' do
+        within '.training-program-form .errors-viewer_errors' do
           expect(page).to have_content 'Title'
           expect(page).to have_content "can't be blank"
         end
@@ -36,12 +36,9 @@ feature 'User can create training program', "
     end
   end
 
-  describe 'unathenticated user', js: true do
+  describe 'Unathenticated user' do
     background { visit root_path }
 
-    it 'redirect on sign in view' do
-      expect(page).to have_content 'Log in'
-      expect(page).to have_content 'Sign up'
-    end
+    it_behaves_like 'unauthencicated user'
   end
 end

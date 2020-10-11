@@ -6,6 +6,7 @@ RSpec.describe TrainingProgram, type: :model do
   it { should belong_to(:user) }
   it { should have_many(:training_program_exercises) }
   it { should have_many(:exercises).through(:training_program_exercises).dependent(:destroy) }
+  it { should have_many(:comments).dependent(:destroy) }
 
   it { should validate_presence_of(:title) }
   it { should validate_uniqueness_of(:title) }

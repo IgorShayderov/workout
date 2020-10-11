@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     #       as: 'available_exercises'
     #   end
     # end
+    resources :comments, shallow: true, only: %i[index create]
   end
 
   scope '/exercises' do
