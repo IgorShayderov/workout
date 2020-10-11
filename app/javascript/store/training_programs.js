@@ -73,7 +73,7 @@ export default {
       return new Promise((resolve) => {
         axios({
           method: 'post',
-          url: `/exercises/${trainingProgramId}/save_exercises`,
+          url: `training_programs/${trainingProgramId}/save_exercises `,
           data: {
             exercises,
           },
@@ -109,7 +109,7 @@ export default {
       });
     },
     addAvailableExercises({ commit }, trainingProgramId) {
-      axios.get(`exercises/${trainingProgramId}/available_exercises`)
+      axios.get(`training_programs/${trainingProgramId}/available_exercises`)
       .then((response) => {
         const { data } = response;
 
@@ -120,7 +120,7 @@ export default {
       });
     },
     loadTrainingProgramExercises({ dispatch }, trainingProgramId) {
-      axios.get(`exercises/${trainingProgramId}/training_program_exercises`)
+      axios.get(`training_programs/${trainingProgramId}/training_program_exercises`)
       .then((response) => {
         const { data } = response;
 
