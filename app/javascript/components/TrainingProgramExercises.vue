@@ -73,6 +73,8 @@
 
     <training-program-comments
       :trainingProgramId="trainingProgramId.toString()"
+      @comment_error="handleCommentError($event)"
+      @clear_errors="clearErrors"
     >
     </training-program-comments>
 
@@ -119,6 +121,10 @@ export default {
     ...mapActions('trainingPrograms',
       ['addAvailableExercises', 'loadTrainingProgramExercises', 'processTrainingProgramExercises']
     ),
+    handleCommentError(errors) {
+      this.errors = errors;
+      this.showErrors = true;
+    },
     clearErrors() {
       this.errors = [];
       this.showErrors = false;

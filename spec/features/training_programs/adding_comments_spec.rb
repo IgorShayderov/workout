@@ -31,8 +31,8 @@ feature 'User can add comments to training program', "
       fill_in 'New comment:', with: ''
       click_on 'Add comment'
 
-      within '.errors' do
-        expect(page).to have_content 'Error'
+      within '.errors-viewer' do
+        expect(page).to have_content "Body can't be blank"
       end
     end
   end

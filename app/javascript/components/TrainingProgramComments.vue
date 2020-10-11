@@ -24,7 +24,7 @@
     <br>
 
     <button
-      class="btn btn-info"
+      class="btn btn-info mb-4"
       @click="addComment"
     >
       Add comment
@@ -57,11 +57,17 @@ export default {
       ['loadTrainingProgramComments', 'saveComment']
     ),
     addComment() {
+      this.$emit('clear_errors');
       this.saveComment({ 
         comment: {
           body: this.newComment,
         },
         trainingProgramId: this.trainingProgramId,
+      })
+      .then((data) => {
+        if (data.hasOwnProperty('errors')) {
+          this.$emit('comment_error', data.errors);
+        }
       });
       this.newComment = '';
     }

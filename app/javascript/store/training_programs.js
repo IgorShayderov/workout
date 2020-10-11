@@ -134,32 +134,36 @@ export default {
       })
     },
     saveComment({ commit, getters, rootGetters }, { comment, trainingProgramId }) {
-      const trainingProgram = getters.getTrainingProgramById(trainingProgramId);
+      return new Promise((resolve) => {
+        const trainingProgram = getters.getTrainingProgramById(trainingProgramId);
 
-      axios({
-        method: 'post',
-        url: `/training_programs/${trainingProgramId}/comments`,
-        data: {
-          comment,
-        },
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': rootGetters['system/getToken'],
-          'Accept': 'application/json',
-        }
-      })
-      .then((response) => {
-        const { data } = response;
+        axios({
+          method: 'post',
+          url: `/training_programs/${trainingProgramId}/comments`,
+          data: {
+            comment,
+          },
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': rootGetters['system/getToken'],
+            'Accept': 'application/json',
+          }
+        })
+        .then((response) => {
+          const { data } = response;
+  
+          resolve(data);
 
-        console.log(data, 'data comment');
-
-        commit('ADD_COMMENTS', {
-          comments: [ data ],
-          trainingProgram,
+          if (!data.hasOwnProperty('errors')) {
+            commit('ADD_COMMENTS', {
+              comments: [ data ],
+              trainingProgram,
+            });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
         });
-      })
-      .catch((error) => {
-        console.log(error);
       });
     }
   }
