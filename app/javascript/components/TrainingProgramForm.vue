@@ -98,7 +98,7 @@ export default {
   },
   methods: {
     ...mapActions('trainingPrograms',
-      ['saveTrainingProgram'],
+      ['saveTrainingProgram', 'processTrainingProgram'],
     ),
     closeForm() {
       this.$emit('close_form');
@@ -114,46 +114,24 @@ export default {
       this.showErrors = false;
     },
     createTrainingProgram(event) {
-      const tokenNode = document.querySelector("meta[name='csrf-token']");
-      let token = '';
-
-      if (tokenNode) {
-        token = tokenNode.content;
-      }
-
-      axios({
-        method: 'post',
-        url: '/training_programs',
-        data: {
-          training_program: {
-            title: this.title,
-            description: this.description,
-            location: this.location,
-          },
-        },
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': token,
-          'Accept': 'application/json',
+      const data = {
+        training_program: {
+          title: this.title,
+          description: this.description,
+          location: this.location,
         }
-      })
-      .then((response) => {
-        const { data } = response;
+      };
 
-        if (data.errors) {
-          const { errors } = data;
-
-          this.errors = errors;
-          this.showErrors = true;
-        } else {
-          this.clearErrors();
-          this.saveTrainingProgram(data);
-          this.clearForm();
-          this.closeForm();
-        }
-      })
-      .catch((error) => {
-        console.log(error);
+      this.processTrainingProgram(data)
+      .then((trainingProgram) => {
+        this.clearErrors();
+        this.saveTrainingProgram(trainingProgram);
+        this.clearForm();
+        this.closeForm();
+      },
+      (errors) => {
+        this.errors = errors;
+        this.showErrors = true;
       });
     },
   },

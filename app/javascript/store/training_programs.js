@@ -133,6 +133,34 @@ export default {
         console.log(error);
       })
     },
+    processTrainingProgram({ rootGetters }, data) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'post',
+          url: '/training_programs',
+          data,
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': rootGetters['system/getToken'],
+            'Accept': 'application/json',
+          }
+        })
+        .then((response) => {
+          const { data } = response;
+
+          if (data.errors) {
+            const { errors } = data;
+            
+            reject(errors);
+          } else {
+            resolve(data);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      });
+    },
     saveComment({ commit, getters, rootGetters }, { comment, trainingProgramId }) {
       return new Promise((resolve) => {
         const trainingProgram = getters.getTrainingProgramById(trainingProgramId);
