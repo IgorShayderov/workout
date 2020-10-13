@@ -73,7 +73,6 @@
 </template>
 
 <script>
-import { checkForError } from '../helpers/requests';
 import { mapActions } from 'vuex';
 
 import axios from 'axios';

@@ -3,6 +3,13 @@
     <span>{{ userWelcome }}</span>
 
     <a
+      href="calendar"
+      @click.prevent="showCalendar"
+    >
+      Calendar
+    </a>
+
+    <a
       href="profile"
       @click.prevent="showProfile"
     >
@@ -31,10 +38,13 @@ import { mapGetters } from 'vuex';
 export default {
   methods: {
     goBack() {
-      this.$router.push({ name: 'root' })
+      this.$router.push({ name: 'root' });
     },
     showProfile() {
-      this.$router.push({ name: 'profile' })
+      this.$router.push({ name: 'profile' });
+    },
+    showCalendar() {
+      this.$router.push({ name: 'calendar' });
     },
   },
   computed: {

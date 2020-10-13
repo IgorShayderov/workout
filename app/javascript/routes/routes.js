@@ -1,6 +1,7 @@
 import Root from '../components/TrainingProgramsBoard';
 import TrainingProgramExercises from '../components/TrainingProgramExercises';
 import UserProfile from '../components/UserProfile';
+import TheCalendar from '../components/TheCalendar';
 
 export default [
   {
@@ -18,5 +19,10 @@ export default [
     path: '/profile',
     component: UserProfile,
     name: 'profile',
+  },
+  {
+    path: '/calendar',
+    component: TheCalendar,
+    name: 'calendar',
   },
 ];
