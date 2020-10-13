@@ -13,14 +13,31 @@
 </template>
 
 <script>
-// document.referrer
-
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 import TheWrapper from './components/TheWrapper';
 import TheToolbar from './components/TheToolbar';
 
 export default {
+  created() {
+    console.log(document.referrer, 'referrer');
+    // '/users/sign_in'
+
+    // saving csrf-token into vuex
+    const tokenNode = document.querySelector("meta[name='csrf-token']");
+    let token = '';
+
+    if (tokenNode) {
+      token = tokenNode.content;
+    }
+
+    this.saveToken(token);
+  },
+  methods: {
+    ...mapActions('system',
+      ['saveToken']
+    ),
+  },
   computed: {
     ...mapGetters('system',
       ['getWrapperStatus']

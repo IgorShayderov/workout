@@ -23,12 +23,10 @@ RSpec.describe TrainingProgramsController, type: :controller do
   end
 
   describe 'POST #create' do
-    before { post :create, params: { training_program: attributes_for(:training_program) } }
-
     context 'with valid attributes' do
-      it 'return 200 status' do
-        post :create, params: { training_program: attributes_for(:training_program) }
+      before { post :create, params: { training_program: attributes_for(:training_program) } }
 
+      it 'return 200 status' do
         expect(response).to be_successful
       end
 
@@ -40,22 +38,16 @@ RSpec.describe TrainingProgramsController, type: :controller do
       it 'belongs to user who created it' do
         expect(assigns(:training_program).user_id).to be user.id
       end
-
-      it 'response to have status 200' do
-        expect(response).to have_http_status(200)
-      end
     end
 
     context 'with invalid attributes' do
-      it 'return 200 status' do
-        post :create, params: { training_program: attributes_for(:training_program, :invalid) }
+      before { post :create, params: { training_program: attributes_for(:training_program, :invalid) } }
 
+      it 'return 200 status' do
         expect(response).to be_successful
       end
 
       it 'returns error list' do
-        post :create, params: { training_program: attributes_for(:training_program, :invalid) }
-
         expect(JSON.parse(response.body)['errors']).to have_key('title')
       end
 

@@ -54,14 +54,11 @@
         </label>
         <br>
 
-        <div
-          v-show="showErrors"
-          class="alert alert-danger"
+        <errors-viewer
+          :showErrors="showErrors"
+          :errors="errors"
         >
-          <h4>Errors encountered:</h4>
-          <div class="training_program-form_errors">
-          </div>
-        </div>
+        </errors-viewer>
 
         <input
           type="submit"
@@ -81,6 +78,8 @@ import { mapActions } from 'vuex';
 
 import axios from 'axios';
 
+import ErrorsViewer from './ErrorsViewer';
+
 export default {
   props: {
     shouldShowForm: {
@@ -91,6 +90,7 @@ export default {
   data() {
     return {
       showErrors: false,
+      errors: [],
       title: '',
       description: '',
       location: '',
@@ -98,77 +98,46 @@ export default {
   },
   methods: {
     ...mapActions('trainingPrograms',
-      ['saveTrainingProgram'],
+      ['saveTrainingProgram', 'processTrainingProgram'],
     ),
     closeForm() {
-      const errorsNode = document.querySelector('.training_program-form_errors');
-
       this.$emit('close_form');
-      errorsNode.innerHTML = '';
-      this.showErrors = false;
+      this.clearErrors();
     },
     clearForm() {
       this.title = '';
       this.description = '';
       this.location = '';
     },
+    clearErrors() {
+      this.errors = [];
+      this.showErrors = false;
+    },
     createTrainingProgram(event) {
-      const tokenNode = document.querySelector("meta[name='csrf-token']");
-      let token = '';
-
-      if (tokenNode) {
-        token = tokenNode.content;
-      }
-
-      axios({
-        method: 'post',
-        url: '/training_programs',
-        data: {
-          training_program: {
-            title: this.title,
-            description: this.description,
-            location: this.location,
-          }
-        },
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': token,
-          'Accept': 'application/json',
+      const data = {
+        training_program: {
+          title: this.title,
+          description: this.description,
+          location: this.location,
         }
-      })
-      .then((response) => {
-        const errorsNode = document.querySelector('.training_program-form_errors');
-        const { data } = response;
+      };
 
-        if (data.errors) {
-          const { errors } = data;
-          const errorsKeys = Object.keys(errors);
-
-          const errorsText = errorsKeys.reduce((finalMessage, errorKey) => {
-            finalMessage += `${errorKey[0].toUpperCase() + errorKey.substring(1)}:<br>`;
-
-            errors[errorKey].forEach((errorMessage) => {
-              finalMessage += `${errorMessage}<br>`;
-            });
-
-            return finalMessage;
-          }, '');
-
-          this.showErrors = true;
-          errorsNode.innerHTML = errorsText;
-        } else {
-          errorsNode.innerHTML = '';
-          this.showErrors = false;
-          this.saveTrainingProgram(data);
-          this.clearForm();
-          this.closeForm();
-        }
-      })
-      .catch((error) => {
-        console.log(error);
+      this.processTrainingProgram(data)
+      .then((trainingProgram) => {
+        this.clearErrors();
+        this.saveTrainingProgram(trainingProgram);
+        this.clearForm();
+        this.closeForm();
+      },
+      (errors) => {
+        this.errors = errors;
+        this.showErrors = true;
       });
     },
   },
+  components: {
+    ErrorsViewer,
+  }
 }
 </script>
 

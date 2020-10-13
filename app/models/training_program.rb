@@ -2,16 +2,32 @@ class TrainingProgram < ApplicationRecord
   belongs_to :user
   has_many :training_program_exercises
   has_many :exercises, through: :training_program_exercises, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   validates :title, presence: true, uniqueness: true
   validates :description, length: { maximum: 250 }
   validates :location, presence: true
 
-  def available_exercises
-    Exercise.where(location: self.location)
-  end
+  def create_exercises(exercises)
+    result = {
+      exercises_ids: [],
+      errors: [],
+    }
 
-  def created_exercises(created_at)
-    exercises.joins(:training_program_exercises).where(training_program_exercise: { created_at: created_at })
+    begin
+      ActiveRecord::Base.transaction do
+        exercises.each do |exercise|
+          new_exercise = training_program_exercises.create!(exercise_id: exercise[:exercise_id], count: exercise[:count])
+
+          result[:exercises_ids].push(new_exercise.id)
+        end
+      end
+
+      rescue ActiveRecord::RecordInvalid => exception
+
+      result[:errors].push(exception.message)
+    end
+
+    result
   end
 end

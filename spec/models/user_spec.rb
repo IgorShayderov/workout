@@ -4,6 +4,7 @@ RSpec.describe User, type: :model do
   let!(:user) { create(:user) }
 
   it { should have_many(:training_programs).dependent(:destroy) }
+  it { should have_many(:comments).dependent(:destroy) }
 
   it { should validate_presence_of(:name) }
   it { should validate_uniqueness_of(:name) }

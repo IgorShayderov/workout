@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_04_195433) do
+ActiveRecord::Schema.define(version: 2020_10_10_160855) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.string "body", limit: 180, null: false
+    t.bigint "user_id", null: false
+    t.bigint "training_program_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["training_program_id"], name: "index_comments_on_training_program_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
 
   create_table "exercises", force: :cascade do |t|
     t.string "location", null: false
@@ -55,6 +65,8 @@ ActiveRecord::Schema.define(version: 2020_10_04_195433) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "comments", "training_programs"
+  add_foreign_key "comments", "users"
   add_foreign_key "training_program_exercises", "exercises"
   add_foreign_key "training_program_exercises", "training_programs"
   add_foreign_key "training_programs", "users"

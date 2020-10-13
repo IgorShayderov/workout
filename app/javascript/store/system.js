@@ -5,6 +5,7 @@ export default {
     userInfo: gon.user,
     rootPath: gon.root,
     showWrapper: false,
+    token: '',
   },
   getters: {
     getUserInfo(state) {
@@ -15,7 +16,10 @@ export default {
     },
     getWrapperStatus(state) {
       return state.showWrapper;
-    }
+    },
+    getToken(state) {
+      return state.token;
+    },
   },
   mutations: {
     SHOW_WRAPPER(state) {
@@ -24,6 +28,9 @@ export default {
     HIDE_WRAPPER(state) {
       state.showWrapper = false;
     },
+    SAVE_TOKEN(state, token) {
+      state.token = token;
+    }
   },
   actions: {
     showWrapper({ commit }) {
@@ -32,5 +39,8 @@ export default {
     hideWrapper({ commit }) {
       commit('HIDE_WRAPPER');
     },
+    saveToken({ commit }, token) {
+      commit('SAVE_TOKEN', token);
+    }
   }
 };

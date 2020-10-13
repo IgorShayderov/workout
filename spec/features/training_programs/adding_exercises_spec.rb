@@ -6,7 +6,7 @@ feature 'User can add exercises to training program', "
   I'd like to be able to write exercises to training program
 " do
   given!(:user) { create(:user) }
-  given!(:training_program) { create(:training_program, user: user, title: 'Program for test') }
+  given!(:training_program) { create(:training_program, user: user) }
   given!(:exercise) { create(:exercise, title: 'Pull ups') }
 
   describe 'Athenticated user', js: true do
@@ -26,11 +26,14 @@ feature 'User can add exercises to training program', "
     end
   end
 
-  describe 'Unauthenticated user', js: true do
+  describe 'Unauthenticated user' do
     background { visit root_path }
 
     it 'redicted to sign in path' do
       expect(page).to have_content 'Log in'
+      expect(page).to have_content 'Sign up'
     end
+
+    it_behaves_like 'unauthencicated user'
   end
 end

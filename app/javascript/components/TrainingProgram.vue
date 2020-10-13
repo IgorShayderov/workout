@@ -45,7 +45,7 @@ export default {
     addExercises() {
       if (this.trainingProgram) {
         this.$router.push({
-          name: 'exercisesAddition',
+          name: 'trainingProgramExercises',
           params: { trainingProgramId: this.trainingProgram.id },
         })
       }

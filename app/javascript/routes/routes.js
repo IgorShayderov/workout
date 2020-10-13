@@ -1,5 +1,5 @@
 import Root from '../components/TrainingProgramsBoard';
-import ExercisesAddition from '../components/ExercisesAddition';
+import TrainingProgramExercises from '../components/TrainingProgramExercises';
 import UserProfile from '../components/UserProfile';
 
 export default [
@@ -10,8 +10,8 @@ export default [
   },
   {
     path: '/:trainingProgramId/exercises',
-    component: ExercisesAddition,
-    name: 'exercisesAddition',
+    component: TrainingProgramExercises,
+    name: 'trainingProgramExercises',
     props: true,
   },
   {

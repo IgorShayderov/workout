@@ -29,39 +29,54 @@
 
     </div>
 
-    <div class="picked-exercises">
-      <h2>Picked exercises</h2>
+    <errors-viewer
+      :showErrors="showErrors"
+      :errors="errors"
+    >
+    </errors-viewer>
 
-      <ol class="picked-exercises__list">
-        <li
-          v-for="(selectedExercise, index) in selectedExercises"
-          :key="index"
+    <div class="exercises">
+      <div class="picked-exercises">
+        <h2>Picked exercises</h2>
+
+        <ol class="picked-exercises__list">
+          <li
+            v-for="(selectedExercise, index) in selectedExercises"
+            :key="index"
+          >
+            {{ selectedExercise.title }}
+          </li>
+        </ol>
+
+        <button
+          class="btn btn-info"
+          :disabled="!this.selectedExercises.length"
+          @click="saveExercises"
         >
-          {{ selectedExercise.title }}
-        </li>
-      </ol>
+          Confirm
+        </button>
+      </div>
 
-      <button
-        class="btn btn-info"
-        :disabled="!this.selectedExercises.length"
-        @click="saveExercises"
-      >
-        Confirm
-      </button>
+      <div class="program-exercises">
+        <h2>Program exercises</h2>
+
+        <ol>
+          <li
+            v-for="(exercise, index) in trainingProgramExercises"
+            :key="index"
+          >
+            {{ exercise.title }}
+          </li>
+        </ol>
+      </div>
     </div>
 
-    <div class="program-exercises">
-      <h2>Program exercises</h2>
-
-      <ol>
-        <li
-          v-for="(exercise, index) in trainingProgramExercises"
-          :key="index"
-        >
-          {{ exercise.title }}
-        </li>
-      </ol>
-    </div>
+    <training-program-comments
+      :trainingProgramId="trainingProgramId.toString()"
+      @comment_error="handleCommentError($event)"
+      @clear_errors="clearErrors"
+    >
+    </training-program-comments>
 
   </div>
 </template>
@@ -70,6 +85,8 @@
 import { mapGetters, mapActions } from 'vuex';
 
 import ExerciseView from './ExerciseView';
+import ErrorsViewer from './ErrorsViewer';
+import TrainingProgramComments from './TrainingProgramComments';
 
 export default {
   beforeRouteEnter(to, from, next) {
@@ -78,8 +95,14 @@ export default {
         vm.addAvailableExercises(vm.trainingProgramId);
       }
 
-      vm.loadTrainingProgramExercises(vm.trainingProgramId);
+      if (vm.trainingProgramExercises.length === 0) {
+        vm.loadTrainingProgramExercises(vm.trainingProgramId);
+      }
     });
+  },
+  beforeRouteLeave(to, from, next) {
+    this.clearErrors();
+    next();
   },
   props: {
     trainingProgramId: {
@@ -90,12 +113,22 @@ export default {
   data() {
     return {
       selectedExercises: [],
+      showErrors: false,
+      errors: [],
     };
   },
   methods: {
     ...mapActions('trainingPrograms',
       ['addAvailableExercises', 'loadTrainingProgramExercises', 'processTrainingProgramExercises']
     ),
+    handleCommentError(errors) {
+      this.errors = errors;
+      this.showErrors = true;
+    },
+    clearErrors() {
+      this.errors = [];
+      this.showErrors = false;
+    },
     addExerciseToList(exerciseId) {
       const exerciseToAdd = this.getAvailableExerciseById(exerciseId);
 
@@ -116,12 +149,7 @@ export default {
       this.selectedExercises = [];
     },
     saveExercises() {
-      const tokenNode = document.querySelector("meta[name='csrf-token']");
-      let token = '';
-
-      if (tokenNode) {
-        token = tokenNode.content;
-      }
+      this.clearErrors();
 
       const exercises = this.selectedExercises.map((selectedExercise) => {
         return {
@@ -133,9 +161,13 @@ export default {
       this.processTrainingProgramExercises({
         trainingProgramId: this.trainingProgramId,
         exercises,
-        token,
       })
-      .then(() => {
+      .then((data) => {
+        if (data.hasOwnProperty('errors')) {
+          this.errors = data.errors;
+          this.showErrors = true;
+        }
+
         this.clearSelectedExercisesList();
       });
     },
@@ -156,6 +188,8 @@ export default {
   },
   components: {
     ExerciseView,
+    ErrorsViewer,
+    TrainingProgramComments,
   },
 }
 </script>
