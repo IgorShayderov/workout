@@ -1,6 +1,13 @@
 <template>
   <div class="user-profile">
-    {{ getUserInfo }}
+    <div class="user-profile__avatar">
+
+    </div>
+
+    <div class="user-profile__info">
+      <p>Name: {{ userInfo.name }}</p>
+      <p>E-mail: {{ userInfo.email }}</p>
+    </div>
   </div>
 </template>
 
@@ -15,12 +22,23 @@ export default {
     ...mapGetters('system',
       ['getUserInfo']
     ),
+    userInfo() {
+      return this.getUserInfo;
+    }
   }
 }
 </script>
 
 <style scoped>
-  .user-profile {
+.user-profile {
+  margin: 0 2vw;
+  display: flex;
+}
 
-  }
+.user-profile__avatar {
+  margin: 0 1vw;
+  border: 1px solid black;
+  width: 200px;
+  height: 300px;
+}
 </style>
