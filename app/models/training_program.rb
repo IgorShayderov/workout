@@ -3,6 +3,7 @@ class TrainingProgram < ApplicationRecord
   has_many :training_program_exercises
   has_many :exercises, through: :training_program_exercises, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :training_plans, dependent: :destroy
 
   validates :title, presence: true, uniqueness: true
   validates :description, length: { maximum: 250 }
