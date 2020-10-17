@@ -24,9 +24,11 @@
           <td
             class="calendar__day"
             :class="{ 'calendar__day_selected': calcDay(day, week) === currentDate }"
+            :data-count="calcDay(day, week)"
             v-for="day in daysInWeek"
             v-show="!isOutOfLimit(calcDay(day, week))"
             :key="day"
+            @click="addTrainingPlans"
           >
             {{ calcDay(day, week) }}
           </td>
@@ -54,8 +56,11 @@ export default {
     }
   },
   methods: {
-    isOutOfLimit(day) {
-      return this.daysInMonthCount < day;
+    addTrainingPlans(event) {
+      const dayCount = event.target.dataset.count;
+      console.log(dayCount, 'event');
+
+      this.$router.push({ name: 'calendarDay', params: { dayCount }});
     }
   },
   computed: {
@@ -81,7 +86,12 @@ export default {
     },
     monthName() {
       return this.monthNames[new Date().getMonth()];
-    }
+    },
+    isOutOfLimit(day) {
+      return (day) => {
+        return this.daysInMonthCount < day;
+      }
+    },
   }
 }
 </script>
@@ -96,13 +106,11 @@ export default {
 }
 
 .calendar__board {
-  /* border-top: 1px solid black;
-  border-left: 1px solid black; */
+
 }
 
 .calendar__header, .calendar__day {
-  /* border-bottom: 1px solid black;
-  border-right: 1px solid black; */
+
 }
 
 .calendar__header {
@@ -121,16 +129,17 @@ export default {
 
 .calendar__day_selected:after {
   position: absolute;
-  /* top: 0; */
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  padding: 5px;
+  padding: 10px;
   content: 'Current date';
   text-decoration: underline;
 }
 
 .calendar__day_selected {
   position: relative;
+  outline: 1px solid red;
+  outline-offset: -2px;
 }
 </style>

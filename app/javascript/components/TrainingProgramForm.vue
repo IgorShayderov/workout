@@ -15,7 +15,6 @@
             <i class="far fa-2x fa-times-circle"></i>
         </div>
 
-
         <label>Title:
           <br>
           <input
@@ -76,20 +75,14 @@
 import { mapActions } from 'vuex';
 
 import axios from 'axios';
+import formHelpers from '../mixins/formHelpers';
 
 import ErrorsViewer from './ErrorsViewer';
 
 export default {
-  props: {
-    shouldShowForm: {
-      type: Boolean,
-      required: true,
-    }
-  },
+  mixins: [formHelpers],
   data() {
     return {
-      showErrors: false,
-      errors: [],
       title: '',
       description: '',
       location: '',
@@ -99,19 +92,6 @@ export default {
     ...mapActions('trainingPrograms',
       ['saveTrainingProgram', 'processTrainingProgram'],
     ),
-    closeForm() {
-      this.$emit('close_form');
-      this.clearErrors();
-    },
-    clearForm() {
-      this.title = '';
-      this.description = '';
-      this.location = '';
-    },
-    clearErrors() {
-      this.errors = [];
-      this.showErrors = false;
-    },
     createTrainingProgram(event) {
       const data = {
         training_program: {

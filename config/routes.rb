@@ -19,4 +19,6 @@ Rails.application.routes.draw do
 
     resources :comments, shallow: true, only: %i[index create]
   end
+
+  get '/*path', to: 'training_programs#index' 
 end
