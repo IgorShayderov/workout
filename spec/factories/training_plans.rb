@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :training_plan do
-    day { "2020-10-14" }
+    start_time { Time.now }
+    end_time { 30.minutes.from_now }
     user
     training_program
   end

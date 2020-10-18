@@ -13,7 +13,7 @@ RSpec.describe ExercisesController, type: :controller do
 
     before { get :available_exercises, params: { training_program_id: training_program.id } }
 
-    it 'return 200 status' do
+    it 'returns 200 status' do
       expect(response).to be_successful
     end
 

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="training-program-form_wrapper"
+      class="form-wrapper"
       v-show="shouldShowForm"
     >
       <form
@@ -9,7 +9,7 @@
       >
 
         <div
-          class="training-program-form_btn-close"
+          class="form__btn-close"
           @click="closeForm"
         >
             <i class="far fa-2x fa-times-circle"></i>
@@ -18,7 +18,7 @@
         <label>Title:
           <br>
           <input
-            class="training-program-form_title"
+            class="training-program-form__title"
             type="text"
             v-model="title"
           >
@@ -29,7 +29,7 @@
           Description(optional):
           <br>
           <textarea cols="30" rows="10"
-            class="training-program-form_description"
+            class="training-program-form__description"
             v-model="description"
           ></textarea>
         </label>
@@ -38,7 +38,7 @@
 
         <label>
           <input type="radio" name="where_to_train" value="gym"
-            class="training-program-form_location"
+            class="training-program-form__location"
             v-model="location"
           >
             Gym
@@ -46,7 +46,7 @@
 
         <label>
           <input type="radio" name="where_to_train" value="outdoors"
-            class="training-program-form_location"
+            class="training-program-form__location"
             v-model="location"
           >
             Outdoors
@@ -62,9 +62,9 @@
         <input
           type="submit"
           value="Create new program"
-          class="training-program-form_btn-submit"
+          class="form__btn-submit"
           @click.prevent="createTrainingProgram"
-          >
+        >
       </form>
     </div>
 
@@ -102,9 +102,8 @@ export default {
       };
 
       this.processTrainingProgram(data)
-      .then((trainingProgram) => {
+      .then(() => {
         this.clearErrors();
-        this.saveTrainingProgram(trainingProgram);
         this.clearForm();
         this.closeForm();
       },
@@ -121,46 +120,16 @@ export default {
 </script>
 
 <style scoped>
-.training-program-form_wrapper {
-  position: absolute;
-  border: 1px solid black;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  height: 80vh;
-  width: 70vw;
-  border-radius: 10px;
-  z-index: 20;
-  background: linear-gradient(to left, hsla(221, 42%, 28%, 1),
-                                       hsla(247, 32%, 49%, 1),
-                                       hsla(274, 48%, 59%, 1));
-}
-
 .training-program-form_description {
   resize: none;
 }
 
-.training-program-form_btn-close {
-  position: absolute;
-  top: 4px;
-  right: 4px;
-  cursor: pointer;
-}
-
-.training-program-form_btn-submit {
-  position: absolute;
-  margin-bottom: 16px;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.training-program-form_location {
+.training-program-form__location {
   transform: scale(2);
   margin: 0 8px;
 }
 
-.training-program-form_exercises {
+.training-program-form__exercises {
   margin-top: 8px;
 }
 </style>

@@ -5,7 +5,7 @@ RSpec.describe User, type: :model do
 
   it { should have_many(:training_programs).dependent(:destroy) }
   it { should have_many(:comments).dependent(:destroy) }
-  it { should have_many(:training_plans).dependent(:destroyr) }
+  it { should have_many(:training_plans).dependent(:destroy) }
 
   it { should validate_presence_of(:name) }
   it { should validate_uniqueness_of(:name) }

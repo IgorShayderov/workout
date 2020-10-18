@@ -91,7 +91,6 @@ import TrainingProgramComments from './TrainingProgramComments';
 export default {
   beforeRouteEnter(to, from, next) {
     next((vm) => {
-      console.log('before route enter')
       if (vm.getAvailableExercises.length === 0) {
         vm.addAvailableExercises(vm.trainingProgramId);
       }

@@ -21,7 +21,7 @@ feature 'User can add exercises to training program', "
       click_on 'Confirm'
 
       within '.program-exercises' do
-        expect(page).to have_content('Pull ups')
+        expect(page).to have_content 'Pull ups'
       end
     end
   end

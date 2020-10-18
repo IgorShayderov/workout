@@ -5,6 +5,7 @@ const trainingPrograms = gon.training_programs
     // defining properties in advance to use vue reactivity
     trainingProgram.exercises = [];
     trainingProgram.comments = [];
+    trainingProgram.trainingPlans = [];
 
     return trainingProgram;
   })
@@ -46,14 +47,21 @@ export default {
     },
     ADD_COMMENTS(state, { comments, trainingProgram }) {
       trainingProgram.comments = [...trainingProgram.comments, ...comments];
-    }
+    },
+    ADD_TRAINING_PLANS(state, { trainingPlans, trainingProgram }) {
+      trainingProgram.trainingPlans = [...trainingProgram.trainingPlans, ...trainingPlans];
+    },
   },
   actions:
   {
-    loadTrainingProgramComments({ commit, getters }, trainingProgramId) {
+    loadTrainingProgramComments({ commit, getters, rootGetters }, trainingProgramId) {
       const trainingProgram = getters.getTrainingProgramById(trainingProgramId);
       
-      axios.get(`/training_programs/${trainingProgramId}/comments`)
+      axios({
+        method: 'get',
+        url: `/training_programs/${trainingProgramId}/comments`,
+        baseUrl: rootGetters['system/getRootPath'],
+      })
       .then((response) => {
         const { data } = response;
 
@@ -74,6 +82,7 @@ export default {
         axios({
           method: 'post',
           url: `training_programs/${trainingProgramId}/save_exercises `,
+          baseURL: rootGetters['system/getRootPath'],
           data: {
             exercises,
           },
@@ -108,8 +117,12 @@ export default {
         trainingProgram,
       });
     },
-    addAvailableExercises({ commit }, trainingProgramId) {
-      axios.get(`training_programs/${trainingProgramId}/available_exercises`)
+    addAvailableExercises({ commit, rootGetters }, trainingProgramId) {
+      axios({
+        method: 'get',
+        url: `training_programs/${trainingProgramId}/available_exercises`,
+        baseURL: rootGetters['system/getRootPath'],
+      })
       .then((response) => {
         const { data } = response;
 
@@ -119,8 +132,12 @@ export default {
         console.log(error);
       });
     },
-    loadTrainingProgramExercises({ dispatch }, trainingProgramId) {
-      axios.get(`training_programs/${trainingProgramId}/training_program_exercises`)
+    loadTrainingProgramExercises({ dispatch, rootGetters }, trainingProgramId) {
+      axios({
+        method: 'get',
+        url: `training_programs/${trainingProgramId}/training_program_exercises`,
+        baseURL: rootGetters['system/getRootPath'],
+      })
       .then((response) => {
         const { data } = response;
 
@@ -133,11 +150,12 @@ export default {
         console.log(error);
       })
     },
-    processTrainingProgram({ rootGetters }, data) {
+    processTrainingProgram({ dispatch, rootGetters }, data) {
       return new Promise((resolve, reject) => {
         axios({
           method: 'post',
           url: '/training_programs',
+          baseURL: rootGetters['system/getRootPath'],
           data,
           headers: {
             'Content-Type': 'application/json',
@@ -150,10 +168,11 @@ export default {
 
           if (data.errors) {
             const { errors } = data;
-            
+
             reject(errors);
           } else {
-            resolve(data);
+            resolve();
+            dispatch('saveTrainingProgram', data);
           }
         })
         .catch((error) => {
@@ -167,7 +186,8 @@ export default {
 
         axios({
           method: 'post',
-          url: `/training_programs/${trainingProgramId}/comments`,
+          url: `training_programs/${trainingProgramId}/comments`,
+          baseURL: rootGetters['system/getRootPath'],
           data: {
             comment,
           },
@@ -192,6 +212,25 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+      });
+    },
+    loadTrainingPlans({ commit, getters }, trainingProgramId) {
+      axios({
+        method: 'get',
+        url: `training_programs/${trainingProgramId}/training_plans`,
+        baseURL: rootGetters['system/getRootPath'],
+      })
+      .then((response) => {
+        const trainingProgram = getters.getTrainingProgramById(trainingProgramId);
+        const { data } = response;
+
+        commit('ADD_TRAINING_PLANS', {
+          trainingPlans: data,
+          trainingProgram,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
       });
     }
   }

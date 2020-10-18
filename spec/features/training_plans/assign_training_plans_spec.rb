@@ -18,11 +18,12 @@ feature  'User can observe his training plans', "
       click_link 'Calendar'
       find(".calendar__day[data-count='14']").click
       click_on 'Add training plan'
-      select 'First program'
-      select '15:00', from: 'Time'
-      click 'Ok'
+      select 'First program', from: 'Training program:'
+      fill_in 'Start time:', with: '15:00'
+      fill_in 'End time:', with: '16:00'
+      click_on 'Assign training plan'
 
-      within ".calendar__day[data-count='14']" do
+      within '.calendar-day__training-plans' do
         expect(page).to have_content 'First program'
       end
     end
