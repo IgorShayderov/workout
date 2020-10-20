@@ -27,7 +27,7 @@ export default [
     name: 'calendar',
   },
   {
-    path: '/:dayCount/calendar_day',
+    path: '/:year/:month/:day/calendar_day',
     component: CalendarDay,
     name: 'calendarDay',
     props: true,

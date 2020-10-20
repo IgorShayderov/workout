@@ -18,8 +18,12 @@ Rails.application.routes.draw do
       as: 'save_exercises'
 
     resources :comments, shallow: true, only: %i[index create]
-    resources :training_plans, shallow: true, only: %i[index]
   end
+
+  resources :training_plans, only: %i[create]
+
+  get '/:year/:month/:day/training_plans',
+    to: 'training_plans#index'
 
   # for vue-router historyApi
   get '/*path', to: 'training_programs#index' 

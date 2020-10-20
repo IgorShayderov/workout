@@ -75,6 +75,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { splitHoursDate } from '../helpers/dates';
 
 import formHelpers from '../mixins/formHelpers';
 
@@ -82,6 +83,12 @@ import ErrorsViewer from './ErrorsViewer';
 
 export default {
   mixins: [formHelpers],
+  props: {
+    dateInfo: {
+      type: Object,
+      required: true,
+    }
+  },
   created() {
     this.trainingPrograms = this.getTrainingPrograms;
   },
@@ -95,15 +102,17 @@ export default {
   },
   methods: {
     assignTrainingPlan() {
-      console.log(this.startTime, 'startTime');
-      console.log(this.selectedTrainingProgram);
-      console.log(new Date(2020, 1, 1, 13, 45));
-
+      const { year, month, day } = this.dateInfo;
+      const separatedStartTime = splitHoursDate(this.startTime);
+      const separatedEndTime = splitHoursDate(this.endTime);
       const data = {
-        start_time: this.startTime,
-        end_time: this.endTime,
-      }
-      this.selectedTrainingProgramId
+        start_time: new Date(year, month, day, separatedStartTime.hours, separatedStartTime.minutes),
+        end_time: new Date(year, month, day, separatedEndTime.hours, separatedEndTime.minutes),
+      };
+
+      this.selectedTrainingProgramId;
+
+
     },
   },
   computed: {

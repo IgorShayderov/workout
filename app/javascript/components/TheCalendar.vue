@@ -44,10 +44,12 @@ import { daysInMonth } from '../helpers/dates';
 
 export default {
   created() {
-    console.log();
+    console.log(this.date);
+
   },
   data() {
     return {
+      date: new Date(),
       daysInWeek: 7,
       weekDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
       monthNames: ["January", "February", "March", "April", "May", "June",
@@ -57,10 +59,13 @@ export default {
   },
   methods: {
     addTrainingPlans(event) {
-      const dayCount = event.target.dataset.count;
-      console.log(dayCount, 'event');
+      const day = event.target.dataset.count;
 
-      this.$router.push({ name: 'calendarDay', params: { dayCount }});
+      this.$router.push({ name: 'calendarDay', params: {
+        year: this.currentYear,
+        month: this.currentMonth,
+        day,
+       }});
     }
   },
   computed: {
@@ -70,13 +75,13 @@ export default {
       }
     },
     currentDate() {
-      return new Date().getDate();
+      return this.date.getDate();
     },
     currentMonth() {
-      return new Date().getMonth();
+      return this.date.getMonth();
     },
     currentYear() {
-      return new Date().getFullYear();
+      return this.date.getFullYear();
     },
     daysInMonthCount() {
       return daysInMonth(this.currentYear, this.currentMonth);
@@ -85,7 +90,7 @@ export default {
       return Math.ceil(this.daysInMonthCount / 7);
     },
     monthName() {
-      return this.monthNames[new Date().getMonth()];
+      return this.monthNames[this.date.getMonth()];
     },
     isOutOfLimit(day) {
       return (day) => {

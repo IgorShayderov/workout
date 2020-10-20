@@ -1,14 +1,24 @@
 <template>
   <div class="calendar-day">
     <div class="calendar-day__training-plans">
-      <p>
+      <p v-if="trainingPlans.length === 0">
         No training plans
       </p>
+
+      <ol v-else>
+        <li
+          v-for="trainingPlan in trainingPlans"
+          :key="trainingPlan.id"
+        >
+          {{ trainingPlan.id }}
+        </li>
+      </ol>
     </div>
 
     <training-plan-form
       :shouldShowForm="shouldShowForm"
       @close_form="closeForm"
+      :dateInfo="dateInfo"
     >
     </training-plan-form>
 
@@ -28,13 +38,21 @@ import TrainingPlanForm from './TrainingPlanForm';
 
 export default {
   props: {
-    dayCount: {
+    day: {
       type: [String, Number],
       required: true,
-    }
+    },
+    month: {
+      type: [String, Number],
+      required: true,
+    },
+    year: {
+      type: [String, Number],
+      required: true,
+    },
   },
   created() {
-    // response
+    this.loadTrainingPlans({ year: this.year, month: this.month, day: this.day });
   },
   data() {
     return {
@@ -44,6 +62,9 @@ export default {
   methods: {
     ...mapActions('system',
       ['showWrapper', 'hideWrapper']
+    ),
+    ...mapActions('trainingPrograms',
+      ['loadTrainingPlans']
     ),
     showForm() {
       this.shouldShowForm = true;
@@ -55,7 +76,19 @@ export default {
     },
   },
   computed: {
-
+    ...mapGetters('trainingPrograms',
+      ['getTrainingPlansByDate']
+    ),
+    trainingPlans() {
+      return this.getTrainingPlansByDate(this.year, this.month, this.day);
+    },
+    dateInfo() {
+      return {
+        day: this.day,
+        month: this.month,
+        year: this.year,
+      }
+    },
   },
   components: {
     TrainingPlanForm,
