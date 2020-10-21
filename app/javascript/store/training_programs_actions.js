@@ -12,7 +12,7 @@ export default {
     .then((response) => {
       const { data } = response;
 
-      commit('ADD_COMMENTS', {
+      commit('SAVE_COMMENTS', {
         comments: data,
         trainingProgram,
       });
@@ -33,11 +33,7 @@ export default {
         data: {
           exercises,
         },
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': rootGetters['system/getToken'],
-          'Accept': 'application/json',
-        }
+        headers: rootGetters['system/getPostHeaders'],
       })
       .then((response) => {
         const { data } = response;
@@ -59,7 +55,7 @@ export default {
   saveTrainingProgramExercises({ commit, getters }, { trainingProgramId, exercises }) {
     const trainingProgram = getters.getTrainingProgramById(trainingProgramId);
 
-    commit('ADD_TRAINING_PROGRAM_EXERCISES', {
+    commit('SAVE_TRAINING_PROGRAM_EXERCISES', {
       exercises,
       trainingProgram,
     });
@@ -73,7 +69,7 @@ export default {
     .then((response) => {
       const { data } = response;
 
-      commit('ADD_availableExercises', data);
+      commit('SAVE_AVAILABLE_EXERCISES', data);
     })
     .catch((error) => {
       console.log(error);
@@ -97,18 +93,14 @@ export default {
       console.log(error);
     })
   },
-  processTrainingProgram({ dispatch, rootGetters }, data) {
+  processTrainingProgram({ dispatch, rootGetters }, trainingProgramData) {
     return new Promise((resolve, reject) => {
       axios({
         method: 'post',
         url: '/training_programs',
         baseURL: rootGetters['system/getRootPath'],
-        data,
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': rootGetters['system/getToken'],
-          'Accept': 'application/json',
-        }
+        data: trainingProgramData,
+        headers: rootGetters['system/getPostHeaders'],
       })
       .then((response) => {
         const { data } = response;
@@ -138,11 +130,7 @@ export default {
         data: {
           comment,
         },
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': rootGetters['system/getToken'],
-          'Accept': 'application/json',
-        }
+        headers: rootGetters['system/getPostHeaders'],
       })
       .then((response) => {
         const { data } = response;
@@ -150,7 +138,7 @@ export default {
         resolve(data);
 
         if (!data.hasOwnProperty('errors')) {
-          commit('ADD_COMMENTS', {
+          commit('SAVE_COMMENTS', {
             comments: [ data ],
             trainingProgram,
           });
@@ -161,7 +149,7 @@ export default {
       });
     });
   },
-  loadTrainingPlans({ commit, getters, rootGetters }, { year, month, day }) {
+  loadTrainingPlans({ commit, rootGetters }, { year, month, day }) {
     axios({
       method: 'get',
       url: `${year}/${month}/${day}/training_plans`,
@@ -170,11 +158,9 @@ export default {
     .then((response) => {
       const { data } = response;
 
-      console.log(data, 'data');
-
       if (data.length > 0) {
         data.forEach((trainingPlan) => {
-          commit('ADD_TRAINING_PLANS', {
+          commit('SAVE_TRAINING_PLAN', {
             trainingPlan,
             year,
             month,
@@ -182,10 +168,47 @@ export default {
           });
         });
       }
-
     })
     .catch((error) => {
       console.log(error);
     });
-  }
+  },
+  saveTrainingPlan({ commit, rootGetters }, {
+    trainingPlanData,
+    trainingProgramId,
+    year,
+    month,
+    day ,
+  }) {
+    return new Promise((resolve, reject) => {
+      console.log(JSON.stringify(trainingPlanData, 'o'));
+      axios({
+        method: 'post',
+        url: `/training_programs/${trainingProgramId}/training_plans`,
+        baseURL: rootGetters['system/getRootPath'],
+        data: trainingPlanData,
+        headers: rootGetters['system/getPostHeaders'],
+      })
+      .then((response) => {
+        const { data } = response;
+  
+        if (data.errors) {
+          const { errors } = data;
+
+          reject(errors);
+        } else {
+          resolve(data);
+          commit('SAVE_TRAINING_PLAN', {
+            trainingPlan: data,
+            year,
+            month,
+            day,
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    });
+  },
 }

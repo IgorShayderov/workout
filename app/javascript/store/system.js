@@ -20,6 +20,13 @@ export default {
     getToken(state) {
       return state.token;
     },
+    getPostHeaders: (state, getters) => {
+      return {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': getters.getToken,
+        'Accept': 'application/json',
+      }
+    },
   },
   mutations: {
     SHOW_WRAPPER(state) {

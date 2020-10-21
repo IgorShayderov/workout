@@ -11,12 +11,12 @@ export function daysInMonth(month, year) {
 
 /**
  * Split hours date to hours and minutes separately
- * @param {Date} date - Date to separate
+ * @param {Date} date - Date in hours:minutes format
  * @returns {Object} - Separated hours and minutes
  */
 export function splitHoursDate(date) {
   return {
     hours: date.slice(0, 1),
-    minutes: date.slice(2, 3),
+    minutes: date.slice(3, 4),
   }
 }

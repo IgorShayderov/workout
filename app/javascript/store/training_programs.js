@@ -48,16 +48,16 @@ export default {
     SAVE_TRAINING_PROGRAM(state, trainingProgram) {
       state.trainingPrograms.push(trainingProgram);
     },
-    ADD_availableExercises(state, exercises) {
+    SAVE_AVAILABLE_EXERCISES(state, exercises) {
       state.availableExercises = exercises;
     },
-    ADD_TRAINING_PROGRAM_EXERCISES(state, { exercises, trainingProgram }) {
+    SAVE_TRAINING_PROGRAM_EXERCISES(state, { exercises, trainingProgram }) {
       trainingProgram.exercises = [...trainingProgram.exercises, ...exercises];
     },
-    ADD_COMMENTS(state, { comments, trainingProgram }) {
+    SAVE_COMMENTS(state, { comments, trainingProgram }) {
       trainingProgram.comments = [...trainingProgram.comments, ...comments];
     },
-    ADD_TRAINING_PLANS(state, { trainingPlan, year, month, day }) {
+    SAVE_TRAINING_PLAN(state, { trainingPlan, year, month, day }) {
       if (!state.trainingPlans[year]) {
         state.trainingPlans[year] = {};
       }

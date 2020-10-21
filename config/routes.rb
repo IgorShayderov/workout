@@ -18,9 +18,8 @@ Rails.application.routes.draw do
       as: 'save_exercises'
 
     resources :comments, shallow: true, only: %i[index create]
+    resources :training_plans, shallow: true, only: %i[create]
   end
-
-  resources :training_plans, only: %i[create]
 
   get '/:year/:month/:day/training_plans',
     to: 'training_plans#index'

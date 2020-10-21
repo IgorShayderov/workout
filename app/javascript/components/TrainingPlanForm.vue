@@ -63,18 +63,19 @@
       >
         Assign training plan
       </button>
-    </form>
 
-    <errors-viewer
-      :showErrors="showErrors"
-      :errors="errors"
-    >
-    </errors-viewer>
+      <errors-viewer
+        :showErrors="showErrors"
+        :errors="errors"
+      >
+      </errors-viewer>
+
+    </form>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import { splitHoursDate } from '../helpers/dates';
 
 import formHelpers from '../mixins/formHelpers';
@@ -101,24 +102,57 @@ export default {
     }
   },
   methods: {
-    assignTrainingPlan() {
+    ...mapActions('trainingPrograms',
+      ['saveTrainingPlan']
+    ),
+    calcDateFromTime(time) {
       const { year, month, day } = this.dateInfo;
-      const separatedStartTime = splitHoursDate(this.startTime);
-      const separatedEndTime = splitHoursDate(this.endTime);
-      const data = {
-        start_time: new Date(year, month, day, separatedStartTime.hours, separatedStartTime.minutes),
-        end_time: new Date(year, month, day, separatedEndTime.hours, separatedEndTime.minutes),
-      };
+      const { hours, minutes } = splitHoursDate(time);
 
-      this.selectedTrainingProgramId;
+      return new Date(year, month, day, hours, minutes);
+    },
+    assignTrainingPlan() {
+      if (!this.selectedTrainingProgramId) {
+        this.errors = {
+          training_program: ["can't be blank"],
+        };
+        this.showErrors = true;
+      } else {
+        const { year, month, day } = this.dateInfo;
+        const data = {
+          start_time: this.startTime ? this.calcDateFromTime(this.startTime) : null,
+          end_time: this.endTime ? this.calcDateFromTime(this.endTime) : null,
+        };
+        console.log(this.startTime, 'this.startTime');
+        console.log(this.calcDateFromTime(this.startTime));
+        console.log(this.endTime, 'this.endTime');
+        console.log(this.calcDateFromTime(this.endTime));
 
-
+        this.saveTrainingPlan({
+          trainingPlanData: data,
+          trainingProgramId: this.selectedTrainingProgramId,
+          year,
+          month,
+          day,
+        })
+        .then(
+          () => {
+            this.clearErrors();
+            this.clearForm();
+            this.closeForm();
+        },
+          (errors) => {
+            this.errors = errors;
+            this.showErrors = true;
+          }
+        );
+      }
     },
   },
   computed: {
     ...mapGetters('trainingPrograms',
       ['getTrainingPrograms']
-    )
+    ),
   },
   components: {
     ErrorsViewer,

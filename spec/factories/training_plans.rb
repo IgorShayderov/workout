@@ -5,4 +5,10 @@ FactoryBot.define do
     user
     training_program
   end
+
+  trait :invalid do
+    start_time { nil }
+    end_time { nil }
+  end
 end
+
