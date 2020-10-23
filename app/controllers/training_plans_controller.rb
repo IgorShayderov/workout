@@ -5,7 +5,7 @@ class TrainingPlansController < ApplicationController
     day = params[:day].to_i
     date = Date.new(year, month, day)
 
-    training_plans = TrainingPlan.all.where('start_time BETWEEN :min_time AND :max_time', min_time: date.beginning_of_day, max_time: date.end_of_day)
+    training_plans = TrainingPlan.plans_for_date(date)
 
     render json: training_plans
   end

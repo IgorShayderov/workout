@@ -9,7 +9,7 @@ class TrainingProgram < ApplicationRecord
   validates :description, length: { maximum: 250 }
   validates :location, presence: true
 
-  def create_exercises(exercises)
+  def add_exercises(exercises)
     result = {
       exercises_ids: [],
       errors: [],
