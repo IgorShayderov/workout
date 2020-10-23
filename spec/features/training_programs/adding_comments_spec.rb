@@ -14,7 +14,7 @@ feature 'User can add comments to training program', "
       visit root_path
     end
 
-    it 'adds valid comment to the training program' do
+    scenario 'adds valid comment to the training program' do
       find("div.training-program[data-id='#{training_program.id}'] h5.training-program_title").click
 
       fill_in 'New comment:', with: 'This is comment'
@@ -25,7 +25,7 @@ feature 'User can add comments to training program', "
       end
     end
 
-    it 'adds empty comment to the training program' do
+    scenario 'adds empty comment to the training program' do
       find("div.training-program[data-id='#{training_program.id}'] h5.training-program_title").click
 
       fill_in 'New comment:', with: ''

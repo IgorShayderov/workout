@@ -32,7 +32,8 @@ export default {
     handleErrorsObject() {
       return (errors) => {
           return Object.keys(errors).reduce((finalMessage, errorKey) => {
-            finalMessage += `${errorKey[0].toUpperCase() + errorKey.substring(1)} `;
+            console.log()
+            finalMessage += `${errorKey[0].toUpperCase() + errorKey.substring(1).replace('_', ' ')} `;
 
             errors[errorKey].forEach((errorMessage) => {
               finalMessage += `${errorMessage}<br>`;
@@ -50,7 +51,7 @@ export default {
       }
 
       return 'No errors';
-    }
+    },
   }
 }
 </script>

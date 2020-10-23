@@ -15,7 +15,7 @@ feature 'User can create training program', "
     end
 
     context 'tries to create training program' do
-      it 'with valid attributes' do
+      scenario 'with valid attributes' do
         fill_in 'Title', with: 'New program title'
         fill_in 'Description', with: 'Training program description'
         find(:css, '.training-program-form').choose('Outdoors')
@@ -24,7 +24,7 @@ feature 'User can create training program', "
         expect(page).to have_content 'New program title'
       end
 
-      it 'with invalid attributes' do
+      scenario 'with invalid attributes' do
         find(:css, '.training-program-form').choose('Outdoors')
         click_on 'Create'
 

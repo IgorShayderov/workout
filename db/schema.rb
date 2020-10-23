@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_10_160855) do
+ActiveRecord::Schema.define(version: 2020_10_14_114222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,17 @@ ActiveRecord::Schema.define(version: 2020_10_10_160855) do
     t.string "title", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "training_plans", force: :cascade do |t|
+    t.datetime "start_time", null: false
+    t.datetime "end_time", null: false
+    t.bigint "training_program_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["training_program_id"], name: "index_training_plans_on_training_program_id"
+    t.index ["user_id"], name: "index_training_plans_on_user_id"
   end
 
   create_table "training_program_exercises", force: :cascade do |t|
@@ -67,6 +78,8 @@ ActiveRecord::Schema.define(version: 2020_10_10_160855) do
 
   add_foreign_key "comments", "training_programs"
   add_foreign_key "comments", "users"
+  add_foreign_key "training_plans", "training_programs"
+  add_foreign_key "training_plans", "users"
   add_foreign_key "training_program_exercises", "exercises"
   add_foreign_key "training_program_exercises", "training_programs"
   add_foreign_key "training_programs", "users"

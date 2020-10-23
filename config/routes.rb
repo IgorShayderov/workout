@@ -5,18 +5,21 @@ Rails.application.routes.draw do
 
   resources :training_programs, only: %i[index create update destroy] do
 
-    get 'training_program_exercises',
-      to: 'exercises#training_program_exercises',
-      as: 'training_program_exercises'
+    post 'add_exercises', on: :member
 
-    get 'available_exercises',
-      to: 'exercises#available_exercises',
-      as: 'available_exercises'
-
-    post 'save_exercises',
-      to: 'exercises#save_exercises',
-      as: 'save_exercises'
+    resources :exercises, only: %i[index] do
+      get 'available', on: :collection
+    end
 
     resources :comments, shallow: true, only: %i[index create]
+    resources :training_plans, only: %i[create]
   end
+
+  resources :exercises
+
+  get '/:year/:month/:day/training_plans',
+    to: 'training_plans#index'
+
+  # for vue-router historyApi
+  get '/*path', to: 'training_programs#index' 
 end
