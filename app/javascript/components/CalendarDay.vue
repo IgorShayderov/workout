@@ -10,7 +10,7 @@
           v-for="trainingPlan in trainingPlans"
           :key="trainingPlan.id"
         >
-          {{ trainingPlan.id }}
+          {{ getTime(trainingPlan.start_time) }} - {{ getTime(trainingPlan.end_time) }} {{ trainingProgramTitle(trainingPlan.training_program_id) }}
         </li>
       </ol>
     </div>
@@ -52,7 +52,9 @@ export default {
     },
   },
   created() {
-    this.loadTrainingPlans({ year: this.year, month: this.month, day: this.day });
+    if (this.trainingPlans.length === 0) {
+      this.loadTrainingPlans({ year: this.year, month: this.month, day: this.day });
+    }
   },
   data() {
     return {
@@ -77,7 +79,7 @@ export default {
   },
   computed: {
     ...mapGetters('trainingPrograms',
-      ['getTrainingPlansByDate']
+      ['getTrainingPlansByDate', 'getTrainingProgramById']
     ),
     trainingPlans() {
       return this.getTrainingPlansByDate(this.year, this.month, this.day);
@@ -88,6 +90,20 @@ export default {
         month: this.month,
         year: this.year,
       }
+    },
+    trainingProgramTitle(trainingProgramId) {
+      return (trainingProgramId) => {
+        return this.getTrainingProgramById(trainingProgramId).title;
+      };
+    },
+    getTime(dateStr) {
+      return (dateStr) => {
+        const date = new Date(dateStr);
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+
+        return `${hours}:${minutes}`
+      };
     },
   },
   components: {

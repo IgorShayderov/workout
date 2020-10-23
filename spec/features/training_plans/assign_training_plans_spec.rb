@@ -12,19 +12,40 @@ feature  'User can observe his training plans', "
     background do
       sign_in(user)
       visit root_path
-    end
 
-    it 'assigns his training plans' do
       click_link 'Calendar'
       find(".calendar__day[data-count='14']").click
       click_on 'Add training plan'
+    end
+
+    scenario 'assigns training plan with valid params' do
       select 'First program', from: 'Training program:'
-      fill_in 'Start time:', with: '15:00'
-      fill_in 'End time:', with: '16:00'
+      fill_in 'Start time:', with: Time.new(2020, 10, 5, 14, 00)
+      fill_in 'End time:', with: Time.new(2020, 10, 5, 14, 30)
+
       click_on 'Assign training plan'
 
       within '.calendar-day__training-plans' do
         expect(page).to have_content 'First program'
+      end
+    end
+
+    scenario 'assigns training plan without end time' do
+      select 'First program', from: 'Training program:'
+      fill_in 'Start time:', with: Time.new(2020, 10, 5, 14, 00)
+
+      click_on 'Assign training plan'
+
+      within '.errors-viewer' do
+        expect(page).to have_content "End time can't be blank"
+      end
+    end
+
+    scenario 'tries to assigns training plan without training program' do
+      click_on 'Assign training plan'
+
+      within '.errors-viewer' do
+        expect(page).to have_content "Training program can't be blank"
       end
     end
   end

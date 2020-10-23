@@ -28,7 +28,7 @@ export default {
     return new Promise((resolve) => {
       axios({
         method: 'post',
-        url: `training_programs/${trainingProgramId}/save_exercises `,
+        url: `training_programs/${trainingProgramId}/add_exercises`,
         baseURL: rootGetters['system/getRootPath'],
         data: {
           exercises,
@@ -63,7 +63,7 @@ export default {
   addAvailableExercises({ commit, rootGetters }, trainingProgramId) {
     axios({
       method: 'get',
-      url: `training_programs/${trainingProgramId}/available_exercises`,
+      url: `training_programs/${trainingProgramId}/exercises/available`,
       baseURL: rootGetters['system/getRootPath'],
     })
     .then((response) => {
@@ -78,7 +78,7 @@ export default {
   loadTrainingProgramExercises({ dispatch, rootGetters }, trainingProgramId) {
     axios({
       method: 'get',
-      url: `training_programs/${trainingProgramId}/training_program_exercises`,
+      url: `training_programs/${trainingProgramId}/exercises`,
       baseURL: rootGetters['system/getRootPath'],
     })
     .then((response) => {
@@ -160,12 +160,7 @@ export default {
 
       if (data.length > 0) {
         data.forEach((trainingPlan) => {
-          commit('SAVE_TRAINING_PLAN', {
-            trainingPlan,
-            year,
-            month,
-            day,
-          });
+          commit('SAVE_TRAINING_PLAN', trainingPlan);
         });
       }
     })
@@ -181,7 +176,6 @@ export default {
     day ,
   }) {
     return new Promise((resolve, reject) => {
-      console.log(JSON.stringify(trainingPlanData, 'o'));
       axios({
         method: 'post',
         url: `/training_programs/${trainingProgramId}/training_plans`,
@@ -198,12 +192,7 @@ export default {
           reject(errors);
         } else {
           resolve(data);
-          commit('SAVE_TRAINING_PLAN', {
-            trainingPlan: data,
-            year,
-            month,
-            day,
-          });
+          commit('SAVE_TRAINING_PLAN', data);
         }
       })
       .catch((error) => {

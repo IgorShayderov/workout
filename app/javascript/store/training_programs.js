@@ -14,7 +14,7 @@ export default {
   namespaced: true,
   state: 
   {
-    trainingPlans: {},
+    trainingPlans: [],
     availableExercises: [],
     trainingPrograms,
   },
@@ -35,13 +35,16 @@ export default {
       return state.availableExercises.find((exercise) => exercise.id === exerciseId);
     },
     getTrainingPlansByDate: (state) => (year, month, day) => {
-      const trainingPlans = state.trainingPlans[year]
-        && state.trainingPlans[year][month]
-        && state.trainingPlans[year][month][day]
+      if (state.trainingPlans.length > 0) {
+        const minDate = new Date(year, month - 1, day);
+        const maxDate = new Date(year, month - 1, day, 23, 59);
 
-      return Array.isArray(trainingPlans)
-              ? trainingPlans
-              : [];
+        return state.trainingPlans.filter((plan) => {
+          return new Date(plan.start_time) > minDate && new Date(plan.end_time) < maxDate;
+        });
+      }
+
+      return [];
     },
   },
   mutations: {
@@ -57,20 +60,8 @@ export default {
     SAVE_COMMENTS(state, { comments, trainingProgram }) {
       trainingProgram.comments = [...trainingProgram.comments, ...comments];
     },
-    SAVE_TRAINING_PLAN(state, { trainingPlan, year, month, day }) {
-      if (!state.trainingPlans[year]) {
-        state.trainingPlans[year] = {};
-      }
-
-      if (!state.trainingPlans[year][month]) {
-        state.trainingPlans[year][month] = {};
-      }
-
-      if (!state.trainingPlans[year][month][day]) {
-        state.trainingPlans[year][month][day] = [];
-      }
-
-      state.trainingPlans[year][month][day].push(trainingPlan);
+    SAVE_TRAINING_PLAN(state, trainingPlan) {
+      state.trainingPlans.push(trainingPlan);
     },
   },
   actions,

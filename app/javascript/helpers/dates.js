@@ -16,7 +16,7 @@ export function daysInMonth(month, year) {
  */
 export function splitHoursDate(date) {
   return {
-    hours: date.slice(0, 1),
-    minutes: date.slice(3, 4),
+    hours: date.slice(0, 2),
+    minutes: date.slice(3, 5),
   }
 }

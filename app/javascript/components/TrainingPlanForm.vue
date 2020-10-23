@@ -109,7 +109,7 @@ export default {
       const { year, month, day } = this.dateInfo;
       const { hours, minutes } = splitHoursDate(time);
 
-      return new Date(year, month, day, hours, minutes);
+      return new Date(year, month - 1, day, hours, minutes);
     },
     assignTrainingPlan() {
       if (!this.selectedTrainingProgramId) {
@@ -123,10 +123,6 @@ export default {
           start_time: this.startTime ? this.calcDateFromTime(this.startTime) : null,
           end_time: this.endTime ? this.calcDateFromTime(this.endTime) : null,
         };
-        console.log(this.startTime, 'this.startTime');
-        console.log(this.calcDateFromTime(this.startTime));
-        console.log(this.endTime, 'this.endTime');
-        console.log(this.calcDateFromTime(this.endTime));
 
         this.saveTrainingPlan({
           trainingPlanData: data,

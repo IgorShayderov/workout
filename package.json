@@ -12,6 +12,9 @@
       "js",
       "vue"
     ],
+    "moduleNameMapper": {
+      "^@helpers(.*)$": "<rootDir>/helpers$1"
+    },
     "transform": {
       "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
       "^.+\\.vue$": "<rootDir>/node_modules/vue-jest"

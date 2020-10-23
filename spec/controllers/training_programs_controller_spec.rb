@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe TrainingProgramsController, type: :controller do
   let!(:user) { create(:user) }
   let(:training_programs) { create_list(:training_program, 3, user: user) }
+  let!(:exercises) { create_list(:exercise, 3) }
+  let(:training_program) { training_programs.first }
 
   before { login(user) }
   
@@ -64,5 +66,24 @@ RSpec.describe TrainingProgramsController, type: :controller do
 
   describe 'DELETE #destroy' do
     
+  end
+
+  describe 'POST #add_exercises' do
+    before do
+      post :add_exercises,
+            params: { id: training_program.id, 
+                      exercises: [{ exercise_id: exercises.first.id ,count: 0}] }
+    end 
+
+    it 'returns 200 status' do
+      expect(response).to be_successful
+    end
+
+    it 'saves exercises in database' do
+      expect { post :add_exercises,
+              params: { id: training_program.id,
+                        exercises: [{ exercise_id: exercises.first.id ,count: 0}] } }
+      .to change(TrainingProgramExercise, :count).by(1)
+    end
   end
 end

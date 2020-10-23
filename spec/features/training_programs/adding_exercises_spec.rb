@@ -15,7 +15,7 @@ feature 'User can add exercises to training program', "
       visit root_path
     end
 
-    it 'adds exercise to program' do
+    scenario 'adds exercise to program' do
       find("div.training-program[data-id='#{training_program.id}'] h5.training-program_title").click
       find("div.training-program-exercise[data-id='#{training_program.id}']").click
       click_on 'Confirm'
@@ -29,7 +29,7 @@ feature 'User can add exercises to training program', "
   describe 'Unauthenticated user' do
     background { visit root_path }
 
-    it 'redicted to sign in path' do
+    scenario 'redicted to sign in path' do
       expect(page).to have_content 'Log in'
       expect(page).to have_content 'Sign up'
     end

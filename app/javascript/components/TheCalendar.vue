@@ -44,8 +44,6 @@ import { daysInMonth } from '../helpers/dates';
 
 export default {
   created() {
-    console.log(this.date);
-
   },
   data() {
     return {
@@ -63,7 +61,7 @@ export default {
 
       this.$router.push({ name: 'calendarDay', params: {
         year: this.currentYear,
-        month: this.currentMonth,
+        month: this.currentMonth + 1,
         day,
        }});
     }
