@@ -2,6 +2,7 @@ class TrainingProgramsController < ApplicationController
   before_action :authenticate_user!
   before_action :get_training_program, only: %i[add_exercises]
 
+  # TODO write scoup, which will join training_program exercises into training program property 'exercises'
   def index
     @training_programs = current_user.training_programs
 

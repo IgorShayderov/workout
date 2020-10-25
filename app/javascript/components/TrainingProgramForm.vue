@@ -18,6 +18,7 @@
         <label>Title:
           <br>
           <input
+            data-testid="title"
             class="training-program-form__title"
             type="text"
             v-model="title"
@@ -28,7 +29,9 @@
         <label>
           Description(optional):
           <br>
-          <textarea cols="30" rows="10"
+          <textarea
+            data-testid="description"
+            cols="30" rows="10"
             class="training-program-form__description"
             v-model="description"
           ></textarea>
@@ -37,7 +40,9 @@
         <p>Where to train?</p>
 
         <label>
-          <input type="radio" name="where_to_train" value="gym"
+          <input
+            data-testid="location"
+            type="radio" name="where_to_train" value="gym"
             class="training-program-form__location"
             v-model="location"
           >
@@ -45,7 +50,9 @@
         </label>
 
         <label>
-          <input type="radio" name="where_to_train" value="outdoors"
+          <input
+            data-testid="location"
+            type="radio" name="where_to_train" value="outdoors"
             class="training-program-form__location"
             v-model="location"
           >
@@ -54,7 +61,6 @@
         <br>
 
         <errors-viewer
-          :showErrors="showErrors"
           :errors="errors"
         >
         </errors-viewer>
@@ -109,7 +115,6 @@ export default {
       },
       (errors) => {
         this.errors = errors;
-        this.showErrors = true;
       });
     },
   },

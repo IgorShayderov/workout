@@ -65,7 +65,6 @@
       </button>
 
       <errors-viewer
-        :showErrors="showErrors"
         :errors="errors"
       >
       </errors-viewer>
@@ -76,7 +75,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import { splitHoursDate } from '../helpers/dates';
+import { splitTimeDate } from '../helpers/dates';
 
 import formHelpers from '../mixins/formHelpers';
 
@@ -116,7 +115,6 @@ export default {
         this.errors = {
           training_program: ["can't be blank"],
         };
-        this.showErrors = true;
       } else {
         const { year, month, day } = this.dateInfo;
         const data = {
@@ -139,7 +137,6 @@ export default {
         },
           (errors) => {
             this.errors = errors;
-            this.showErrors = true;
           }
         );
       }

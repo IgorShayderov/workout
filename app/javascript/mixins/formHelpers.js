@@ -23,7 +23,6 @@ export default {
     },
     clearErrors() {
       this.errors = [];
-      this.showErrors = false;
     },
   },
 }

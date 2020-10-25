@@ -25,7 +25,7 @@
       <p
         class="text-center"
       >
-        No exercises yet
+        Exercises: {{ countTrainingProgramExercises }}
       </p>
     </div>
   </div>
@@ -41,6 +41,9 @@ export default {
       type: String,
     },
   },
+  created() {
+    // console.log('trainingProgram', this.trainingProgram);
+  },
   methods: {
     addExercises() {
       if (this.trainingProgram) {
@@ -50,7 +53,12 @@ export default {
         })
       }
     }
-  }
+  },
+  computed: {
+    countTrainingProgramExercises() {
+      return this.trainingProgram.exercises.length || 'No';
+    }
+  },
 }
 </script>
 

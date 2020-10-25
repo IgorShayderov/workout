@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1603624793517" clover="3.2.0">
+  <project timestamp="1603624793518" name="All files">
+    <metrics statements="32" coveredstatements="12" conditionals="6" coveredconditionals="4" methods="16" coveredmethods="6" elements="54" coveredelements="22" complexity="0" loc="32" ncloc="32" packages="2" files="3" classes="3"/>
+    <package name="components">
+      <metrics statements="25" coveredstatements="11" conditionals="6" coveredconditionals="4" methods="12" coveredmethods="5"/>
+      <file name="ErrorsViewer.vue" path="/home/igor/Documents/workout/app/javascript/components/ErrorsViewer.vue">
+        <metrics statements="14" coveredstatements="6" conditionals="6" coveredconditionals="4" methods="8" coveredmethods="4"/>
+        <line num="25" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="37" count="2" type="stmt"/>
+        <line num="38" count="2" type="stmt"/>
+        <line num="39" count="0" type="stmt"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="50" count="2" type="cond" truecount="3" falsecount="1"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="54" count="2" type="stmt"/>
+      </file>
+      <file name="TrainingProgramForm.vue" path="/home/igor/Documents/workout/app/javascript/components/TrainingProgramForm.vue">
+        <metrics statements="11" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="1"/>
+        <line num="81" count="1" type="stmt"/>
+        <line num="83" count="1" type="stmt"/>
+        <line num="84" count="1" type="stmt"/>
+        <line num="86" count="1" type="stmt"/>
+        <line num="91" count="2" type="stmt"/>
+        <line num="102" count="0" type="stmt"/>
+        <line num="110" count="0" type="stmt"/>
+        <line num="112" count="0" type="stmt"/>
+        <line num="113" count="0" type="stmt"/>
+        <line num="114" count="0" type="stmt"/>
+        <line num="117" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="mixins">
+      <metrics statements="7" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="1"/>
+      <file name="formHelpers.js" path="/home/igor/Documents/workout/app/javascript/mixins/formHelpers.js">
+        <metrics statements="7" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="1"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>

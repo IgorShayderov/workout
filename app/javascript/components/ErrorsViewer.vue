@@ -1,11 +1,11 @@
 <template>
   <div
-    v-show="showErrors"
+    v-show="shouldShowErrors"
     class="errors-viewer alert alert-danger"
   >
     <h4>Errors encountered:</h4>
     <div
-      class="errors-viewer_errors"
+      class="errors-viewer__errors"
       v-html="handledErrors"
     >
     </div>
@@ -15,15 +15,19 @@
 <script>
 export default {
   props: {
-    showErrors: {
-      type: Boolean,
-      default: false,
-    },
     errors: {
-      type: [Object, Array]
+      type: [Object, Array],
+      required: true,
     }
   },
   computed: {
+    shouldShowErrors() {
+      if (Array.isArray(this.errors)) {
+        return this.errors.length;
+      }
+
+      return Object.keys(this.errors).length;
+    },
     handleErrorsArray() {
       return (errors) => {
         return errors.join('<br>');
@@ -32,7 +36,6 @@ export default {
     handleErrorsObject() {
       return (errors) => {
           return Object.keys(errors).reduce((finalMessage, errorKey) => {
-            console.log()
             finalMessage += `${errorKey[0].toUpperCase() + errorKey.substring(1).replace('_', ' ')} `;
 
             errors[errorKey].forEach((errorMessage) => {
@@ -46,11 +49,9 @@ export default {
     handledErrors() {
       if (Array.isArray(this.errors) && this.errors.length > 0) {
         return this.handleErrorsArray(this.errors);
-      } else {
-        return this.handleErrorsObject(this.errors);
       }
 
-      return 'No errors';
+      return this.handleErrorsObject(this.errors);
     },
   }
 }

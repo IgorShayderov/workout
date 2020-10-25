@@ -4,7 +4,7 @@
       <p v-if="trainingPlans.length === 0">
         No training plans
       </p>
-
+<!-- TODO change trainingPlan string to computed -->
       <ol v-else>
         <li
           v-for="trainingPlan in trainingPlans"
