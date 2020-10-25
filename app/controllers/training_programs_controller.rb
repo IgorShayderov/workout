@@ -32,7 +32,7 @@ class TrainingProgramsController < ApplicationController
   end
 
   def add_exercises
-    result = @training_program.create_exercises(params[:exercises])
+    result = @training_program.add_exercises(params[:exercises])
 
     if result[:errors].empty?
       render json: Exercise.created_exercises(@training_program.id, result[:exercises_ids])
