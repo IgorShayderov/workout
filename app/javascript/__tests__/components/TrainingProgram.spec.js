@@ -2,6 +2,10 @@ import { mount } from '@vue/test-utils';
 import TrainingProgram from 'components/TrainingProgram';
 
 describe('TrainingProgram component', () => {
+  beforeEach(() => {
+
+  });
+
   test('hz', () => {
     const trainingProgram = {
       id: 1,

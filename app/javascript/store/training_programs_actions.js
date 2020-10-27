@@ -9,17 +9,17 @@ export default {
       url: `/training_programs/${trainingProgramId}/comments`,
       baseUrl: rootGetters['system/getRootPath'],
     })
-    .then((response) => {
-      const { data } = response;
+        .then((response) => {
+          const { data } = response;
 
-      commit('SAVE_COMMENTS', {
-        comments: data,
-        trainingProgram,
-      });
-    })
-    .catch((error) => {
-      console.log(error);
-    })
+          commit('SAVE_COMMENTS', {
+            comments: data,
+            trainingProgram,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
   },
   saveTrainingProgram({ commit }, trainingProgram) {
     commit('SAVE_TRAINING_PROGRAM', trainingProgram);
@@ -35,21 +35,21 @@ export default {
         },
         headers: rootGetters['system/getPostHeaders'],
       })
-      .then((response) => {
-        const { data } = response;
+          .then((response) => {
+            const { data } = response;
 
-        if (!data.hasOwnProperty('errors')) {
-          dispatch('saveTrainingProgramExercises', {
-            trainingProgramId,
-            exercises: data,
+            if (!data.errors) {
+              dispatch('saveTrainingProgramExercises', {
+                trainingProgramId,
+                exercises: data,
+              });
+            }
+
+            resolve(data);
+          })
+          .catch((error) => {
+            console.log(error);
           });
-        }
-
-        resolve(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
     });
   },
   saveTrainingProgramExercises({ commit, getters }, { trainingProgramId, exercises }) {
@@ -66,14 +66,14 @@ export default {
       url: `training_programs/${trainingProgramId}/exercises/available`,
       baseURL: rootGetters['system/getRootPath'],
     })
-    .then((response) => {
-      const { data } = response;
+        .then((response) => {
+          const { data } = response;
 
-      commit('SAVE_AVAILABLE_EXERCISES', data);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+          commit('SAVE_AVAILABLE_EXERCISES', data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
   },
   loadTrainingProgramExercises({ dispatch, rootGetters }, trainingProgramId) {
     axios({
@@ -81,17 +81,17 @@ export default {
       url: `training_programs/${trainingProgramId}/exercises`,
       baseURL: rootGetters['system/getRootPath'],
     })
-    .then((response) => {
-      const { data } = response;
+        .then((response) => {
+          const { data } = response;
 
-      dispatch('saveTrainingProgramExercises', {
-        trainingProgramId,
-        exercises: data,
-      });
-    })
-    .catch((error) => {
-      console.log(error);
-    })
+          dispatch('saveTrainingProgramExercises', {
+            trainingProgramId,
+            exercises: data,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
   },
   processTrainingProgram({ dispatch, rootGetters }, trainingProgramData) {
     return new Promise((resolve, reject) => {
@@ -102,21 +102,21 @@ export default {
         data: trainingProgramData,
         headers: rootGetters['system/getPostHeaders'],
       })
-      .then((response) => {
-        const { data } = response;
+          .then((response) => {
+            const { data } = response;
 
-        if (data.errors) {
-          const { errors } = data;
+            if (data.errors) {
+              const { errors } = data;
 
-          reject(errors);
-        } else {
-          resolve();
-          dispatch('saveTrainingProgram', data);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+              reject(errors);
+            } else {
+              resolve();
+              dispatch('saveTrainingProgram', data);
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
     });
   },
   saveComment({ commit, getters, rootGetters }, { comment, trainingProgramId }) {
@@ -132,21 +132,21 @@ export default {
         },
         headers: rootGetters['system/getPostHeaders'],
       })
-      .then((response) => {
-        const { data } = response;
+          .then((response) => {
+            const { data } = response;
 
-        resolve(data);
+            resolve(data);
 
-        if (!data.hasOwnProperty('errors')) {
-          commit('SAVE_COMMENTS', {
-            comments: [ data ],
-            trainingProgram,
+            if (!data.errors) {
+              commit('SAVE_COMMENTS', {
+                comments: [ data ],
+                trainingProgram,
+              });
+            }
+          })
+          .catch((error) => {
+            console.log(error);
           });
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
     });
   },
   loadTrainingPlans({ commit, rootGetters }, { year, month, day }) {
@@ -155,25 +155,22 @@ export default {
       url: `${year}/${month}/${day}/training_plans`,
       baseURL: rootGetters['system/getRootPath'],
     })
-    .then((response) => {
-      const { data } = response;
+        .then((response) => {
+          const { data } = response;
 
-      if (data.length > 0) {
-        data.forEach((trainingPlan) => {
-          commit('SAVE_TRAINING_PLAN', trainingPlan);
+          if (data.length > 0) {
+            data.forEach((trainingPlan) => {
+              commit('SAVE_TRAINING_PLAN', trainingPlan);
+            });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
         });
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
   },
   saveTrainingPlan({ commit, rootGetters }, {
     trainingPlanData,
     trainingProgramId,
-    year,
-    month,
-    day ,
   }) {
     return new Promise((resolve, reject) => {
       axios({
@@ -183,21 +180,21 @@ export default {
         data: trainingPlanData,
         headers: rootGetters['system/getPostHeaders'],
       })
-      .then((response) => {
-        const { data } = response;
-  
-        if (data.errors) {
-          const { errors } = data;
+          .then((response) => {
+            const { data } = response;
 
-          reject(errors);
-        } else {
-          resolve(data);
-          commit('SAVE_TRAINING_PLAN', data);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+            if (data.errors) {
+              const { errors } = data;
+
+              reject(errors);
+            } else {
+              resolve(data);
+              commit('SAVE_TRAINING_PLAN', data);
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
     });
   },
-}
+};

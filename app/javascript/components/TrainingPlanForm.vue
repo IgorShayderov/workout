@@ -87,7 +87,7 @@ export default {
     dateInfo: {
       type: Object,
       required: true,
-    }
+    },
   },
   created() {
     this.trainingPrograms = this.getTrainingPrograms;
@@ -102,18 +102,18 @@ export default {
   },
   methods: {
     ...mapActions('trainingPrograms',
-      ['saveTrainingPlan']
+        ['saveTrainingPlan'],
     ),
     calcDateFromTime(time) {
       const { year, month, day } = this.dateInfo;
-      const { hours, minutes } = splitHoursDate(time);
+      const { hours, minutes } = splitTimeDate(time);
 
       return new Date(year, month - 1, day, hours, minutes);
     },
     assignTrainingPlan() {
       if (!this.selectedTrainingProgramId) {
         this.errors = {
-          training_program: ["can't be blank"],
+          training_program: ['can\'t be blank'],
         };
       } else {
         const { year, month, day } = this.dateInfo;
@@ -125,32 +125,29 @@ export default {
         this.saveTrainingPlan({
           trainingPlanData: data,
           trainingProgramId: this.selectedTrainingProgramId,
-          year,
-          month,
-          day,
         })
-        .then(
-          () => {
-            this.clearErrors();
-            this.clearForm();
-            this.closeForm();
-        },
-          (errors) => {
-            this.errors = errors;
-          }
-        );
+            .then(
+                () => {
+                  this.clearErrors();
+                  this.clearForm();
+                  this.closeForm();
+                },
+                (errors) => {
+                  this.errors = errors;
+                },
+            );
       }
     },
   },
   computed: {
     ...mapGetters('trainingPrograms',
-      ['getTrainingPrograms']
+        ['getTrainingPrograms'],
     ),
   },
   components: {
     ErrorsViewer,
-  }
-}
+  },
+};
 </script>
 
 <style scoped>

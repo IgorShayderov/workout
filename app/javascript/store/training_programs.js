@@ -1,18 +1,17 @@
+/* global gon */
 import actions from './training_programs_actions';
 
-const trainingPrograms = gon.training_programs
-  ? gon.training_programs.map((trainingProgram) => {
+const trainingPrograms =
+  gon.training_programs.map((trainingProgram) => {
     // defining properties in advance to use vue reactivity
-    trainingProgram.exercises = [];
     trainingProgram.comments = [];
 
     return trainingProgram;
-  })
-  : [];
+  });
 
 export default {
   namespaced: true,
-  state: 
+  state:
   {
     trainingPlans: [],
     availableExercises: [],

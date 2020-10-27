@@ -1,8 +1,8 @@
 /**
- * Get count of days in month 
- * @param {number} month - Date month
+ * Get count of days in month
  * @param {number} year - Date year
- * @returns {Date} - Count of days in month
+ * @param {number} month - Date month
+ * @return {Date} - Count of days in month
  */
 export function daysInMonth(year, month) {
   // month count start from 0, so we have to add 1 to get actual month
@@ -12,11 +12,11 @@ export function daysInMonth(year, month) {
 /**
  * Split hours date to hours and minutes separately
  * @param {Date} date - Date in hours:minutes format
- * @returns {Object} - Separated hours and minutes
+ * @return {Object} - Separated hours and minutes
  */
 export function splitTimeDate(date) {
   return {
     hours: date.slice(0, 2),
     minutes: date.slice(3, 5),
-  }
+  };
 }
