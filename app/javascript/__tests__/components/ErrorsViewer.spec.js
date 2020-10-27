@@ -15,7 +15,7 @@ describe('ErrorsViewer component', () => {
   });
 
   test('when there are errors thrown, errors-viewer should be visible', async () => {
-    wrapper.setData({ errors: [error] })
+    wrapper.setProps({ errors: [error] })
 
     await wrapper.vm.$nextTick();
 
@@ -27,7 +27,7 @@ describe('ErrorsViewer component', () => {
   });
 
   test('when there are errors thrown, they should be printed', async () => {
-    wrapper.setData({ errors: [error] })
+    wrapper.setProps({ errors: [error] })
 
     await wrapper.vm.$nextTick();
 
@@ -35,7 +35,7 @@ describe('ErrorsViewer component', () => {
   });
 
   test('should show errors when errors object passed', async () => {
-    wrapper.setData({ errors: { title: ["can't be blank"] } });
+    wrapper.setProps({ errors: { title: ["can't be blank"] } });
 
     await wrapper.vm.$nextTick();
 

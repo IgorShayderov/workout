@@ -4,7 +4,7 @@
     @click="addExercises"
   >
     <h5
-      class="training-program_title"
+      class="training-program__title"
     >
       {{ title || trainingProgram.title }}
     </h5>
@@ -71,7 +71,7 @@ export default {
   border-radius: 10px;
 }
 
-.training-program_title {
+.training-program__title {
   text-align: center;
   border-bottom: 1px dashed black;
 }

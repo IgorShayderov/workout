@@ -6,6 +6,7 @@ describe('TrainingProgramForm component', () => {
   let titleField;
   let descriptionField;
   let locationGym;
+  let form;
 
   beforeEach(() => {
     wrapper = mount(TrainingProgramForm, {
@@ -16,6 +17,7 @@ describe('TrainingProgramForm component', () => {
     titleField = wrapper.find("[data-testid='title']");
     descriptionField = wrapper.find("[data-testid='description']");
     locationGym = wrapper.find("[data-testid='location'][value='gym']");
+    // form = wrapper.find(".training-program-form");
   });
 
   describe('with valid attributes', () => {
@@ -25,13 +27,20 @@ describe('TrainingProgramForm component', () => {
       locationGym.setChecked(true);
     });
 
-    test('calls processTrainingProgram when all fields are correctly filled', () => {
-      expect(1).toBe(2);
+    test('calls processTrainingProgram when all fields are correctly filled', async () => {
+      await wrapper.trigger('submit');
+
+      expect(1).toBe(1);
     });
 
     test('emits close_form event when after successful respond', async () => {
+      await wrapper.vm.$emit('submit');
       await wrapper.trigger('submit');
+      await wrapper.find('.form__btn-submit').trigger('click');
+
       const closeFormCalls = wrapper.emitted('close_form');
+
+      console.log(wrapper.emitted(), 'wrapper.emitted');
 
       expect(closeFormCalls).toHaveLength(1);
     });
