@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 feature 'User can add comments to training program', "
@@ -15,7 +17,7 @@ feature 'User can add comments to training program', "
     end
 
     scenario 'adds valid comment to the training program' do
-      find("div.training-program[data-id='#{training_program.id}'] h5.training-program_title").click
+      find("div.training-program[data-id='#{training_program.id}'] h5.training-program__title").click
 
       fill_in 'New comment:', with: 'This is comment'
       click_on 'Add comment'
@@ -26,7 +28,7 @@ feature 'User can add comments to training program', "
     end
 
     scenario 'adds empty comment to the training program' do
-      find("div.training-program[data-id='#{training_program.id}'] h5.training-program_title").click
+      find("div.training-program[data-id='#{training_program.id}'] h5.training-program__title").click
 
       fill_in 'New comment:', with: ''
       click_on 'Add comment'

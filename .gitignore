@@ -44,3 +44,6 @@ yarn-debug.log*
 
 # rvm options
 .rvmrc
+
+# jest tests coverage
+/coverage

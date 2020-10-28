@@ -50,16 +50,16 @@ export default {
         this.$router.push({
           name: 'trainingProgramExercises',
           params: { trainingProgramId: this.trainingProgram.id },
-        })
+        });
       }
-    }
+    },
   },
   computed: {
     countTrainingProgramExercises() {
       return this.trainingProgram.exercises.length || 'No';
-    }
+    },
   },
-}
+};
 </script>
 
 <style scoped>

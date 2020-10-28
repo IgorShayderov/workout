@@ -119,7 +119,7 @@ export default {
   },
   methods: {
     ...mapActions('trainingPrograms',
-      ['addAvailableExercises', 'loadTrainingProgramExercises', 'processTrainingProgramExercises']
+        [ 'addAvailableExercises', 'loadTrainingProgramExercises', 'processTrainingProgramExercises' ],
     ),
     handleCommentError(errors) {
       this.errors = errors;
@@ -154,37 +154,36 @@ export default {
       const exercises = this.selectedExercises.map((selectedExercise) => {
         return {
           exercise_id: selectedExercise.id,
-          count: selectedExercise.count || 0,
-        }
+        };
       });
 
       this.processTrainingProgramExercises({
         trainingProgramId: this.trainingProgramId,
         exercises,
       })
-      .then((data) => {
-        if (data.hasOwnProperty('errors')) {
-          this.errors = data.errors;
-          this.showErrors = true;
-        }
+          .then((data) => {
+            if (data.errors) {
+              this.errors = data.errors;
+              this.showErrors = true;
+            }
 
-        this.clearSelectedExercisesList();
-      });
+            this.clearSelectedExercisesList();
+          });
     },
   },
   computed: {
     ...mapGetters('trainingPrograms',
-      ['getTrainingProgramById', 'getAvailableExercises', 'getAvailableExerciseById']
+        [ 'getTrainingProgramById', 'getAvailableExercises', 'getAvailableExerciseById' ],
     ),
     trainingProgramExercises() {
       const trainingProgram = this.getTrainingProgramById(this.trainingProgramId);
 
-      if (trainingProgram.hasOwnProperty('exercises')) {
-        return trainingProgram.exercises
+      if (trainingProgram.exercises) {
+        return trainingProgram.exercises;
       }
 
       return [];
-    }
+    },
   },
   components: {
     ExerciseView,

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe TrainingPlan, type: :model do
@@ -13,15 +15,15 @@ RSpec.describe TrainingPlan, type: :model do
     let(:date) { DateTime.new(2020, 10, 17, 12, 0) }
     let(:first_training_plan) do
       create(:training_plan, training_program: training_program,
-                              user: user,
-                              start_time: date,
-                              end_time: date + 1.hour)
-    end 
+                             user: user,
+                             start_time: date,
+                             end_time: date + 1.hour)
+    end
     let(:second_training_plan) do
       create(:training_plan, training_program: training_program,
-                              user: user,
-                              start_time: date + 1.day,
-                              end_time: date + 1.day + 1.hour)
+                             user: user,
+                             start_time: date + 1.day,
+                             end_time: date + 1.day + 1.hour)
     end
 
     it 'should returns exercise with appropriate date' do

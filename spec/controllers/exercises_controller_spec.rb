@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe ExercisesController, type: :controller do
@@ -28,9 +30,11 @@ RSpec.describe ExercisesController, type: :controller do
   end
 
   describe 'GET #index' do
-    let!(:training_program_exercise) { create(:training_program_exercise,
-                                              training_program: training_program,
-                                              exercise: exercises.first) }
+    let!(:training_program_exercise) do
+      create(:training_program_exercise,
+             training_program: training_program,
+             exercise: exercises.first)
+    end
 
     before { get :index, params: { training_program_id: training_program.id } }
 

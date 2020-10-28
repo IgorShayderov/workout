@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'devised/registrations' }
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root to: 'training_programs#index'
 
   resources :training_programs, only: %i[index create update destroy] do
-
     post 'add_exercises', on: :member
 
     resources :exercises, only: %i[index] do
@@ -18,8 +19,8 @@ Rails.application.routes.draw do
   resources :exercises
 
   get '/:year/:month/:day/training_plans',
-    to: 'training_plans#index'
+      to: 'training_plans#index'
 
   # for vue-router historyApi
-  get '/*path', to: 'training_programs#index' 
+  get '/*path', to: 'training_programs#index'
 end

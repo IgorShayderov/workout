@@ -4,13 +4,13 @@
       <p v-if="trainingPlans.length === 0">
         No training plans
       </p>
-<!-- TODO change trainingPlan string to computed -->
+
       <ol v-else>
         <li
           v-for="trainingPlan in trainingPlans"
           :key="trainingPlan.id"
         >
-          {{ getTime(trainingPlan.start_time) }} - {{ getTime(trainingPlan.end_time) }} {{ trainingProgramTitle(trainingPlan.training_program_id) }}
+          {{ trainingInfo(trainingPlan) }}
         </li>
       </ol>
     </div>
@@ -39,15 +39,15 @@ import TrainingPlanForm from './TrainingPlanForm';
 export default {
   props: {
     day: {
-      type: [String, Number],
+      type: [ String, Number ],
       required: true,
     },
     month: {
-      type: [String, Number],
+      type: [ String, Number ],
       required: true,
     },
     year: {
-      type: [String, Number],
+      type: [ String, Number ],
       required: true,
     },
   },
@@ -63,10 +63,10 @@ export default {
   },
   methods: {
     ...mapActions('system',
-      ['showWrapper', 'hideWrapper']
+        [ 'showWrapper', 'hideWrapper' ],
     ),
     ...mapActions('trainingPrograms',
-      ['loadTrainingPlans']
+        [ 'loadTrainingPlans' ],
     ),
     showForm() {
       this.shouldShowForm = true;
@@ -79,7 +79,7 @@ export default {
   },
   computed: {
     ...mapGetters('trainingPrograms',
-      ['getTrainingPlansByDate', 'getTrainingProgramById']
+        [ 'getTrainingPlansByDate', 'getTrainingProgramById' ],
     ),
     trainingPlans() {
       return this.getTrainingPlansByDate(this.year, this.month, this.day);
@@ -89,7 +89,7 @@ export default {
         day: this.day,
         month: this.month,
         year: this.year,
-      }
+      };
     },
     trainingProgramTitle(trainingProgramId) {
       return (trainingProgramId) => {
@@ -102,14 +102,23 @@ export default {
         const hours = date.getHours();
         const minutes = date.getMinutes();
 
-        return `${hours}:${minutes}`
+        return `${hours}:${minutes}`;
+      };
+    },
+    trainingInfo() {
+      return (trainingPlan) => {
+        const startTime = this.getTime(trainingPlan.start_time);
+        const endTime = this.getTime(trainingPlan.end_time);
+        const title = this.trainingProgramTitle(trainingPlan.training_program_id);
+
+        return `${startTime} - ${endTime} ${title}`;
       };
     },
   },
   components: {
     TrainingPlanForm,
-  }
-}
+  },
+};
 </script>
 
 <style scoped>

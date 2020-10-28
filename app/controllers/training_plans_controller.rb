@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TrainingPlansController < ApplicationController
   def index
     year = params[:year].to_i

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TrainingProgramExercise < ApplicationRecord
   belongs_to :training_program
   belongs_to :exercise
@@ -8,7 +10,9 @@ class TrainingProgramExercise < ApplicationRecord
 
   def validate_exercises_number
     if training_program.present?
-      errors.add(:training_program, 'can have only 10 exercises') if training_program.training_program_exercises.count >= 10
+      if training_program.training_program_exercises.count >= 10
+        errors.add(:training_program, 'can have only 10 exercises')
+      end
     end
   end
 end

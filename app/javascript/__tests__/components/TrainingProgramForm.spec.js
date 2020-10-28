@@ -6,17 +6,17 @@ describe('TrainingProgramForm component', () => {
   let titleField;
   let descriptionField;
   let locationGym;
-  let form;
+  // let form;
 
   beforeEach(() => {
     wrapper = mount(TrainingProgramForm, {
       propsData: {
-        shouldShowForm: true
-      }
+        shouldShowForm: true,
+      },
     });
-    titleField = wrapper.find("[data-testid='title']");
-    descriptionField = wrapper.find("[data-testid='description']");
-    locationGym = wrapper.find("[data-testid='location'][value='gym']");
+    titleField = wrapper.find('[data-testid=\'title\']');
+    descriptionField = wrapper.find('[data-testid=\'description\']');
+    locationGym = wrapper.find('[data-testid=\'location\'][value=\'gym\']');
     // form = wrapper.find(".training-program-form");
   });
 
@@ -45,6 +45,4 @@ describe('TrainingProgramForm component', () => {
       expect(closeFormCalls).toHaveLength(1);
     });
   });
-
-
 });

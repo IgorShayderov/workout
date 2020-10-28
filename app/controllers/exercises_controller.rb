@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ExercisesController < ApplicationController
   before_action :get_training_program, only: %i[index available]
 

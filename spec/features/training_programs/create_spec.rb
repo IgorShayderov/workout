@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 feature 'User can create training program', "
@@ -28,7 +30,7 @@ feature 'User can create training program', "
         find(:css, '.training-program-form').choose('Outdoors')
         click_on 'Create'
 
-        within '.training-program-form .errors-viewer_errors' do
+        within '.training-program-form .errors-viewer' do
           expect(page).to have_content 'Title'
           expect(page).to have_content "can't be blank"
         end

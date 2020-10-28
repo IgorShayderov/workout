@@ -21,9 +21,6 @@ export default {
           console.log(error);
         });
   },
-  saveTrainingProgram({ commit }, trainingProgram) {
-    commit('SAVE_TRAINING_PROGRAM', trainingProgram);
-  },
   processTrainingProgramExercises({ dispatch, rootGetters }, { trainingProgramId, exercises }) {
     return new Promise((resolve) => {
       axios({
@@ -93,7 +90,7 @@ export default {
           console.log(error);
         });
   },
-  processTrainingProgram({ dispatch, rootGetters }, trainingProgramData) {
+  saveTrainingProgram({ commit, dispatch, rootGetters }, trainingProgramData) {
     return new Promise((resolve, reject) => {
       axios({
         method: 'post',
@@ -110,8 +107,10 @@ export default {
 
               reject(errors);
             } else {
+              data.exercises = [];
+
               resolve();
-              dispatch('saveTrainingProgram', data);
+              commit('SAVE_TRAINING_PROGRAM', data);
             }
           })
           .catch((error) => {

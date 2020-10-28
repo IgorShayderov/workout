@@ -86,17 +86,17 @@ import formHelpers from '../mixins/formHelpers';
 import ErrorsViewer from './ErrorsViewer';
 
 export default {
-  mixins: [formHelpers],
+  mixins: [ formHelpers ],
   data() {
     return {
       title: '',
       description: '',
       location: '',
-    }
+    };
   },
   methods: {
     ...mapActions('trainingPrograms',
-      ['saveTrainingProgram', 'processTrainingProgram'],
+        [ 'saveTrainingProgram' ],
     ),
     createTrainingProgram(event) {
       const data = {
@@ -104,24 +104,24 @@ export default {
           title: this.title,
           description: this.description,
           location: this.location,
-        }
+        },
       };
 
-      this.processTrainingProgram(data)
-      .then(() => {
-        this.clearErrors();
-        this.clearForm();
-        this.closeForm();
-      },
-      (errors) => {
-        this.errors = errors;
-      });
+      this.saveTrainingProgram(data)
+          .then(() => {
+            this.clearErrors();
+            this.clearForm();
+            this.closeForm();
+          },
+          (errors) => {
+            this.errors = errors;
+          });
     },
   },
   components: {
     ErrorsViewer,
-  }
-}
+  },
+};
 </script>
 
 <style scoped>

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TrainingProgramsController < ApplicationController
   before_action :authenticate_user!
   before_action :get_training_program, only: %i[add_exercises]
@@ -6,10 +8,10 @@ class TrainingProgramsController < ApplicationController
     @training_programs = current_user.training_programs_with_exercises
 
     gon.push({
-      training_programs: @training_programs,
-      user: current_user,
-      root: root_path,
-    })
+               training_programs: @training_programs,
+               user: current_user,
+               root: root_path
+             })
   end
 
   def create
@@ -22,13 +24,9 @@ class TrainingProgramsController < ApplicationController
     end
   end
 
-  def update
-    
-  end
+  def update; end
 
-  def destroy
-    
-  end
+  def destroy; end
 
   def add_exercises
     result = @training_program.add_exercises(params[:exercises])
