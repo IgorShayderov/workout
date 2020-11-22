@@ -1,8 +1,9 @@
-import Root from '../components/TrainingProgramsBoard';
-import TrainingProgramExercises from '../components/TrainingProgramExercises';
-import UserProfile from '../components/UserProfile';
-import TheCalendar from '../components/TheCalendar';
-import CalendarDay from '../components/CalendarDay';
+import Root from '@js/components/TrainingProgramsBoard';
+import TrainingProgramExercises from '@js/components/TrainingProgramExercises';
+import UserProfile from '@js/components/UserProfile';
+import TheCalendar from '@js/components/TheCalendar';
+import CalendarDay from '@js/components/CalendarDay';
+import E404 from '@js/components/E404';
 
 export default [
   {
@@ -31,5 +32,9 @@ export default [
     component: CalendarDay,
     name: 'calendarDay',
     props: true,
-  }
+  },
+  {
+    path: '*',
+    component: E404,
+  },
 ];
