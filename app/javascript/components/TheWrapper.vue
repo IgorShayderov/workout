@@ -12,9 +12,9 @@ export default {
     showWrapper: {
       type: Boolean,
       required: true,
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>

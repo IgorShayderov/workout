@@ -12,6 +12,13 @@
   </head>
 
   <body>
-    <%= yield %>
+    <header>
+      <%# TODO make flash messages work %>
+      <% render 'shared/flash' %>
+    </header>
+
+    <main>
+      <%= yield %>
+    </main>
   </body>
 </html>

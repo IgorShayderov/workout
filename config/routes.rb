@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     resources :training_plans, only: %i[create]
   end
 
-  resources :exercises
+  resources :exercises, only: %i[index create update destroy]
 
   get '/:year/:month/:day/training_plans',
       to: 'training_plans#index'

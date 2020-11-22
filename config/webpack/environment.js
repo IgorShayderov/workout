@@ -9,9 +9,9 @@ environment.config.merge({
   },
   resolve: {
     alias: {
-      js$: path.resolve(__dirname, '/app/javascript'),
-    }
-  }
+      '@js': path.resolve(__dirname, '../../app/javascript'),
+    },
+  },
 });
 
 environment.plugins.prepend('VueLoaderPlugin', new VueLoaderPlugin())

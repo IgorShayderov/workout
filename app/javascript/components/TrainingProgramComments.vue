@@ -13,7 +13,7 @@
 
     <label>
       <span>New comment:</span><br>
-      
+
       <textarea
         class="training-program-comments_new-comment"
         cols="30" rows="3"
@@ -40,12 +40,12 @@ export default {
     trainingProgramId: {
       type: String,
       required: true,
-    }
+    },
   },
   data() {
     return {
       newComment: '',
-    }
+    };
   },
   created() {
     if (this.comments.length === 0) {
@@ -54,33 +54,33 @@ export default {
   },
   methods: {
     ...mapActions('trainingPrograms',
-      ['loadTrainingProgramComments', 'saveComment']
+        [ 'loadTrainingProgramComments', 'saveComment' ],
     ),
     addComment() {
-      this.$emit('clear_errors');
-      this.saveComment({ 
+      this.$emit('clear-errors');
+      this.saveComment({
         comment: {
           body: this.newComment,
         },
         trainingProgramId: this.trainingProgramId,
       })
-      .then((data) => {
-        if (data.hasOwnProperty('errors')) {
-          this.$emit('comment_error', data.errors);
-        }
-      });
+          .then((data) => {
+            if (Object.prototype.hasOwnProperty.call(data, 'errors')) {
+              this.$emit('comment-error', data.errors);
+            }
+          });
       this.newComment = '';
-    }
+    },
   },
   computed: {
     ...mapGetters('trainingPrograms',
-      ['getCommentsByTrainingProgramId']
+        [ 'getCommentsByTrainingProgramId' ],
     ),
     comments() {
       return this.getCommentsByTrainingProgramId(this.trainingProgramId);
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>

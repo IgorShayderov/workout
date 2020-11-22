@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils';
 import CalendarDay from 'components/ErrorsViewer';
 
-describe('f', () => {
+describe('CalendayDay component', () => {
   let wrapper;
 
   beforeEach(() => {
@@ -15,6 +15,7 @@ describe('f', () => {
   });
 
   test('f', () => {
+    
     expect(1).toBe(2);
   });
 });

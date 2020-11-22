@@ -73,8 +73,8 @@
 
     <training-program-comments
       :trainingProgramId="trainingProgramId.toString()"
-      @comment_error="handleCommentError($event)"
-      @clear_errors="clearErrors"
+      @comment-error="handleCommentError($event)"
+      @clear-errors="clearErrors"
     >
     </training-program-comments>
 

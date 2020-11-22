@@ -1,13 +1,13 @@
 /* global gon */
-import actions from './training_programs_actions';
+import actions from './training_programs/training_programs_actions';
 
-const trainingPrograms =
+const trainingPrograms = gon.training_programs ?
   gon.training_programs.map((trainingProgram) => {
     // defining properties in advance to use vue reactivity
     trainingProgram.comments = [];
 
     return trainingProgram;
-  });
+  }) : [];
 
 export default {
   namespaced: true,
@@ -54,10 +54,10 @@ export default {
       state.availableExercises = exercises;
     },
     SAVE_TRAINING_PROGRAM_EXERCISES(state, { exercises, trainingProgram }) {
-      trainingProgram.exercises = [...trainingProgram.exercises, ...exercises];
+      trainingProgram.exercises = [ ...trainingProgram.exercises, ...exercises ];
     },
     SAVE_COMMENTS(state, { comments, trainingProgram }) {
-      trainingProgram.comments = [...trainingProgram.comments, ...comments];
+      trainingProgram.comments = [ ...trainingProgram.comments, ...comments ];
     },
     SAVE_TRAINING_PLAN(state, trainingPlan) {
       state.trainingPlans.push(trainingPlan);

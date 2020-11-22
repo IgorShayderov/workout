@@ -4,7 +4,19 @@ class ExercisesController < ApplicationController
   before_action :get_training_program, only: %i[index available]
 
   def index
-    render json: @training_program.exercises
+      render json: params[:training_program_id] ? @training_program.exercises : Exercise.all
+  end
+
+  def create
+    
+  end
+
+  def update
+    
+  end
+
+  def destroy
+    
   end
 
   def available
@@ -16,7 +28,7 @@ class ExercisesController < ApplicationController
   private
 
   def get_training_program
-    @training_program = TrainingProgram.find(params[:training_program_id])
+    @training_program = TrainingProgram.find(params[:training_program_id]) if params[:training_program_id]
   end
 end
 

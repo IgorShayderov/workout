@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <the-toolbar>
-    </the-toolbar>
+    <the-navigation>
+    </the-navigation>
 
     <router-view></router-view>
 
@@ -16,7 +16,7 @@
 import { mapGetters, mapActions } from 'vuex';
 
 import TheWrapper from './components/TheWrapper';
-import TheToolbar from './components/TheToolbar';
+import TheNavigation from './components/TheNavigation';
 
 export default {
   created() {
@@ -24,7 +24,7 @@ export default {
     // '/users/sign_in'
 
     // saving csrf-token into vuex
-    const tokenNode = document.querySelector("meta[name='csrf-token']");
+    const tokenNode = document.querySelector('meta[name=\'csrf-token\']');
     let token = '';
 
     if (tokenNode) {
@@ -35,19 +35,19 @@ export default {
   },
   methods: {
     ...mapActions('system',
-      ['saveToken']
+        [ 'saveToken' ],
     ),
   },
   computed: {
     ...mapGetters('system',
-      ['getWrapperStatus']
+        [ 'getWrapperStatus' ],
     ),
   },
   components: {
     TheWrapper,
-    TheToolbar,
-  }
-}
+    TheNavigation,
+  },
+};
 </script>
 
 <style lang="scss">

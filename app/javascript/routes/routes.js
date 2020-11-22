@@ -1,14 +1,17 @@
-import Root from '@js/components/TrainingProgramsBoard';
+import TrainingProgramsBoard from '@js/components/TrainingProgramsBoard';
 import TrainingProgramExercises from '@js/components/TrainingProgramExercises';
 import UserProfile from '@js/components/UserProfile';
 import TheCalendar from '@js/components/TheCalendar';
 import CalendarDay from '@js/components/CalendarDay';
+import AdminPanel from '@js/components/AdminPanel';
+import AdminPanelExercises from '@js/components/AdminPanelExercises';
+import AdminPanelExerciseForm from '@js/components/AdminPanelExerciseForm';
 import E404 from '@js/components/E404';
 
 export default [
   {
     path: '',
-    component: Root,
+    component: TrainingProgramsBoard,
     name: 'root',
   },
   {
@@ -27,11 +30,29 @@ export default [
     component: TheCalendar,
     name: 'calendar',
   },
+  // TODO move this path to calendar's children
   {
-    path: '/:year/:month/:day/calendar_day',
+    path: '/:year/:month/:day/calendar-day',
     component: CalendarDay,
     name: 'calendarDay',
     props: true,
+  },
+  {
+    path: '/admin',
+    component: AdminPanel,
+    children: [
+      {
+        path: '',
+        component: AdminPanelExercises,
+        name: 'adminPanelExercises',
+      },
+      {
+        path: ':id/exercise',
+        component: AdminPanelExerciseForm,
+        name: 'adminPanelExerciseForm',
+        props: true,
+      },
+    ],
   },
   {
     path: '*',

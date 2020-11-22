@@ -1,6 +1,13 @@
 <template>
   <div class="toolbar">
-    <span>{{ userWelcome }}</span>
+    <!-- TODO message with greeting should be showed only while user just logged in FlashMessage component -->
+
+    <a
+      href="root"
+      @click.prevent="showRoot"
+    >
+      Root
+    </a>
 
     <a
       href="calendar"
@@ -17,18 +24,21 @@
     </a>
 
     <a
+      v-if="getUserInfo.admin"
+      href="admin-panel"
+      @click.prevent="showAdminPanel"
+    >
+      Admin panel
+    </a>
+
+
+    <a
       :href="getRootPath + 'users/sign_out'"
       data-method="delete"
     >
       Sign out
     </a>
 
-    <a
-      href="back"
-      @click.prevent="goBack"
-    >
-      Back
-    </a>
   </div>
 </template>
 
@@ -37,7 +47,7 @@ import { mapGetters } from 'vuex';
 
 export default {
   methods: {
-    goBack() {
+    showRoot() {
       this.$router.push({ name: 'root' });
     },
     showProfile() {
@@ -46,16 +56,16 @@ export default {
     showCalendar() {
       this.$router.push({ name: 'calendar' });
     },
+    showAdminPanel() {
+      this.$router.push({ name: 'adminPanelExercises' });
+    },
   },
   computed: {
     ...mapGetters('system',
-      ['getRootPath', 'getUserInfo']
+        [ 'getRootPath', 'getUserInfo' ],
     ),
-    userWelcome() {
-      return `Welcome, ${this.getUserInfo.name}`;
-    }
   },
-}
+};
 </script>
 
 <style scoped>

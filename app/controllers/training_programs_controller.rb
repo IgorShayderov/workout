@@ -4,6 +4,7 @@ class TrainingProgramsController < ApplicationController
   before_action :authenticate_user!
   before_action :get_training_program, only: %i[add_exercises]
 
+  # TODO переписать получение данных для фронта на pluck
   def index
     @training_programs = current_user.training_programs_with_exercises
 
