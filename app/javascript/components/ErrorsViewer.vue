@@ -16,9 +16,9 @@
 export default {
   props: {
     errors: {
-      type: [Object, Array],
+      type: [ Object, Array ],
       required: true,
-    }
+    },
   },
   computed: {
     shouldShowErrors() {
@@ -31,20 +31,20 @@ export default {
     handleErrorsArray() {
       return (errors) => {
         return errors.join('<br>');
-      }
+      };
     },
     handleErrorsObject() {
       return (errors) => {
-          return Object.keys(errors).reduce((finalMessage, errorKey) => {
-            finalMessage += `${errorKey[0].toUpperCase() + errorKey.substring(1).replace('_', ' ')} `;
+        return Object.keys(errors).reduce((finalMessage, errorKey) => {
+          finalMessage += `${errorKey[0].toUpperCase() + errorKey.substring(1).replace('_', ' ')} `;
 
-            errors[errorKey].forEach((errorMessage) => {
-              finalMessage += `${errorMessage}<br>`;
-            });
+          errors[errorKey].forEach((errorMessage) => {
+            finalMessage += `${errorMessage}<br>`;
+          });
 
-            return finalMessage;
-          }, '');
-      }
+          return finalMessage;
+        }, '');
+      };
     },
     handledErrors() {
       if (Array.isArray(this.errors) && this.errors.length > 0) {
@@ -53,8 +53,8 @@ export default {
 
       return this.handleErrorsObject(this.errors);
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped>

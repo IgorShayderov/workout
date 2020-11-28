@@ -3,26 +3,41 @@ export default {
     shouldShowForm: {
       type: Boolean,
       required: true,
-    }
+    },
   },
   data() {
     return {
-      showErrors: false,
       errors: [],
     };
   },
   methods: {
     closeForm() {
-      this.$emit('close_form');
+      this.$emit('close-form');
       this.clearErrors();
     },
     clearForm() {
-      this.title = '';
-      this.description = '';
-      this.location = '';
+      Object.keys(this.form).map((field) => {
+        switch (typeof field) {
+          case 'string':
+            field = '';
+            break;
+          case 'number':
+            field = 0;
+            break;
+          case 'object':
+            if (Array.isArray(field)) {
+              field = [];
+            } else {
+              field = {};
+            }
+            break;
+          default:
+            console.log('Unhandled type of the field.');
+        }
+      });
     },
     clearErrors() {
       this.errors = [];
     },
   },
-}
+};

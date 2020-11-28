@@ -3,6 +3,7 @@
     <!-- TODO message with greeting should be showed only while user just logged in FlashMessage component -->
 
     <a
+      class="toolbar__link"
       href="root"
       @click.prevent="showRoot"
     >
@@ -10,6 +11,7 @@
     </a>
 
     <a
+      class="toolbar__link"
       href="calendar"
       @click.prevent="showCalendar"
     >
@@ -17,6 +19,7 @@
     </a>
 
     <a
+      class="toolbar__link"
       href="profile"
       @click.prevent="showProfile"
     >
@@ -25,6 +28,7 @@
 
     <a
       v-if="getUserInfo.admin"
+      class="toolbar__link"
       href="admin-panel"
       @click.prevent="showAdminPanel"
     >
@@ -33,6 +37,7 @@
 
 
     <a
+      class="toolbar__link"
       :href="getRootPath + 'users/sign_out'"
       data-method="delete"
     >
@@ -71,5 +76,11 @@ export default {
 <style scoped>
   .toolbar {
     padding: 5px;
+  }
+
+  .toolbar__link {
+    padding: 5px;
+    border-radius: 5px;
+    margin: 0 5px;
   }
 </style>

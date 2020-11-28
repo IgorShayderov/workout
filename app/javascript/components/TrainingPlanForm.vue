@@ -1,76 +1,52 @@
 <template>
-  <div
-    class="form-wrapper"
-    v-show="shouldShowForm"
+  <form-wrapper
+    :errors="errors"
+    :shouldShowForm="shouldShowForm"
+    :submitTitle="'Assign training plan'"
+    @submit-form="assignTrainingPlan"
+    @close-form="closeForm"
   >
-    <form
-      class="m-4"
-    >
+    <label>
+      <p>Training program:</p>
 
-      <div
-        class="form__btn-close"
-        @click="closeForm"
+      <select
+        v-model="formData.selectedTrainingProgramId"
       >
-          <i class="far fa-2x fa-times-circle"></i>
-      </div>
-
-      <label>
-        <p>Training program:</p>
-
-        <select
-          v-model="selectedTrainingProgramId"
+        <option
+          v-for="trainingProgram in trainingPrograms"
+          :key="trainingProgram.id"
+          :value="trainingProgram.id"
         >
-          <option
-            v-for="trainingProgram in trainingPrograms"
-            :key="trainingProgram.id"
-            :value="trainingProgram.id"
-          >
-            {{ trainingProgram.title }}
-          </option>
-        </select>
-      </label>
+          {{ trainingProgram.title }}
+        </option>
+      </select>
+    </label>
 
+    <br>
 
-      <br>
+    <label>
+      <p>Start time:</p>
+      <input
+        v-model="formData.startTime"
+        type="time"
+        name="start_time"
+        required
+      />
+    </label>
 
-      <label>
-        <p>Start time:</p>
-        <input
-          v-model="startTime"
-          type="time"
-          name="start_time"
-          required
-        />
-      </label>
+    <br>
 
-      <br>
+    <label>
+      <p>End time:</p>
+      <input
+        v-model="formData.endTime"
+        type="time"
+        name="end_time"
+        required
+      />
+    </label>
 
-      <label>
-        <p>End time:</p>
-        <input
-          v-model="endTime"
-          type="time"
-          name="end_time"
-          required
-        />
-      </label>
-
-      <br>
-
-      <button
-        class="btn btn-info form__btn-submit"
-        @click.prevent="assignTrainingPlan"
-      >
-        Assign training plan
-      </button>
-
-      <errors-viewer
-        :errors="errors"
-      >
-      </errors-viewer>
-
-    </form>
-  </div>
+  </form-wrapper>
 </template>
 
 <script>
@@ -78,11 +54,10 @@ import { mapGetters, mapActions } from 'vuex';
 import { splitTimeDate } from '../helpers/dates';
 
 import formHelpers from '../mixins/formHelpers';
-
-import ErrorsViewer from './ErrorsViewer';
+import FormWrapper from './shared/FormWrapper';
 
 export default {
-  mixins: [formHelpers],
+  mixins: [ formHelpers ],
   props: {
     dateInfo: {
       type: Object,
@@ -94,15 +69,17 @@ export default {
   },
   data() {
     return {
-      trainingPrograms: [],
-      selectedTrainingProgramId: '',
-      startTime: '',
-      endTime: '',
-    }
+      formData: {
+        trainingPrograms: [],
+        selectedTrainingProgramId: '',
+        startTime: '',
+        endTime: '',
+      },
+    };
   },
   methods: {
     ...mapActions('trainingPrograms',
-        ['saveTrainingPlan'],
+        [ 'saveTrainingPlan' ],
     ),
     calcDateFromTime(time) {
       const { year, month, day } = this.dateInfo;
@@ -111,20 +88,19 @@ export default {
       return new Date(year, month - 1, day, hours, minutes);
     },
     assignTrainingPlan() {
-      if (!this.selectedTrainingProgramId) {
+      if (!this.formData.selectedTrainingProgramId) {
         this.errors = {
-          training_program: ['can\'t be blank'],
+          training_program: [ 'can\'t be blank' ],
         };
       } else {
-        const { year, month, day } = this.dateInfo;
-        const data = {
-          start_time: this.startTime ? this.calcDateFromTime(this.startTime) : null,
-          end_time: this.endTime ? this.calcDateFromTime(this.endTime) : null,
+        const timeData = {
+          start_time: this.formData.startTime ? this.calcDateFromTime(this.formData.startTime) : null,
+          end_time: this.formData.endTime ? this.calcDateFromTime(this.formData.endTime) : null,
         };
 
         this.saveTrainingPlan({
-          trainingPlanData: data,
-          trainingProgramId: this.selectedTrainingProgramId,
+          trainingPlanData: timeData,
+          trainingProgramId: this.formData.selectedTrainingProgramId,
         })
             .then(
                 () => {
@@ -141,11 +117,11 @@ export default {
   },
   computed: {
     ...mapGetters('trainingPrograms',
-        ['getTrainingPrograms'],
+        [ 'getTrainingPrograms' ],
     ),
   },
   components: {
-    ErrorsViewer,
+    FormWrapper,
   },
 };
 </script>

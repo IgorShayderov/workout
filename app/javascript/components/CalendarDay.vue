@@ -17,7 +17,7 @@
 
     <training-plan-form
       :shouldShowForm="shouldShowForm"
-      @close_form="closeForm"
+      @close-form="closeForm"
       :dateInfo="dateInfo"
     >
     </training-plan-form>

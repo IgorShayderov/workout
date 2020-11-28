@@ -32,7 +32,7 @@ export default [
   },
   // TODO move this path to calendar's children
   {
-    path: '/:year/:month/:day/calendar-day',
+    path: '/:year/:month/:day',
     component: CalendarDay,
     name: 'calendarDay',
     props: true,

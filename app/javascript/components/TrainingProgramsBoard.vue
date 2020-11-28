@@ -34,7 +34,7 @@
 
     <training-program-form
       :shouldShowForm="shouldShowForm"
-      @close_form="closeForm"
+      @close-form="closeForm"
     >
     </training-program-form>
 
@@ -50,34 +50,34 @@ import TrainingProgramForm from './TrainingProgramForm';
 export default {
   props: {
   },
-  data: function () {
+  data: function() {
     return {
       shouldShowForm: false,
-    }
+    };
   },
   methods: {
     ...mapActions('system',
-      ['showWrapper', 'hideWrapper']
+        [ 'showWrapper', 'hideWrapper' ],
     ),
     showForm() {
       this.shouldShowForm = true;
       this.showWrapper();
-    }, 
+    },
     closeForm() {
       this.shouldShowForm = false;
       this.hideWrapper();
-    }
+    },
   },
   computed: {
     ...mapGetters('trainingPrograms',
-      ['getTrainingPrograms']
+        [ 'getTrainingPrograms' ],
     ),
   },
   components: {
     TrainingProgram,
     TrainingProgramForm,
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
