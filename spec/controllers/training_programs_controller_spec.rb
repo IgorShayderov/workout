@@ -7,6 +7,7 @@ RSpec.describe TrainingProgramsController, type: :controller do
   let!(:training_programs) { create_list(:training_program, 3, user: user) }
   let!(:exercise) { create(:exercise) }
   let(:training_program) { training_programs.first }
+  let(:response_body) { JSON.parse(response.body) }
 
   before { login(user) }
 
@@ -52,7 +53,7 @@ RSpec.describe TrainingProgramsController, type: :controller do
       end
 
       it 'returns error list' do
-        expect(JSON.parse(response.body)['errors']).to have_key('title')
+        expect(response_body['errors']).to have_key('title')
       end
 
       it "doesn't save training program in databse" do

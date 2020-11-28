@@ -41,6 +41,7 @@
 import { mapActions } from 'vuex';
 
 import formHelpers from '../mixins/formHelpers';
+
 import FormLocation from './shared/FormLocation';
 import FormWrapper from './shared/FormWrapper';
 
@@ -57,10 +58,10 @@ export default {
   },
   methods: {
     ...mapActions('trainingPrograms',
-        [ 'saveTrainingProgram' ],
+        [ 'createAndSaveTrainingProgram' ],
     ),
-    createTrainingProgram(event) {
-      const data = {
+    createTrainingProgram() {
+      const trainingProgramParams = {
         training_program: {
           title: this.formData.title,
           description: this.formData.description,
@@ -68,7 +69,7 @@ export default {
         },
       };
 
-      this.saveTrainingProgram(data)
+      this.createAndSaveTrainingProgram(trainingProgramParams)
           .then(() => {
             this.clearErrors();
             this.clearForm();

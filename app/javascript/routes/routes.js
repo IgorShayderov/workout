@@ -5,7 +5,6 @@ import TheCalendar from '@js/components/TheCalendar';
 import CalendarDay from '@js/components/CalendarDay';
 import AdminPanel from '@js/components/AdminPanel';
 import AdminPanelExercises from '@js/components/AdminPanelExercises';
-import AdminPanelExerciseForm from '@js/components/AdminPanelExerciseForm';
 import E404 from '@js/components/E404';
 
 export default [
@@ -45,12 +44,6 @@ export default [
         path: '',
         component: AdminPanelExercises,
         name: 'adminPanelExercises',
-      },
-      {
-        path: ':id/exercise',
-        component: AdminPanelExerciseForm,
-        name: 'adminPanelExerciseForm',
-        props: true,
       },
     ],
   },

@@ -90,7 +90,7 @@ export default {
           console.log(error);
         });
   },
-  saveTrainingProgram({ commit, dispatch, rootGetters }, trainingProgramData) {
+  createAndSaveTrainingProgram({ commit, dispatch, rootGetters }, trainingProgramData) {
     return new Promise((resolve, reject) => {
       axios({
         method: 'post',

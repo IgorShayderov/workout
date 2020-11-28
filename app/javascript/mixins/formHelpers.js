@@ -16,7 +16,7 @@ export default {
       this.clearErrors();
     },
     clearForm() {
-      Object.keys(this.form).map((field) => {
+      Object.keys(this.formData).map((field) => {
         switch (typeof field) {
           case 'string':
             field = '';

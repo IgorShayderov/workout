@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="exercises">
     <h1 class="text-center">Admin panel</h1>
 
-    <table class="table">
+    <table class="table exercises__list">
       <thead class="thead-dark">
         <tr>
           <th>#</th>
@@ -27,16 +27,25 @@
 
     <button
       class="btn btn-primary ml-4"
-      @click="goToExerciseForm"
+      @click="openExerciseForm"
     >
       Add exercise
     </button>
+
+    <admin-panel-exercise-form
+      :shouldShowForm="shouldShowForm"
+      @close-form="closeExerciseForm"
+      :id="newExerciseId"
+    >
+    </admin-panel-exercise-form>
 
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+
+import AdminPanelExerciseForm from './AdminPanelExerciseForm';
 
 export default {
   beforeRouteEnter(to, from, next) {
@@ -46,18 +55,35 @@ export default {
       }
     });
   },
+  data() {
+    return {
+      newExerciseId: 0,
+      shouldShowForm: false,
+    };
+  },
   methods: {
     ...mapActions('adminPanel',
         [ 'loadExercises' ],
     ),
-    goToExerciseForm() {
-
+    ...mapActions('system',
+        [ 'showWrapper', 'hideWrapper' ],
+    ),
+    openExerciseForm() {
+      this.shouldShowForm = true;
+      this.showWrapper();
+    },
+    closeExerciseForm() {
+      this.shouldShowForm = false;
+      this.hideWrapper();
     },
   },
   computed: {
     ...mapGetters('adminPanel',
         [ 'getExercises' ],
     ),
+  },
+  components: {
+    AdminPanelExerciseForm,
   },
 };
 </script>

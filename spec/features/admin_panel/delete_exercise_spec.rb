@@ -2,24 +2,25 @@
 
 require 'rails_helper'
 
-feature 'Admin can observe all existing exercises', "
-  In order to observe existing exercises, their titles, locations, images
+feature 'Admin can delete exercises', "
+  In order to get rid of unnecessary exercises
   As an admin
-  I'd like to be able to obserse all existing exercises
+  I'd like to be able to delete exercises
 " do
   given!(:user) { create(:user) }
   given!(:admin) { create(:user, admin: true) }
-  before { create(:exercise, title: 'The exercise') }
 
   describe 'Authenticated user', js: true do
     context 'user is admin' do
-      scenario 'observe all created exercises' do
+      background do
         sign_in(admin)
         visit root_path
-
         click_link 'Admin panel'
+        click_link 'Add exercise'
+      end
 
-        expect(page).to have_content 'The exercise'
+      scenario 'deletes existing exercise' do
+        
       end
     end
 

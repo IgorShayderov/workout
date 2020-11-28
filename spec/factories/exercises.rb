@@ -3,6 +3,10 @@
 FactoryBot.define do
   factory :exercise do
     location { 'gym' }
-    sequence(:title) { |n| "person#{n}@example.com" }
+    sequence(:title) { |n| "Exercise ##{n}" }
+
+    trait :invalid do
+      title { nil }
+    end
   end
 end

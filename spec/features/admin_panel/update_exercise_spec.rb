@@ -2,24 +2,29 @@
 
 require 'rails_helper'
 
-feature 'Admin can observe all existing exercises', "
-  In order to observe existing exercises, their titles, locations, images
+feature 'Admin can update existing exercises', "
+  In order to change data of existing exercise
   As an admin
-  I'd like to be able to obserse all existing exercises
+  I'd like to be able to update existing exercises
 " do
   given!(:user) { create(:user) }
   given!(:admin) { create(:user, admin: true) }
-  before { create(:exercise, title: 'The exercise') }
 
   describe 'Authenticated user', js: true do
     context 'user is admin' do
-      scenario 'observe all created exercises' do
+      background do
         sign_in(admin)
         visit root_path
-
         click_link 'Admin panel'
+        click_link 'Add exercise'
+      end
 
-        expect(page).to have_content 'The exercise'
+      scenario 'updates exercise with valid params' do
+        
+      end
+
+      scenario 'fails to update exercise with invalid params' do
+        
       end
     end
 

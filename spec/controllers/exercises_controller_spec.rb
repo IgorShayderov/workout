@@ -14,23 +14,15 @@ RSpec.describe ExercisesController, type: :controller do
   describe 'GET #available' do
     before { get :available, params: { training_program_id: training_program.id } }
 
-    it 'returns 200 status' do
-      expect(response).to be_successful
-    end
-
     it 'returns list of available exercises' do
       expect(response_body.length).to eq 3
     end
 
-    it 'returns all public fields' do
-      %w[id location title created_at updated_at].each do |attr|
-        expect(exercise_response[attr]).to eq exercises.first.send(attr).as_json
-      end
-    end
+    it_behaves_like 'exercises from request'
   end
 
   describe 'GET #index' do
-    context 'with param' do
+    context 'with params' do
       let!(:training_program_exercise) do
         create(:training_program_exercise,
               training_program: training_program,
@@ -47,7 +39,7 @@ RSpec.describe ExercisesController, type: :controller do
 
     end
 
-    context 'without param' do
+    context 'without params' do
       before { get :index }
 
       it_behaves_like 'exercises from request'
@@ -55,7 +47,38 @@ RSpec.describe ExercisesController, type: :controller do
       it 'returns list of all exercises' do
         expect(response_body.length).to eq exercises.length
       end
+    end
+  end
 
+  describe 'POST #create' do
+    context 'with valid params' do
+      before { post :create, params: { exercise: attributes_for(:exercise) } }
+
+      it 'returns 200 status' do
+        expect(response).to be_successful
+      end
+
+      it 'saves exercise in database' do
+        expect { post :create, params: { exercise: attributes_for(:exercise) } }
+          .to change(Exercise, :count).by(1)
+      end
+    end
+
+    context 'with invalid params' do
+      before { post :create, params: { exercise: attributes_for(:exercise, :invalid) } }
+      
+      it 'returns 200 status' do
+        expect(response).to be_successful
+      end
+
+      it 'does not save exercise in database' do
+        expect { post :create, params: { exercise: attributes_for(:exercise, :invalid) }}
+          .to_not change(Exercise, :count)
+      end
+
+      it 'returns error list' do
+        expect(response_body['errors']).to have_key('title')
+      end
     end
   end
 end

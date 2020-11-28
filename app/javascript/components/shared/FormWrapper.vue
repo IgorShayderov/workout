@@ -4,7 +4,7 @@
     v-show="shouldShowForm"
   >
     <form
-      class="m-4"
+      class="form m-4"
     >
 
       <div
