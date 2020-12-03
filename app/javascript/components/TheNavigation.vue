@@ -5,7 +5,7 @@
     <a
       class="toolbar__link"
       href="root"
-      @click.prevent="showRoot"
+      @click.prevent="navigateTo('root')"
     >
       Root
     </a>
@@ -13,7 +13,7 @@
     <a
       class="toolbar__link"
       href="calendar"
-      @click.prevent="showCalendar"
+      @click.prevent="navigateTo('calendar')"
     >
       Calendar
     </a>
@@ -21,7 +21,7 @@
     <a
       class="toolbar__link"
       href="profile"
-      @click.prevent="showProfile"
+      @click.prevent="navigateTo('profile')"
     >
       Profile
     </a>
@@ -30,7 +30,7 @@
       v-if="getUserInfo.admin"
       class="toolbar__link"
       href="admin-panel"
-      @click.prevent="showAdminPanel"
+      @click.prevent="navigateTo('adminPanelExercises')"
     >
       Admin panel
     </a>
@@ -52,17 +52,10 @@ import { mapGetters } from 'vuex';
 
 export default {
   methods: {
-    showRoot() {
-      this.$router.push({ name: 'root' });
-    },
-    showProfile() {
-      this.$router.push({ name: 'profile' });
-    },
-    showCalendar() {
-      this.$router.push({ name: 'calendar' });
-    },
-    showAdminPanel() {
-      this.$router.push({ name: 'adminPanelExercises' });
+    navigateTo(name) {
+      if (this.$route.name !== name) {
+        this.$router.push({ name });
+      }
     },
   },
   computed: {

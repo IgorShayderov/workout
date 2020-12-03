@@ -21,17 +21,17 @@ feature 'Admin can create new exercises', "
 
       scenario 'creates exercise with valid params' do
         fill_in 'Title', with: 'The exercise'
-        find(:css, '.exercises').choose('Outdoors')
+        find(:css, '.form-location').choose('Outdoors')
         click_button 'Create exercise'
 
-        within 'exercises__list' do
+        within '.exercises__list' do
           expect(page).to have_content 'The exercise'
         end
       end
 
       scenario 'creates exercise with invalid params' do
         fill_in 'Title', with: ''
-        find(:css, '.exercises').choose('Outdoors')
+        find(:css, '.form-location').choose('Outdoors')
         click_button 'Create exercise'
 
         expect(page).to have_content 'Title can\'t be blank'

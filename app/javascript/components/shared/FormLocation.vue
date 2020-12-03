@@ -1,7 +1,7 @@
 <template>
   <div class="form-location">
     <p>Where to train?</p>
-    <!-- TODO delete doubling -->
+    <!-- TODO fix doubling -->
     <label>
       <input
         data-testid="location"

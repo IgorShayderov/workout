@@ -2,8 +2,8 @@
   <form-wrapper
     :errors="errors"
     :shouldShowForm="shouldShowForm"
-    :submitTitle="'Create exercise'"
-    @submit-form="createExercise"
+    :submitTitle="submitButtonTitle"
+    @submit-form="exerciseFormSubmitHandler"
     @close-form="closeForm"
   >
 
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 import formHelpers from '../mixins/formHelpers';
 
@@ -39,7 +39,7 @@ export default {
   mixins: [ formHelpers ],
   props: {
     id: {
-      type: [ Number, String ],
+      type: [ Number ],
       required: true,
     },
   },
@@ -51,28 +51,66 @@ export default {
       },
     };
   },
+  watch: {
+    id(newIdValue) {
+      if (newIdValue === 0) {
+        this.formData.title = '';
+        this.formData.location = '';
+      } else {
+        this.formData.title = this.currentExercise.title;
+        this.formData.location = this.currentExercise.location;
+      }
+    },
+  },
   methods: {
     ...mapActions('adminPanel',
-        [ 'createAndSaveExercise' ],
+        [ 'createAndSaveExercise', 'updateAndSaveExercise' ],
     ),
+    cleanUpAndClose() {
+      this.clearErrors();
+      this.clearForm();
+      this.closeForm();
+    },
     changeLocation(location) {
       this.formData.location = location;
     },
     createExercise() {
-      const exerciseParams = {
-        title: this.formData.title,
-        location: this.formData.location,
-      };
-
-      this.createAndSaveExercise(exerciseParams)
+      this.createAndSaveExercise(this.exerciseParams)
           .then(() => {
-            this.clearErrors();
-            this.clearForm();
-            this.closeForm();
+            this.cleanUpAndClose();
           },
           (errors) => {
             this.errors = errors;
           });
+    },
+    updateExercise() {
+      this.updateAndSaveExercise({ exerciseParams: this.exerciseParams, id: this.id })
+          .then(() => {
+            this.cleanUpAndClose();
+          },
+          (errors) => {
+            this.errors = errors;
+          });
+    },
+    exerciseFormSubmitHandler() {
+      this.id > 0 ? this.updateExercise() : this.createExercise();
+    },
+  },
+  computed: {
+    ...mapGetters('adminPanel',
+        [ 'getExerciseById' ],
+    ),
+    currentExercise() {
+      return this.getExerciseById(this.id);
+    },
+    submitButtonTitle() {
+      return this.id > 0 ? 'Update exercise' : 'Create exercise';
+    },
+    exerciseParams() {
+      return {
+        title: this.formData.title,
+        location: this.formData.location,
+      };
     },
   },
   components: {

@@ -58,7 +58,7 @@ export default {
 
 <style scoped>
 .form-wrapper {
-  position: absolute;
+  position: fixed;
   border: 1px solid black;
   top: 50%;
   left: 50%;

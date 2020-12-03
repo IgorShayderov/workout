@@ -9,10 +9,18 @@ export default {
     getExercises: (state) => {
       return state.exercises;
     },
+    getExerciseById: (state) => {
+      return (exerciseId) => state.exercises.find((exercise) => exercise.id === exerciseId);
+    },
   },
   mutations: {
     SAVE_EXERCISES(state, exercises) {
       state.exercises = [ ...state.exercises, ...exercises ];
+    },
+    UPDATE_EXERCISE(state, { updatedExercise, id }) {
+      const indexOfExercise = state.exercises.findIndex((exercise) => exercise.id === id);
+
+      state.exercises.splice(indexOfExercise, 1, updatedExercise);
     },
   },
   actions: {
@@ -35,6 +43,32 @@ export default {
               } else {
                 resolve();
                 commit('SAVE_EXERCISES', [ data ]);
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+      });
+    },
+    updateAndSaveExercise({ commit, rootGetters }, { exerciseParams, id }) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'patch',
+          url: `/exercises/${id}`,
+          baseUrl: rootGetters['system/getRootPath'],
+          data: exerciseParams,
+          headers: rootGetters['system/getPostHeaders'],
+        })
+            .then((response) => {
+              const { data } = response;
+
+              if (data.errors) {
+                const { errors } = data;
+
+                reject(errors);
+              } else {
+                resolve();
+                commit('UPDATE_EXERCISE', { updatedExercise: data, id });
               }
             })
             .catch((error) => {

@@ -81,4 +81,32 @@ RSpec.describe ExercisesController, type: :controller do
       end
     end
   end
+
+  describe 'PATCH #update' do
+    let!(:exercise) { create(:exercise) }
+
+    context 'with valid params' do
+      before { patch :update, params: { id: exercise.id, exercise: { title: 'Changed title' } } }
+
+      it 'returns 200 status' do
+        expect(response).to be_successful
+      end
+
+      it 'saved new title' do
+        expect(response_body['title']).to eq('Changed title')
+      end
+    end
+
+    context 'with invalid params' do
+      before { patch :update, params: { id: exercise.id, exercise: { title: '' } } }
+
+      it 'returns 200 status' do
+        expect(response).to be_successful
+      end
+
+      it 'returns error list' do
+        expect(response_body['errors']).to have_key('title')
+      end
+    end
+  end
 end

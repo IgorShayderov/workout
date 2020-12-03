@@ -9,6 +9,7 @@
           <th>Title</th>
           <th>Location</th>
           <th>Image</th>
+          <th>Actions</th>
         </tr>
       </thead>
 
@@ -16,17 +17,26 @@
         <tr
           v-for="(exercise, index) in getExercises"
           :key="index"
+          :data-exercise-id="exercise.id"
         >
-          <td>{{ index }}</td>
+          <td>{{ index + 1 }}</td>
           <td>{{ exercise.title }}</td>
           <td>{{ exercise.location }}</td>
           <td>{{ exercise.image }}</td>
+          <td>
+            <button
+              class="btn btn-primary"
+              @click="updateExerciseForm(exercise.id)"
+            >
+              Update
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
 
     <button
-      class="btn btn-primary ml-4"
+      class="btn btn-primary m-4"
       @click="openExerciseForm"
     >
       Add exercise
@@ -35,7 +45,7 @@
     <admin-panel-exercise-form
       :shouldShowForm="shouldShowForm"
       @close-form="closeExerciseForm"
-      :id="newExerciseId"
+      :id="exerciseId || newExerciseId"
     >
     </admin-panel-exercise-form>
 
@@ -59,6 +69,7 @@ export default {
     return {
       newExerciseId: 0,
       shouldShowForm: false,
+      exerciseId: null,
     };
   },
   methods: {
@@ -73,8 +84,13 @@ export default {
       this.showWrapper();
     },
     closeExerciseForm() {
+      this.exerciseId = null;
       this.shouldShowForm = false;
       this.hideWrapper();
+    },
+    updateExerciseForm(exerciseId) {
+      this.exerciseId = exerciseId;
+      this.openExerciseForm();
     },
   },
   computed: {
