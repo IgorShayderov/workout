@@ -9,7 +9,7 @@
           <th>Title</th>
           <th>Location</th>
           <th>Image</th>
-          <th>Actions</th>
+          <th class="text-center">Actions</th>
         </tr>
       </thead>
 
@@ -29,6 +29,13 @@
               @click="updateExerciseForm(exercise.id)"
             >
               Update
+            </button>
+
+            <button
+              class="btn btn-danger"
+              @click="deleteExercise(exercise.id)"
+            >
+              Delete
             </button>
           </td>
         </tr>
@@ -74,7 +81,7 @@ export default {
   },
   methods: {
     ...mapActions('adminPanel',
-        [ 'loadExercises' ],
+        [ 'loadExercises', 'deleteExercise' ],
     ),
     ...mapActions('system',
         [ 'showWrapper', 'hideWrapper' ],

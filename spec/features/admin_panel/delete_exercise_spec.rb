@@ -9,6 +9,7 @@ feature 'Admin can delete exercises', "
 " do
   given!(:user) { create(:user) }
   given!(:admin) { create(:user, admin: true) }
+  given!(:exercise) { create(:exercise) }
 
   describe 'Authenticated user', js: true do
     context 'user is admin' do
@@ -16,11 +17,14 @@ feature 'Admin can delete exercises', "
         sign_in(admin)
         visit root_path
         click_link 'Admin panel'
-        click_link 'Add exercise'
       end
 
       scenario 'deletes existing exercise' do
-        
+        within "[data-exercise-id='#{exercise.id}']" do
+          click_button 'Delete'
+        end
+
+        expect(page).to_not have_content(exercise.title)
       end
     end
 

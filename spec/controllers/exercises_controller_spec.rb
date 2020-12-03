@@ -109,4 +109,17 @@ RSpec.describe ExercisesController, type: :controller do
       end
     end
   end
+
+  describe 'DELETE #destroy' do
+    let!(:exercise) { create(:exercise) }
+
+    it 'returns 200 status' do
+      expect(response).to be_successful
+    end
+
+    it 'deletes exercise from database' do
+      expect { delete :destroy, params: { id: exercise.id } }
+      .to change(Exercise, :count).by(-1)
+    end
+  end
 end

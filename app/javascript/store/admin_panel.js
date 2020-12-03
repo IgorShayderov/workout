@@ -22,6 +22,11 @@ export default {
 
       state.exercises.splice(indexOfExercise, 1, updatedExercise);
     },
+    DELETE_EXERCISE(state, id) {
+      const indexOfExercise = state.exercises.findIndex((exercise) => exercise.id === id);
+
+      state.exercises.splice(indexOfExercise, 1);
+    },
   },
   actions: {
     createAndSaveExercise({ commit, rootGetters }, exerciseData) {
@@ -86,6 +91,22 @@ export default {
             const { data } = response;
 
             commit('SAVE_EXERCISES', data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+    },
+    deleteExercise({ commit, rootGetters }, id) {
+      axios({
+        method: 'delete',
+        url: `/exercises/${id}`,
+        baseUrl: rootGetters['system/getRootPath'],
+        headers: rootGetters['system/getPostHeaders'],
+      })
+          .then((response) => {
+            const { data } = response;
+
+            commit('DELETE_EXERCISE', data.id);
           })
           .catch((error) => {
             console.log(error);

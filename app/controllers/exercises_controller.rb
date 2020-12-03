@@ -2,7 +2,7 @@
 
 class ExercisesController < ApplicationController
   before_action :find_training_program, only: %i[index available]
-  before_action :find_exercise, only: %i[update]
+  before_action :find_exercise, only: %i[update destroy]
 
   def index
     render json: params[:training_program_id] ? @training_program.exercises : Exercise.all
@@ -27,7 +27,7 @@ class ExercisesController < ApplicationController
   end
 
   def destroy
-    
+    render json: @exercise.destroy
   end
 
   def available

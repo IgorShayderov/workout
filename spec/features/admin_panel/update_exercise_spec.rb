@@ -19,7 +19,7 @@ feature 'Admin can update existing exercises', "
 
         click_link 'Admin panel'
 
-        within "[data-exercise-id='#{exercise.id}'" do
+        within "[data-exercise-id='#{exercise.id}']" do
           click_button 'Update'
         end
       end
