@@ -19,6 +19,7 @@ feature 'Admin can observe all existing exercises', "
 
         click_link 'Admin panel'
 
+        expect(page).to have_content 'Admin panel'
         expect(page).to have_content 'The exercise'
       end
     end
@@ -31,6 +32,6 @@ feature 'Admin can observe all existing exercises', "
   describe 'Unathenticated user' do
     background { visit root_path }
 
-    it_behaves_like 'unauthencicated user'
+    it_behaves_like 'unauthenticated user'
   end
 end

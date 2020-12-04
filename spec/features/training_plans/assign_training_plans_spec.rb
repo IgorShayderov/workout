@@ -55,6 +55,6 @@ feature 'User can observe his training plans', "
   describe 'Unauthenticated user' do
     background { visit root_path }
 
-    it_behaves_like 'unauthencicated user'
+    it_behaves_like 'unauthenticated user'
   end
 end

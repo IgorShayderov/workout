@@ -15,6 +15,7 @@ describe('TrainingProgramForm component', () => {
         shouldShowForm: true,
       },
     });
+
     titleField = wrapper.find('[data-testid=\'title\']');
     descriptionField = wrapper.find('[data-testid=\'description\']');
     locationGym = wrapper.find('[data-testid=\'location\'][value=\'gym\']');

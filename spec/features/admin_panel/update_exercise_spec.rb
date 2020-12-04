@@ -51,6 +51,6 @@ feature 'Admin can update existing exercises', "
   describe 'Unathenticated user' do
     background { visit root_path }
 
-    it_behaves_like 'unauthencicated user'
+    it_behaves_like 'unauthenticated user'
   end
 end

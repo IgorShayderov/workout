@@ -6,7 +6,17 @@
       <thead class="thead-dark">
         <tr>
           <th>#</th>
-          <th>Title</th>
+          <th>
+            Title
+
+            <input
+              class="ml-2"
+              v-model="searchFilter"
+              type="text"
+              placeholder="Search exercises..."
+              test_id="search-input"
+            >
+          </th>
           <th>Location</th>
           <th>Image</th>
           <th class="text-center">Actions</th>
@@ -15,7 +25,7 @@
 
       <tbody>
         <tr
-          v-for="(exercise, index) in getExercises"
+          v-for="(exercise, index) in filteredExercises"
           :key="index"
           :data-exercise-id="exercise.id"
         >
@@ -77,6 +87,7 @@ export default {
       newExerciseId: 0,
       shouldShowForm: false,
       exerciseId: null,
+      searchFilter: '',
     };
   },
   methods: {
@@ -99,11 +110,21 @@ export default {
       this.exerciseId = exerciseId;
       this.openExerciseForm();
     },
+    applySearchFilter(newFilter) {
+      this.searchFilter = newFilter;
+    },
   },
   computed: {
     ...mapGetters('adminPanel',
         [ 'getExercises' ],
     ),
+    filteredExercises() {
+      const regExp = new RegExp(this.searchFilter, 'i');
+
+      return this.getExercises.filter((exercise) => {
+        return regExp.test(exercise.title);
+      });
+    },
   },
   components: {
     AdminPanelExerciseForm,
@@ -111,6 +132,5 @@ export default {
 };
 </script>
 
-<style>
-
+<style scoped>
 </style>

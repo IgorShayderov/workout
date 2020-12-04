@@ -36,6 +36,6 @@ feature 'User can add exercises to training program', "
       expect(page).to have_content 'Sign up'
     end
 
-    it_behaves_like 'unauthencicated user'
+    it_behaves_like 'unauthenticated user'
   end
 end
