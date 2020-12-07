@@ -38,8 +38,12 @@ export default {
 </script>
 
 <style scoped>
-  .form-location__radio-btn {
-    transform: scale(2);
-    margin: 0 8px;
-  }
+.form-location {
+  margin-bottom: 10px;
+}
+
+.form-location__radio-btn {
+  transform: scale(2);
+  margin: 0 8px;
+}
 </style>

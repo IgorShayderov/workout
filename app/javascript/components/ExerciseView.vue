@@ -29,18 +29,18 @@ export default {
     selectExercise() {
       if (this.isSelected) {
         this.isSelected = false;
-        this.$emit('unselected_exercise', this.id);
+        this.$emit('unselected-exercise', this.id);
       } else {
         this.isSelected = true;
-        this.$emit('selected_exercise', this.id);
+        this.$emit('selected-exercise', this.id);
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
-/* 
+/*
 1) верх
 2) низ
 3) лево

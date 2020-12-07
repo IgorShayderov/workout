@@ -22,6 +22,7 @@ feature 'Admin can create new exercises', "
       scenario 'creates exercise with valid params' do
         fill_in 'Title', with: 'The exercise'
         find(:css, '.form-location').choose('Outdoors')
+        attach_file 'Image', "#{Rails.root}/public/apple-touch-icon.png"
         click_button 'Create exercise'
 
         within '.exercises__list' do

@@ -7,10 +7,11 @@
     @close-form="closeForm"
   >
 
-    <label>Title:
+    <label>
+      Title:
       <br>
       <input
-        data-testid="title"
+        data-test-id="title"
         class="form__title"
         type="text"
         v-model="formData.title"
@@ -23,6 +24,15 @@
     >
     </form-location>
 
+    <label>
+      Image:
+      <br>
+      <input
+        type="file"
+        class="form__image-attach"
+      >
+    </label>
+
   </form-wrapper>
 </template>
 
@@ -33,7 +43,6 @@ import formHelpers from '../mixins/formHelpers';
 
 import FormWrapper from './shared/FormWrapper';
 import FormLocation from './shared/FormLocation';
-// if id === 0, then we should create new exercise, othervise update existing
 
 export default {
   mixins: [ formHelpers ],
@@ -120,6 +129,11 @@ export default {
 };
 </script>
 
-<style>
-
+<style scoped>
+.form__title {
+  margin: 5px 0 10px 0;
+}
+.form__image-attach {
+  margin: 5px 0 10px 0;
+}
 </style>

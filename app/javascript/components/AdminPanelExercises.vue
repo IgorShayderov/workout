@@ -32,7 +32,7 @@
           <td>{{ index + 1 }}</td>
           <td>{{ exercise.title }}</td>
           <td>{{ exercise.location }}</td>
-          <td>{{ exercise.image }}</td>
+          <td>{{ exercise }}</td>
           <td>
             <button
               class="btn btn-primary"

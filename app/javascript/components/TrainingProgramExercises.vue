@@ -17,8 +17,8 @@
             :title="exercise.title"
             :id="exercise.id"
             :data-id="exercise.id"
-            @selected_exercise="addExerciseToList"
-            @unselected_exercise="removeExerciseFromList"
+            @selected-exercise="addExerciseToList"
+            @unselected-exercise="removeExerciseFromList"
           >
           </exercise-view>
         </div>
@@ -106,7 +106,7 @@ export default {
   },
   props: {
     trainingProgramId: {
-      type: Number|String,
+      type: [ Number, String ],
       required: true,
     },
   },
@@ -190,15 +190,16 @@ export default {
     ErrorsViewer,
     TrainingProgramComments,
   },
-}
+};
 </script>
 
 <style scoped>
 .exercises-slider {
   display: flex;
   justify-content: space-between;
-  margin: 2vh auto;
-  width: 80%;
+  margin: 2vh;
+  width: 500px;
+  min-width: 500px;
 }
 
 .exercises-list {

@@ -11,24 +11,45 @@
       </li>
     </ul>
 
-    <label>
-      <span>New comment:</span><br>
-
-      <textarea
-        class="training-program-comments_new-comment"
-        cols="30" rows="3"
-        v-model="newComment"
-      >
-      </textarea>
-    </label>
-    <br>
-
     <button
-      class="btn btn-info mb-4"
-      @click="addComment"
+      v-show="!showNewCommentForm"
+      class="btn btn-info"
+      @click="showNewCommentForm = true"
     >
-      Add comment
+      Add new comment
     </button>
+
+    <div
+      v-show="showNewCommentForm"
+      class="new-comment"
+    >
+      <label>
+        <span>New comment:</span><br>
+
+        <textarea
+          class="new-comment__text"
+          cols="30" rows="3"
+          v-model="newComment"
+        >
+        </textarea>
+      </label>
+      <br>
+
+      <button
+        class="btn btn-info mb-4"
+        @click="addComment"
+      >
+        Add comment
+      </button>
+
+      <button
+        class="btn btn-info mb-4 ml-2"
+        @click="showNewCommentForm = false"
+      >
+        Close
+      </button>
+    </div>
+
   </div>
 </template>
 
@@ -45,6 +66,7 @@ export default {
   data() {
     return {
       newComment: '',
+      showNewCommentForm: false,
     };
   },
   created() {
@@ -70,6 +92,7 @@ export default {
             }
           });
       this.newComment = '';
+      this.showNewCommentForm = false;
     },
   },
   computed: {
@@ -88,7 +111,7 @@ export default {
     margin: 0 2vw;
 }
 
-.training-program-comments_new-comment {
+.new-comment__text {
   resize: none;
 }
 </style>

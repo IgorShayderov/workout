@@ -19,6 +19,7 @@ feature 'User can add comments to training program', "
     scenario 'adds valid comment to the training program' do
       find("div.training-program[data-id='#{training_program.id}'] h5.training-program__title").click
 
+      click_on 'Add new comment'
       fill_in 'New comment:', with: 'This is comment'
       click_on 'Add comment'
 
@@ -30,6 +31,7 @@ feature 'User can add comments to training program', "
     scenario 'adds empty comment to the training program' do
       find("div.training-program[data-id='#{training_program.id}'] h5.training-program__title").click
 
+      click_on 'Add new comment'
       fill_in 'New comment:', with: ''
       click_on 'Add comment'
 

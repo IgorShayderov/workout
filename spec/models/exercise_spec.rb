@@ -8,6 +8,10 @@ RSpec.describe Exercise, type: :model do
   it { should have_many(:training_program_exercises) }
   it { should have_many(:training_programs).through(:training_program_exercises).dependent(:destroy) }
 
+  it 'have one attached image' do
+    expect(Exercise.new.image).to be_an_instance_of(ActiveStorage::Attached::One)
+  end
+
   it { should validate_presence_of(:location) }
   it { should validate_presence_of(:title) }
   it { should validate_uniqueness_of(:title) }
