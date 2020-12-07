@@ -16,17 +16,16 @@ import { mapGetters } from 'vuex';
 
 export default {
   methods: {
-    
   },
   computed: {
     ...mapGetters('system',
-      ['getUserInfo']
+        [ 'getUserInfo' ],
     ),
     userInfo() {
       return this.getUserInfo;
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>

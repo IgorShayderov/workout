@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TrainingProgram < ApplicationRecord
   belongs_to :user
   has_many :training_program_exercises
@@ -12,21 +14,19 @@ class TrainingProgram < ApplicationRecord
   def add_exercises(exercises)
     result = {
       exercises_ids: [],
-      errors: [],
+      errors: []
     }
 
     begin
       ActiveRecord::Base.transaction do
         exercises.each do |exercise|
-          new_exercise = training_program_exercises.create!(exercise_id: exercise[:exercise_id], count: exercise[:count])
+          new_exercise = training_program_exercises.create!(exercise_id: exercise[:exercise_id])
 
           result[:exercises_ids].push(new_exercise.id)
         end
       end
-
-      rescue ActiveRecord::RecordInvalid => exception
-
-      result[:errors].push(exception.message)
+    rescue ActiveRecord::RecordInvalid => e
+      result[:errors].push(e.message)
     end
 
     result

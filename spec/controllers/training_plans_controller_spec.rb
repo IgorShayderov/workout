@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe TrainingPlansController, type: :controller do
@@ -39,7 +41,7 @@ RSpec.describe TrainingPlansController, type: :controller do
 
       it 'saves training program in database' do
         expect { post :create, params: { training_program_id: training_program.id, training_plan: attributes_for(:training_plan) } }
-        .to change(TrainingPlan, :count).by(1)
+          .to change(TrainingPlan, :count).by(1)
       end
 
       it 'belongs to training_program from which it was createded' do
@@ -49,7 +51,7 @@ RSpec.describe TrainingPlansController, type: :controller do
 
     context 'with invalid attributes' do
       before do
-        post :create, params: { training_program_id:  training_program.id, training_plan: attributes_for(:training_plan, :invalid) }
+        post :create, params: { training_program_id: training_program.id, training_plan: attributes_for(:training_plan, :invalid) }
       end
 
       it 'return 200 status' do
@@ -63,12 +65,12 @@ RSpec.describe TrainingPlansController, type: :controller do
       it "doesn't save training program in databse" do
         expect do
           post :create, params: {
-                                  training_program_id:  training_program.id,
-                                  training_plan: attributes_for(:training_plan, :invalid) }
+            training_program_id: training_program.id,
+            training_plan: attributes_for(:training_plan, :invalid)
+          }
         end
-        .to_not change(TrainingPlan, :count)
+          .to_not change(TrainingPlan, :count)
       end
-
     end
   end
 end

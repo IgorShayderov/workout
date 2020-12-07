@@ -1,7 +1,7 @@
 <template>
   <div class="calendar">
     <h2 class="calendar__title">Calendar</h2>
-
+  <!-- TODO first day of month is not always monday -->
     <table class="calendar__board">
       <caption>{{ `${monthName} ${currentYear}` }}</caption>
       <thead class="calendar__thead">

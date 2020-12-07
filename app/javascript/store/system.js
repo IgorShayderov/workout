@@ -1,6 +1,6 @@
 export default {
   namespaced: true,
-  state: 
+  state:
   {
     userInfo: gon.user,
     rootPath: gon.root,
@@ -25,7 +25,7 @@ export default {
         'Content-Type': 'application/json',
         'X-CSRF-Token': getters.getToken,
         'Accept': 'application/json',
-      }
+      };
     },
   },
   mutations: {
@@ -48,6 +48,6 @@ export default {
     },
     saveToken({ commit }, token) {
       commit('SAVE_TOKEN', token);
-    }
-  }
+    },
+  },
 };

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe TrainingProgram, type: :model do
@@ -29,7 +31,6 @@ RSpec.describe TrainingProgram, type: :model do
 
         expect(result).to have_key(:exercises_ids)
         expect(result[:exercises_ids]).to include(exercise.id)
-
       end
     end
 

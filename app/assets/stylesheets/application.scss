@@ -22,8 +22,9 @@ $fa-font-path: '@fortawesome/fontawesome-free/webfonts';
 @import '@fortawesome/fontawesome-free/scss/v4-shims';
 
 body {
-  background: linear-gradient(to left, hsla(221, 42%, 28%, 1),
-                                       hsla(247, 32%, 49%, 1),
-                                       hsla(274, 48%, 59%, 1),
-                                       hsla(300, 49%, 69%, 1));
+  background: linear-gradient(to left,
+    hsla(221, 42%, 28%, 1),
+    hsla(247, 32%, 49%, 1),
+    hsla(274, 48%, 59%, 1),
+    hsla(300, 49%, 69%, 1));
 }

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 feature 'User can add exercises to training program', "
@@ -16,7 +18,7 @@ feature 'User can add exercises to training program', "
     end
 
     scenario 'adds exercise to program' do
-      find("div.training-program[data-id='#{training_program.id}'] h5.training-program_title").click
+      find("div.training-program[data-id='#{training_program.id}'] h5.training-program__title").click
       find("div.training-program-exercise[data-id='#{training_program.id}']").click
       click_on 'Confirm'
 
@@ -34,6 +36,6 @@ feature 'User can add exercises to training program', "
       expect(page).to have_content 'Sign up'
     end
 
-    it_behaves_like 'unauthencicated user'
+    it_behaves_like 'unauthenticated user'
   end
 end

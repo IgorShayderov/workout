@@ -2,9 +2,10 @@ import TurbolinksAdapter from 'vue-turbolinks';
 import Vue from 'vue/dist/vue.esm';
 import App from '../app.vue';
 import Vuex from 'vuex';
-import routes from '../routes/routes';
-import trainingPrograms from '../store/training_programs';
-import system from '../store/system';
+import routes from '@js/routes/routes';
+import trainingPrograms from '@js/store/training_programs';
+import system from '@js/store/system';
+import adminPanel from '@js/store/admin_panel';
 import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
@@ -15,6 +16,7 @@ const store = new Vuex.Store({
   modules: {
     trainingPrograms,
     system,
+    adminPanel,
   },
 });
 
@@ -27,7 +29,7 @@ document.addEventListener('turbolinks:load', () => {
   const vueHookElem = document.querySelector('#hello');
 
   if (vueHookElem) {
-    const app = new Vue({
+    new Vue({
       el: '#hello',
       store,
       router,

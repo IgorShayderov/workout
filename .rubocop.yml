@@ -1,0 +1,16 @@
+require: rubocop-rails
+
+Layout/LineLength:
+  Max: 120
+
+Layout/MethodLength:
+  Max: 25
+
+Layout/BlockLength:
+  Max: 35
+
+Style/Documentation:
+  Enabled: false
+
+Layout/AbcSize:
+  Max: 30

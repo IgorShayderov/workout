@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-feature  'User can observe his training plans', "
+feature 'User can observe his training plans', "
   In order to plan my training
   As an authenticated user
   I should be able to assign training_program to certain date
@@ -20,8 +22,8 @@ feature  'User can observe his training plans', "
 
     scenario 'assigns training plan with valid params' do
       select 'First program', from: 'Training program:'
-      fill_in 'Start time:', with: Time.new(2020, 10, 5, 14, 00)
-      fill_in 'End time:', with: Time.new(2020, 10, 5, 14, 30)
+      fill_in 'Start time:', with: Time.zone.local(2020, 10, 5, 14, 0o0)
+      fill_in 'End time:', with: Time.zone.local(2020, 10, 5, 14, 30)
 
       click_on 'Assign training plan'
 
@@ -32,7 +34,7 @@ feature  'User can observe his training plans', "
 
     scenario 'assigns training plan without end time' do
       select 'First program', from: 'Training program:'
-      fill_in 'Start time:', with: Time.new(2020, 10, 5, 14, 00)
+      fill_in 'Start time:', with: Time.zone.local(2020, 10, 5, 14, 0o0)
 
       click_on 'Assign training plan'
 
@@ -53,6 +55,6 @@ feature  'User can observe his training plans', "
   describe 'Unauthenticated user' do
     background { visit root_path }
 
-    it_behaves_like 'unauthencicated user'
+    it_behaves_like 'unauthenticated user'
   end
 end
