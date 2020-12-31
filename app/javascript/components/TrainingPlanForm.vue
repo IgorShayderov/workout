@@ -1,5 +1,5 @@
 <template>
-  <form-wrapper
+  <FormWrapper
     :errors="errors"
     :shouldShowForm="shouldShowForm"
     :submitTitle="'Assign training plan'"
@@ -46,7 +46,7 @@
       />
     </label>
 
-  </form-wrapper>
+  </FormWrapper>
 </template>
 
 <script>
@@ -54,6 +54,7 @@ import { mapGetters, mapActions } from 'vuex';
 import { splitTimeDate } from '../helpers/dates';
 
 import formHelpers from '../mixins/formHelpers';
+
 import FormWrapper from './shared/FormWrapper';
 
 export default {

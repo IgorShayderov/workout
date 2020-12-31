@@ -15,12 +15,12 @@
       </ol>
     </div>
 
-    <training-plan-form
+    <TrainingPlanForm
       :shouldShowForm="shouldShowForm"
       @close-form="closeForm"
       :dateInfo="dateInfo"
     >
-    </training-plan-form>
+    </TrainingPlanForm>
 
     <button
       class="btn btn-info mt-2"

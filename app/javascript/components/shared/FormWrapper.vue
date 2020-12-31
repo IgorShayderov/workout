@@ -23,10 +23,10 @@
         {{ submitTitle }}
       </button>
 
-      <errors-viewer
+      <ErrorsViewer
         :errors="errors"
       >
-      </errors-viewer>
+      </ErrorsViewer>
     </form>
   </div>
 </template>

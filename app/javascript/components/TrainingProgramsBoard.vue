@@ -5,21 +5,19 @@
     </h1>
 
     <div class="training-programs">
-      <training-program
+      <TrainingProgram
         v-for="(trainingProgram, index) in getTrainingPrograms"
         :key="index"
         :trainingProgram="trainingProgram"
         :data-id="trainingProgram.id"
       >
-      </training-program>
+      </TrainingProgram>
 
-      <training-program
+      <TrainingProgram
         class="text-center"
         :title="'New program'"
       >
-        <template
-          v-slot:body
-        >
+        <template v-slot:body>
           <a
             class="training-program_create"
             @click.prevent="showForm"
@@ -28,15 +26,15 @@
             Make new program
           </a>
         </template>
-      </training-program>
+      </TrainingProgram>
 
     </div>
 
-    <training-program-form
+    <TrainingProgramForm
       :shouldShowForm="shouldShowForm"
       @close-form="closeForm"
     >
-    </training-program-form>
+    </TrainingProgramForm>
 
   </div>
 </template>

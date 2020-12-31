@@ -1,5 +1,5 @@
 <template>
-  <form-wrapper
+  <FormWrapper
     :errors="errors"
     :shouldShowForm="shouldShowForm"
     :submitTitle="'Create training program'"
@@ -28,13 +28,13 @@
       ></textarea>
     </label>
 
-    <form-location
+    <FormLocation
       :location="formData.location"
       @change-location="changeLocation"
     >
-    </form-location>
+    </FormLocation>
 
-  </form-wrapper>
+  </FormWrapper>
 </template>
 
 <script>
