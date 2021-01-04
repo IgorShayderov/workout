@@ -20,12 +20,16 @@ export default {
     UPDATE_EXERCISE(state, { updatedExercise, id }) {
       const indexOfExercise = state.exercises.findIndex((exercise) => exercise.id === id);
 
-      state.exercises.splice(indexOfExercise, 1, updatedExercise);
+      if (indexOfExercise !== -1) {
+        state.exercises.splice(indexOfExercise, 1, updatedExercise);
+      }
     },
     DELETE_EXERCISE(state, id) {
       const indexOfExercise = state.exercises.findIndex((exercise) => exercise.id === id);
 
-      state.exercises.splice(indexOfExercise, 1);
+      if (indexOfExercise !== -1) {
+        state.exercises.splice(indexOfExercise, 1);
+      }
     },
   },
   actions: {
@@ -36,7 +40,12 @@ export default {
           url: '/exercises',
           baseUrl: rootGetters['system/getRootPath'],
           data: exerciseData,
-          headers: rootGetters['system/getPostHeaders'],
+          // headers: rootGetters['system/getPostHeaders'],
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'X-CSRF-Token': rootGetters['system/getToken'],
+            'Accept': 'application/json',
+          },
         })
             .then((response) => {
               const { data } = response;
