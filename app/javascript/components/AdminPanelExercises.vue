@@ -18,13 +18,14 @@
             >
           </th>
           <th>Location</th>
-          <th>Image</th>
+          <th class="text-center">Image</th>
           <th class="text-center">Actions</th>
         </tr>
       </thead>
 
       <tbody>
         <tr
+          clas="exercise-row"
           v-for="(exercise, index) in filteredExercises"
           :key="index"
           :data-exercise-id="exercise.id"
@@ -32,7 +33,22 @@
           <td>{{ index + 1 }}</td>
           <td>{{ exercise.title }}</td>
           <td>{{ exercise.location }}</td>
-          <td>{{ exercise }}</td>
+          <td>
+            <!-- <img
+              class="exercise-row__image"
+              v-if="image !== undefined"
+              :src="image.url"
+              :alt="image.filename"
+            > -->
+
+            <a
+              v-if="exercise.image !== undefined"
+              target="_blank"
+              :href="exercise.image.url"
+            >
+              {{ exercise.image.filename }}
+            </a>
+          </td>
           <td>
             <button
               class="btn btn-primary"
@@ -133,4 +149,8 @@ export default {
 </script>
 
 <style scoped>
+.exercise-row__image {
+  width: 150px;
+  height: 150px;
+}
 </style>

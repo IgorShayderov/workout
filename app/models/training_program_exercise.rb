@@ -9,10 +9,8 @@ class TrainingProgramExercise < ApplicationRecord
   private
 
   def validate_exercises_number
-    if training_program.present?
-      if training_program.training_program_exercises.count >= 10
-        errors.add(:training_program, 'can have only 10 exercises')
-      end
-    end
+    exceed_exercise_count = training_program.present? && training_program.training_program_exercises.count >= 10
+
+    errors.add(:training_program, 'can have only 10 exercises') if exceed_exercise_count
   end
 end

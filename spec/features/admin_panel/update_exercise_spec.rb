@@ -28,7 +28,7 @@ feature 'Admin can update existing exercises', "
         fill_in 'Title', with: 'Changed exercise'
         find(:css, '.form-location').choose('Outdoors')
         click_button 'Update exercise'
-        
+
         within '.exercises__list' do
           expect(page).to have_content 'Changed exercise'
         end
@@ -38,7 +38,7 @@ feature 'Admin can update existing exercises', "
         fill_in 'Title', with: ''
         find(:css, '.form-location').choose('Outdoors')
         click_button 'Update exercise'
-        
+
         expect(page).to have_content 'Title can\'t be blank'
       end
     end

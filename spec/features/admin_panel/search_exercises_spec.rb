@@ -8,7 +8,7 @@ feature 'Admin can search through list of exercises', "
   I'd like to be able to search exercises
 " do
   given!(:user) { create(:user) }
-  given!(:admin) { create(:user, admin: true)}
+  given!(:admin) { create(:user, admin: true) }
 
   before do
     create(:exercise, title: 'Exercise you want to see')

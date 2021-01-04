@@ -28,6 +28,8 @@
       Image:
       <br>
       <input
+        @change="saveImage"
+        ref="exerciseImage"
         type="file"
         class="form__image-attach"
       >
@@ -57,6 +59,7 @@ export default {
       formData: {
         title: '',
         location: '',
+        image: null,
       },
     };
   },
@@ -75,6 +78,12 @@ export default {
     ...mapActions('adminPanel',
         [ 'createAndSaveExercise', 'updateAndSaveExercise' ],
     ),
+    saveImage() {
+      console.log(this.$refs.exerciseImage.files[0], 'this.$refs.exerciseImage.files[0]');
+      console.log(this.$refs.exerciseImage.files);
+
+      this.formData.image = this.$refs.exerciseImage.files[0];
+    },
     cleanUpAndClose() {
       this.clearErrors();
       this.clearForm();
@@ -116,10 +125,17 @@ export default {
       return this.id > 0 ? 'Update exercise' : 'Create exercise';
     },
     exerciseParams() {
-      return {
-        title: this.formData.title,
-        location: this.formData.location,
-      };
+      const formData = new FormData();
+
+      Object.keys(this.formData).forEach((formDataKey) => {
+        if (this.formData[formDataKey] === null) {
+          return;
+        }
+
+        formData.append(`exercise[${formDataKey}]`, this.formData[formDataKey]);
+      });
+
+      return formData;
     },
   },
   components: {

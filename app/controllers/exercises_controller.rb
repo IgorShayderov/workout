@@ -4,22 +4,14 @@ class ExercisesController < ApplicationController
   before_action :find_training_program, only: %i[index available]
   before_action :find_exercise, only: %i[update destroy]
 
-  # if @exercise.image.attached?
-  # url: rails_blob_path(file)
-
   def index
-    all_exercises = Exercise.with_attached_image.all.map do |exercise|
-      image = exercise.image
-      p 111111111111111111
-      p rails_blob_path(image.name)
-      []
-    end
-
-    render json: params[:training_program_id] ? @training_program.exercises : all_exercises
+    render json: params[:training_program_id] ? @training_program.exercises : Exercise.all_with_images
   end
 
   def create
     @exercise = Exercise.new(exercise_params)
+
+    @exercise.image.attach(exercise_params[:image]) if exercise_params[:image].present?
 
     if @exercise.save
       render json: @exercise
@@ -60,5 +52,3 @@ class ExercisesController < ApplicationController
     @exercise = Exercise.find(params[:id])
   end
 end
-
-# params.require(:training_program).permit(:title, :description, :location)

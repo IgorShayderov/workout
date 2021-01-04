@@ -1,14 +1,14 @@
 <template>
   <div id="app">
-    <the-navigation>
-    </the-navigation>
+    <TheNavigation>
+    </TheNavigation>
 
     <router-view></router-view>
 
-    <the-wrapper
+    <TheWrapper
       :showWrapper="getWrapperStatus"
     >
-    </the-wrapper>
+    </TheWrapper>
   </div>
 </template>
 

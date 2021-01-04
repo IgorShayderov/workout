@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 shared_examples_for 'exercises from request' do
   it 'returns 200 status' do
     expect(response).to be_successful
