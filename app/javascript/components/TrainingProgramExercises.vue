@@ -11,7 +11,7 @@
         </div>
 
         <div class="exercises-list">
-          <exercise-view
+          <ExerciseView
             v-for="(exercise, index) in getAvailableExercises"
             :key="index"
             :title="exercise.title"
@@ -20,7 +20,7 @@
             @selected-exercise="addExerciseToList"
             @unselected-exercise="removeExerciseFromList"
           >
-          </exercise-view>
+          </ExerciseView>
         </div>
 
         <div class="exercises-slider__roll-next">
@@ -29,11 +29,11 @@
 
     </div>
 
-    <errors-viewer
+    <ErrorsViewer
       :showErrors="showErrors"
       :errors="errors"
     >
-    </errors-viewer>
+    </ErrorsViewer>
 
     <div class="exercises">
       <div class="picked-exercises">
@@ -71,12 +71,12 @@
       </div>
     </div>
 
-    <training-program-comments
+    <TrainingProgramComments
       :trainingProgramId="trainingProgramId.toString()"
       @comment-error="handleCommentError($event)"
       @clear-errors="clearErrors"
     >
-    </training-program-comments>
+    </TrainingProgramComments>
 
   </div>
 </template>

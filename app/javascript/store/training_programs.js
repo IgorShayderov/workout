@@ -1,4 +1,5 @@
-/* global gon */
+const gon = window.gon || {};
+
 import actions from './training_programs/training_programs_actions';
 
 const trainingPrograms = gon.training_programs ?
@@ -25,13 +26,20 @@ export default {
       return state.trainingPrograms;
     },
     getCommentsByTrainingProgramId: (state, getters) => (trainingProgramId) => {
-      return getters.getTrainingProgramById(trainingProgramId).comments;
+      const trainingProgram = getters.getTrainingProgramById(trainingProgramId);
+      let comments = [];
+
+      if (typeof trainingProgram !== 'undefined') {
+        comments = trainingProgram.comments;
+      }
+
+      return comments;
     },
     getTrainingProgramById: (state) => (trainingProgramId) => {
       return state.trainingPrograms.find((program) => program.id.toString() === trainingProgramId.toString());
     },
     getAvailableExerciseById: (state) => (exerciseId) => {
-      return state.availableExercises.find((exercise) => exercise.id === exerciseId);
+      return state.availableExercises.find((exercise) => exercise.id.toString() === exerciseId.toString());
     },
     getTrainingPlansByDate: (state) => (year, month, day) => {
       if (state.trainingPlans.length > 0) {

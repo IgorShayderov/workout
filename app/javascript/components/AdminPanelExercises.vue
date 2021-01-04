@@ -59,12 +59,12 @@
       Add exercise
     </button>
 
-    <admin-panel-exercise-form
+    <AdminPanelExerciseForm
       :shouldShowForm="shouldShowForm"
       @close-form="closeExerciseForm"
       :id="exerciseId || newExerciseId"
     >
-    </admin-panel-exercise-form>
+    </AdminPanelExerciseForm>
 
   </div>
 </template>

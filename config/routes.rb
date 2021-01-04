@@ -22,5 +22,6 @@ Rails.application.routes.draw do
       to: 'training_plans#index'
 
   # for vue-router historyApi
-  get '/*path', to: 'training_programs#index'
+  get '/*path', to: 'training_programs#index',
+    constraints: lambda { |request| !request.fullpath.include?('rails/active_storage') }
 end

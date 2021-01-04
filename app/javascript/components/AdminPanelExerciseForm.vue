@@ -1,5 +1,5 @@
 <template>
-  <form-wrapper
+  <FormWrapper
     :errors="errors"
     :shouldShowForm="shouldShowForm"
     :submitTitle="submitButtonTitle"
@@ -18,11 +18,11 @@
       >
     </label>
 
-    <form-location
+    <FormLocation
       :location="formData.location"
       @change-location="changeLocation"
     >
-    </form-location>
+    </FormLocation>
 
     <label>
       Image:
@@ -33,7 +33,7 @@
       >
     </label>
 
-  </form-wrapper>
+  </FormWrapper>
 </template>
 
 <script>

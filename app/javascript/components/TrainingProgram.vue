@@ -3,9 +3,7 @@
     class="training-program"
     @click="addExercises"
   >
-    <h5
-      class="training-program__title"
-    >
+    <h5 class="training-program__title">
       {{ title || trainingProgram.title }}
     </h5>
 
@@ -15,16 +13,12 @@
       v-if="trainingProgram"
       class="training-program-info"
     >
-      <p
-        class="text-center"
-      >
+      <p class="text-center">
         Location: {{ trainingProgram.location }}
       </p>
 
       <!-- количество упражнений -->
-      <p
-        class="text-center"
-      >
+      <p class="text-center">
         Exercises: {{ countTrainingProgramExercises }}
       </p>
     </div>

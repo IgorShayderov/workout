@@ -1,3 +1,5 @@
+const gon = window.gon || {};
+
 export default {
   namespaced: true,
   state:
@@ -20,7 +22,7 @@ export default {
     getToken(state) {
       return state.token;
     },
-    getPostHeaders: (state, getters) => {
+    getPostHeaders(state, getters) {
       return {
         'Content-Type': 'application/json',
         'X-CSRF-Token': getters.getToken,
@@ -37,7 +39,7 @@ export default {
     },
     SAVE_TOKEN(state, token) {
       state.token = token;
-    }
+    },
   },
   actions: {
     showWrapper({ commit }) {
