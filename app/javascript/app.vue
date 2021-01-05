@@ -1,5 +1,12 @@
 <template>
   <div id="app">
+      <FlashMessage
+        :text="flashMessage"
+        :shouldBeDisplayed="shouldShowFlashMessage"
+        @hide-flash-message="hideFlashMessage"
+      >
+      </FlashMessage>
+
     <TheNavigation>
     </TheNavigation>
 
@@ -15,13 +22,17 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 
+import FlashMessage from './components/FlashMessage';
 import TheWrapper from './components/TheWrapper';
 import TheNavigation from './components/TheNavigation';
 
 export default {
   created() {
-    console.log(document.referrer, 'referrer');
-    // '/users/sign_in'
+    if (document.referrer.includes('/users/sign_in')) {
+      window.setTimeout(() => {
+        this.showFlashMessage('You have successfully logged in');
+      }, 0);
+    }
 
     // saving csrf-token into vuex
     const tokenNode = document.querySelector('meta[name=\'csrf-token\']');
@@ -33,10 +44,24 @@ export default {
 
     this.saveToken(token);
   },
+  data() {
+    return {
+      flashMessage: '',
+      shouldShowFlashMessage: false,
+    };
+  },
   methods: {
     ...mapActions('system',
         [ 'saveToken' ],
     ),
+    showFlashMessage(message) {
+      this.flashMessage = message;
+      this.shouldShowFlashMessage = true;
+    },
+    hideFlashMessage() {
+      this.flashMessage = '';
+      this.shouldShowFlashMessage = false;
+    },
   },
   computed: {
     ...mapGetters('system',
@@ -44,6 +69,7 @@ export default {
     ),
   },
   components: {
+    FlashMessage,
     TheWrapper,
     TheNavigation,
   },
