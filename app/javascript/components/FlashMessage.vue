@@ -7,6 +7,7 @@
     >
       <p class="flash-message__content">{{ text }}</p>
     </div>
+
   </transition>
 
 </template>
