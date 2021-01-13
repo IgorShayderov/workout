@@ -196,4 +196,21 @@ export default {
           });
     });
   },
+  loadCalendarData({ rootGetters }) {
+    return new Promise((resolve) => {
+      axios({
+        method: 'get',
+        url: '/calendar_rendering_data',
+        baseUrl: rootGetters['system/getRootPath'],
+      })
+          .then((response) => {
+            const { data } = response;
+
+            resolve(data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+    });
+  },
 };

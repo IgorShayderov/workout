@@ -62,11 +62,9 @@ export default {
     ),
     createTrainingProgram() {
       const trainingProgramParams = {
-        training_program: {
-          title: this.formData.title,
-          description: this.formData.description,
-          location: this.formData.location,
-        },
+        title: this.formData.title,
+        description: this.formData.description,
+        location: this.formData.location,
       };
 
       this.createAndSaveTrainingProgram(trainingProgramParams)

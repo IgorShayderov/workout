@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
   resources :exercises, only: %i[index create update destroy]
 
+  get 'calendar_rendering_data', to: 'training_plans#calendar_rendering_data'
+
   get '/:year/:month/:day/training_plans',
       to: 'training_plans#index'
 

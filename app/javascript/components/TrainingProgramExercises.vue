@@ -3,7 +3,7 @@
     class="exercises-addition"
   >
     <h1 class="text-center">Exercises</h1>
-
+    <!-- TODO локация для упражнений должна стать чек-боксом, тк может содержать оба значения -->
     <div class="exercises-slider">
 
         <div class="exercises-slider__roll-previous">
@@ -204,7 +204,6 @@ export default {
 
 .exercises-list {
   display: flex;
-  /* overflow: hidden; */
 }
 
 .exercises-slider__roll-next,

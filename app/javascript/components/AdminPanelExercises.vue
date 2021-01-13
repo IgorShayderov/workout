@@ -87,7 +87,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-
+// TODO файл должен появляться в форме, если фото прикреплено
 import AdminPanelExerciseForm from './AdminPanelExerciseForm';
 
 export default {

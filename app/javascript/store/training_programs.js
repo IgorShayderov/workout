@@ -1,14 +1,9 @@
+// for jest units-tests
 const gon = window.gon || {};
 
 import actions from './training_programs/training_programs_actions';
 
-const trainingPrograms = gon.training_programs ?
-  gon.training_programs.map((trainingProgram) => {
-    // defining properties in advance to use vue reactivity
-    trainingProgram.comments = [];
-
-    return trainingProgram;
-  }) : [];
+const trainingPrograms = gon.training_programs || [];
 
 export default {
   namespaced: true,
