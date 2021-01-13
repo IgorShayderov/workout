@@ -23,6 +23,12 @@ class TrainingPlansController < ApplicationController
     end
   end
 
+  def calendar_rendering_data
+    calendar_data = Calendar.instance.collect_calendar_data
+
+    render json: calendar_data
+  end
+
   private
 
   def training_plan_params

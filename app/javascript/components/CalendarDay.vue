@@ -100,7 +100,11 @@ export default {
       return (dateStr) => {
         const date = new Date(dateStr);
         const hours = date.getHours();
-        const minutes = date.getMinutes();
+        let minutes = date.getMinutes().toString(10);
+
+        if (minutes.length === 1) {
+          minutes += '0';
+        }
 
         return `${hours}:${minutes}`;
       };

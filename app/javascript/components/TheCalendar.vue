@@ -1,9 +1,8 @@
 <template>
   <div class="calendar">
     <h2 class="calendar__title">Calendar</h2>
-  <!-- TODO first day of month is not always monday -->
     <table class="calendar__board">
-      <caption>{{ `${monthName} ${currentYear}` }}</caption>
+      <caption>{{ calendarData.caption }}</caption>
       <thead class="calendar__thead">
         <tr>
           <th
@@ -18,19 +17,18 @@
 
       <tbody>
         <tr
-          v-for="week in weeksCount"
+          v-for="week in calendarData.weeks_count"
           :key="week"
         >
           <td
+            v-for="day in calendarData.days.slice(week * daysInWeek - daysInWeek, week * daysInWeek)"
+            :key="day.day_of_month_num"
+            :data-count="day.day_of_month_num"
             class="calendar__day"
-            :class="{ 'calendar__day_selected': calcDay(day, week) === currentDate }"
-            :data-count="calcDay(day, week)"
-            v-for="day in daysInWeek"
-            v-show="!isOutOfLimit(calcDay(day, week))"
-            :key="day"
+            :class="{ 'calendar__day_selected': day.is_current_day, 'calendar__day_past': !day.is_current_month }"
             @click="addTrainingPlans"
           >
-            {{ calcDay(day, week) }}
+            {{ day.day_of_month_num }}
           </td>
         </tr>
       </tbody>
@@ -40,22 +38,35 @@
 </template>
 
 <script>
-import { daysInMonth } from '../helpers/dates';
+import { mapActions } from 'vuex';
 
 export default {
   created() {
+    this.loadCalendarData()
+        .then((data) => {
+          this.calendarData = data;
+        },
+        (error) => {
+          console.log(error);
+        });
   },
   data() {
     return {
+      requestDat: '',
+      calendarData: {},
+      //
       date: new Date(),
       daysInWeek: 7,
-      weekDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-      monthNames: ["January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December",
+      weekDays: [ 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday' ],
+      monthNames: [ 'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December',
       ],
-    }
+    };
   },
   methods: {
+    ...mapActions('trainingPrograms',
+        [ 'loadCalendarData' ],
+    ),
     addTrainingPlans(event) {
       const day = event.target.dataset.count;
 
@@ -63,40 +74,18 @@ export default {
         year: this.currentYear,
         month: this.currentMonth + 1,
         day,
-       }});
-    }
+      } });
+    },
   },
   computed: {
-    calcDay() {
-      return (day, week) => {
-        return day + ((week - 1) * this.daysInWeek);
-      }
-    },
-    currentDate() {
-      return this.date.getDate();
-    },
     currentMonth() {
       return this.date.getMonth();
     },
     currentYear() {
       return this.date.getFullYear();
     },
-    daysInMonthCount() {
-      return daysInMonth(this.currentYear, this.currentMonth);
-    },
-    weeksCount() {
-      return Math.ceil(this.daysInMonthCount / 7);
-    },
-    monthName() {
-      return this.monthNames[this.date.getMonth()];
-    },
-    isOutOfLimit(day) {
-      return (day) => {
-        return this.daysInMonthCount < day;
-      }
-    },
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -128,6 +117,7 @@ export default {
   padding: 5px;
   width: 150px;
   height: 100px;
+  font-weight: 600;
 }
 
 .calendar__day_selected:after {
@@ -144,5 +134,10 @@ export default {
   position: relative;
   outline: 1px solid red;
   outline-offset: -2px;
+}
+
+.calendar__day_past {
+  opacity: 0.4;
+  font-weight: 100;
 }
 </style>
