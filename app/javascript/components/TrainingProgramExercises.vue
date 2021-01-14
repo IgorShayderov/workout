@@ -3,7 +3,6 @@
     class="exercises-addition"
   >
     <h1 class="text-center">Exercises</h1>
-    <!-- TODO локация для упражнений должна стать чек-боксом, тк может содержать оба значения -->
     <div class="exercises-slider">
 
         <div class="exercises-slider__roll-previous">
@@ -12,7 +11,7 @@
 
         <div class="exercises-list">
           <ExerciseView
-            v-for="(exercise, index) in getAvailableExercises"
+            v-for="(exercise, index) in getExercises"
             :key="index"
             :title="exercise.title"
             :id="exercise.id"
@@ -91,8 +90,8 @@ import TrainingProgramComments from './TrainingProgramComments';
 export default {
   beforeRouteEnter(to, from, next) {
     next((vm) => {
-      if (vm.getAvailableExercises.length === 0) {
-        vm.addAvailableExercises(vm.trainingProgramId);
+      if (vm.getExercises.length === 0) {
+        vm.loadExercises();
       }
 
       if (vm.trainingProgramExercises.length === 0) {
@@ -119,7 +118,10 @@ export default {
   },
   methods: {
     ...mapActions('trainingPrograms',
-        [ 'addAvailableExercises', 'loadTrainingProgramExercises', 'processTrainingProgramExercises' ],
+        [ 'loadTrainingProgramExercises', 'processTrainingProgramExercises' ],
+    ),
+    ...mapActions('adminPanel',
+        [ 'loadExercises' ],
     ),
     handleCommentError(errors) {
       this.errors = errors;
@@ -130,7 +132,7 @@ export default {
       this.showErrors = false;
     },
     addExerciseToList(exerciseId) {
-      const exerciseToAdd = this.getAvailableExerciseById(exerciseId);
+      const exerciseToAdd = this.getExerciseById(exerciseId);
 
       this.selectedExercises.push(exerciseToAdd);
     },
@@ -174,6 +176,9 @@ export default {
   computed: {
     ...mapGetters('trainingPrograms',
         [ 'getTrainingProgramById', 'getAvailableExercises', 'getAvailableExerciseById' ],
+    ),
+    ...mapGetters('adminPanel',
+        [ 'getExercises', 'getExerciseById' ],
     ),
     trainingProgramExercises() {
       const trainingProgram = this.getTrainingProgramById(this.trainingProgramId);

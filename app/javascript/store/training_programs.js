@@ -10,13 +10,9 @@ export default {
   state:
   {
     trainingPlans: [],
-    availableExercises: [],
     trainingPrograms,
   },
   getters: {
-    getAvailableExercises(state) {
-      return state.availableExercises;
-    },
     getTrainingPrograms(state) {
       return state.trainingPrograms;
     },
@@ -32,9 +28,6 @@ export default {
     },
     getTrainingProgramById: (state) => (trainingProgramId) => {
       return state.trainingPrograms.find((program) => program.id.toString() === trainingProgramId.toString());
-    },
-    getAvailableExerciseById: (state) => (exerciseId) => {
-      return state.availableExercises.find((exercise) => exercise.id.toString() === exerciseId.toString());
     },
     getTrainingPlansByDate: (state) => (year, month, day) => {
       if (state.trainingPlans.length > 0) {
@@ -52,9 +45,6 @@ export default {
   mutations: {
     SAVE_TRAINING_PROGRAM(state, trainingProgram) {
       state.trainingPrograms.push(trainingProgram);
-    },
-    SAVE_AVAILABLE_EXERCISES(state, exercises) {
-      state.availableExercises = exercises;
     },
     SAVE_TRAINING_PROGRAM_EXERCISES(state, { exercises, trainingProgram }) {
       trainingProgram.exercises = [ ...trainingProgram.exercises, ...exercises ];

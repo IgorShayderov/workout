@@ -9,16 +9,16 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Exercise.create!([
-                   { title: 'Pull ups', location: 'outdoors' },
-                   { title: 'Dips', location: 'outdoors' },
-                   { title: 'Push ups', location: 'outdoors' },
-                   { title: 'Bar leg raises', location: 'outdoors' },
-                   { title: 'Jumping with legs switching', location: 'outdoors' },
-                   { title: 'Bench press', location: 'gym' },
-                   { title: 'Deadlift', location: 'gym' },
-                   { title: 'Barbell hip bridge', location: 'gym' },
-                   { title: 'Squats', location: 'gym' },
-                   { title: 'Lat-pulldowns', location: 'gym' },
-                   { title: 'Barbell Bbicep Curls', location: 'gym' },
-                   { title: 'Overhead press', location: 'gym' }
+                   { title: 'Pull ups' },
+                   { title: 'Dips' },
+                   { title: 'Push ups' },
+                   { title: 'Bar leg raises' },
+                   { title: 'Jumping with legs switching' },
+                   { title: 'Bench press' },
+                   { title: 'Deadlift' },
+                   { title: 'Barbell hip bridge' },
+                   { title: 'Squats' },
+                   { title: 'Lat-pulldowns' },
+                   { title: 'Barbell Bbicep Curls' },
+                   { title: 'Overhead press' }
                  ])

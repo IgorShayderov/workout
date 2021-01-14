@@ -28,6 +28,10 @@ import TheNavigation from './components/TheNavigation';
 
 export default {
   created() {
+    this.$root.$on('flash-message', (message) => {
+      this.showFlashMessage(message);
+    });
+
     if (document.referrer.includes('/users/sign_in')) {
       window.setTimeout(() => {
         this.showFlashMessage('You have successfully logged in');

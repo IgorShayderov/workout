@@ -49,7 +49,7 @@
               {{ exercise.image.filename }}
             </a>
           </td>
-          <td>
+          <td class="text-center">
             <button
               class="btn btn-primary"
               @click="updateExerciseForm(exercise.id)"

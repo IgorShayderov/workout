@@ -1,4 +1,7 @@
+// for jest unit-tests
 const gon = window.gon || {};
+
+import axios from 'axios';
 
 export default {
   namespaced: true,
@@ -50,6 +53,23 @@ export default {
     },
     saveToken({ commit }, token) {
       commit('SAVE_TOKEN', token);
+    },
+    isUserAdmin({ getters }) {
+      return new Promise((resolve) => {
+        axios({
+          method: 'get',
+          url: 'is_admin',
+          baseURL: getters.getRootPath,
+        })
+            .then((response) => {
+              const { data } = response;
+
+              resolve(data);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+      });
     },
   },
 };

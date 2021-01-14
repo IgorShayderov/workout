@@ -32,12 +32,6 @@ class ExercisesController < ApplicationController
     render json: @exercise.destroy
   end
 
-  def available
-    available_exercises = Exercise.available_exercises(@training_program.location)
-
-    render json: available_exercises
-  end
-
   private
 
   def find_training_program

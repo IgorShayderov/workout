@@ -11,7 +11,6 @@ class Exercise < ApplicationRecord
   scope :created_exercises, lambda { |training_program_id, exercises_ids|
     joins(:training_program_exercises).where(training_program_exercises: { id: exercises_ids, training_program_id: training_program_id })
   }
-  scope :available_exercises, ->(location) { where(location: location) }
   scope :all_with_images, lambda {
     with_attached_image.map do |exercise|
       image = exercise.image
@@ -30,6 +29,5 @@ class Exercise < ApplicationRecord
     end
   }
 
-  validates :location, presence: true
   validates :title, uniqueness: true, presence: true
 end

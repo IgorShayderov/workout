@@ -1,27 +1,19 @@
 <template>
   <div class="form-location">
     <p>Where to train?</p>
-    <!-- TODO fix doubling -->
-    <label>
-      <input
-        data-testid="location"
-        type="radio" name="where_to_train" value="gym"
-        class="form-location__radio-btn"
-        :checked="location === 'gym'"
-        @change="$emit('change-location', $event.target.value)"
-      >
-        Gym
-    </label>
 
-    <label>
+    <label
+      v-for="(availableLocation, index) in availableLocations"
+      :key="index"
+    >
       <input
         data-testid="location"
-        type="radio" name="where_to_train" value="outdoors"
+        type="radio" name="where_to_train" :value="availableLocation"
         class="form-location__radio-btn"
-        :checked="location === 'outdoors'"
+        :checked="location === availableLocation"
         @change="$emit('change-location', $event.target.value)"
       >
-        Outdoors
+        {{ availableLocation | capitalize }}
     </label>
   </div>
 </template>
@@ -32,6 +24,16 @@ export default {
     location: {
       type: String,
       required: true,
+    },
+  },
+  data() {
+    return {
+      availableLocations: [ 'gym', 'outdoors' ],
+    };
+  },
+  filters: {
+    capitalize: (string) => {
+      return `${string.charAt(0).toUpperCase()}${string.slice(1)}`;
     },
   },
 };

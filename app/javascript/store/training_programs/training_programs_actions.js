@@ -57,21 +57,6 @@ export default {
       trainingProgram,
     });
   },
-  addAvailableExercises({ commit, rootGetters }, trainingProgramId) {
-    axios({
-      method: 'get',
-      url: `training_programs/${trainingProgramId}/exercises/available`,
-      baseURL: rootGetters['system/getRootPath'],
-    })
-        .then((response) => {
-          const { data } = response;
-
-          commit('SAVE_AVAILABLE_EXERCISES', data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-  },
   loadTrainingProgramExercises({ dispatch, rootGetters }, trainingProgramId) {
     axios({
       method: 'get',
@@ -107,7 +92,9 @@ export default {
 
               reject(errors);
             } else {
+              // TODO
               data.exercises = [];
+              data.comments = [];
 
               resolve();
               commit('SAVE_TRAINING_PROGRAM', data);

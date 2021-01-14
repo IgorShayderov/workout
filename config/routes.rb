@@ -8,9 +8,7 @@ Rails.application.routes.draw do
   resources :training_programs, only: %i[index create update destroy] do
     post 'add_exercises', on: :member
 
-    resources :exercises, only: %i[index] do
-      get 'available', on: :collection
-    end
+    resources :exercises, only: %i[index]
 
     resources :comments, shallow: true, only: %i[index create]
     resources :training_plans, only: %i[create]

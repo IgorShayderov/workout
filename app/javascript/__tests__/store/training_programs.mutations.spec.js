@@ -30,32 +30,6 @@ describe('vuex system module mutations', () => {
     });
   });
 
-  describe('SAVE_AVAILABLE_EXERCISES', () => {
-    test('saves available exercises', () => {
-      const state = {
-        availableExercises: [],
-      };
-      const exercises = [ { id: '1' } ];
-      const expected = { id: '1' };
-
-      mutations.SAVE_AVAILABLE_EXERCISES(state, exercises);
-
-      expect(state.availableExercises).toContainEqual(expected);
-    });
-
-    test('erase existing available exercises', () => {
-      const existingExercise = { id: '1' };
-      const state = {
-        availableExercises: [ existingExercise ],
-      };
-      const exercises = [ { id: '2' } ];
-
-      mutations.SAVE_AVAILABLE_EXERCISES(state, exercises);
-
-      expect(state.availableExercises).not.toContain(existingExercise);
-    });
-  });
-
   describe('SAVE_TRAINING_PROGRAM_EXERCISES', () => {
     test('saves exercises assigned to training program', () => {
       const state = {

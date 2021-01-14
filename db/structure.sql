@@ -132,7 +132,6 @@ ALTER SEQUENCE public.comments_id_seq OWNED BY public.comments.id;
 
 CREATE TABLE public.exercises (
     id bigint NOT NULL,
-    location character varying NOT NULL,
     title character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -244,9 +243,9 @@ CREATE TABLE public.training_programs (
     user_id bigint NOT NULL,
     title character varying NOT NULL,
     description character varying(250) DEFAULT ''::character varying,
-    location character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    location character varying
 );
 
 
@@ -609,6 +608,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20201023230651'),
 ('20201023231858'),
 ('20201030132539'),
-('20201205122438');
+('20201205122438'),
+('20210113150829');
 
 
