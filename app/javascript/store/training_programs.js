@@ -43,6 +43,11 @@ export default {
     },
   },
   mutations: {
+    DELETE_TRAINING_PROGRAM_EXERCISE(state, { trainingProgram, trainingProgramExerciseId }) {
+      trainingProgram.exercises = trainingProgram
+          .exercises
+          .filter((exercise) => exercise.training_program_exercise_id != trainingProgramExerciseId);
+    },
     SAVE_TRAINING_PROGRAM(state, trainingProgram) {
       state.trainingPrograms.push(trainingProgram);
     },

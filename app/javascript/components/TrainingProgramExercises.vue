@@ -59,12 +59,21 @@
       <div class="program-exercises">
         <h2>Program exercises</h2>
 
-        <ol>
+        <ol class="program-exercises__list">
           <li
             v-for="(exercise, index) in trainingProgramExercises"
             :key="index"
+            class="program-exercises__list-item"
+            :data-test-id="exercise.id"
           >
-            {{ exercise.title }}
+            <span>{{ exercise.title }}</span>
+
+            <span
+              class="program-exercises__delete-item"
+              @click="deleteExercise(exercise)"
+            >
+              <i class="fas fa-times"></i>
+            </span>
           </li>
         </ol>
       </div>
@@ -93,10 +102,6 @@ export default {
       if (vm.getExercises.length === 0) {
         vm.loadExercises();
       }
-
-      if (vm.trainingProgramExercises.length === 0) {
-        vm.loadTrainingProgramExercises(vm.trainingProgramId);
-      }
     });
   },
   beforeRouteLeave(to, from, next) {
@@ -118,7 +123,7 @@ export default {
   },
   methods: {
     ...mapActions('trainingPrograms',
-        [ 'loadTrainingProgramExercises', 'processTrainingProgramExercises' ],
+        [ 'processTrainingProgramExercises', 'deleteExerciseFromProgram' ],
     ),
     ...mapActions('adminPanel',
         [ 'loadExercises' ],
@@ -172,6 +177,17 @@ export default {
             this.clearSelectedExercisesList();
           });
     },
+    deleteExercise(exercise) {
+      this.deleteExerciseFromProgram({
+        trainingProgramId: this.trainingProgramId,
+        trainingProgramExerciseId: exercise.training_program_exercise_id,
+      })
+          .then(() => {
+            const messageAfterDelete = `Exercise ${exercise.title} has been successfully deleted`;
+
+            this.$root.$emit('flash-message', messageAfterDelete);
+          });
+    },
   },
   computed: {
     ...mapGetters('trainingPrograms',
@@ -220,5 +236,10 @@ export default {
 
 .picked-exercises, .program-exercises {
   margin: 0 2vw;
+}
+
+.program-exercises__delete-item {
+  cursor: pointer;
+  margin-left: 3px;
 }
 </style>

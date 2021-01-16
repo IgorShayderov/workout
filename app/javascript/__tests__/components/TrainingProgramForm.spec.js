@@ -21,8 +21,6 @@ describe('TrainingProgramForm component', () => {
   let titleField;
   let descriptionField;
   let locationGym;
-  let form;
-  let submitBtn;
 
   beforeEach(() => {
     wrapper = mount(TrainingProgramForm, {
@@ -33,11 +31,9 @@ describe('TrainingProgramForm component', () => {
       store,
     });
 
-    titleField = wrapper.find('[data-testid=\'title\']');
-    descriptionField = wrapper.find('[data-testid=\'description\']');
-    locationGym = wrapper.find('[data-testid=\'location\'][value=\'gym\']');
-    form = wrapper.find('.training-program-form');
-    submitBtn = wrapper.find('.form__btn-submit');
+    titleField = wrapper.find('[data-test-id=\'title\']');
+    descriptionField = wrapper.find('[data-test-id=\'description\']');
+    locationGym = wrapper.find('[data-test-id=\'location\'][value=\'gym\']');
   });
 
   describe('fills the form', () => {

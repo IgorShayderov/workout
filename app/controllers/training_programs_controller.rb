@@ -2,7 +2,7 @@
 
 class TrainingProgramsController < ApplicationController
   before_action :authenticate_user!
-  before_action :get_training_program, only: %i[add_exercises]
+  before_action :get_training_program, only: %i[add_exercises remove_exercise]
 
   def index
     @training_programs = current_user.training_programs_with_exercises
@@ -35,6 +35,14 @@ class TrainingProgramsController < ApplicationController
       render json: Exercise.created_exercises(@training_program.id, result[:exercises_ids])
     else
       render json: { errors: result[:errors] }
+    end
+  end
+
+  def remove_exercise
+    begin
+      render json: @training_program.training_program_exercises.find(params[:exercise_id]).destroy
+    rescue => error
+      render json: { errors: [error.message] }
     end
   end
 

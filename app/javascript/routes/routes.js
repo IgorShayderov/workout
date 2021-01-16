@@ -14,7 +14,7 @@ export default [
     name: 'root',
   },
   {
-    path: '/:trainingProgramId/exercises',
+    path: '/training_programs/:trainingProgramId',
     component: TrainingProgramExercises,
     name: 'trainingProgramExercises',
     props: true,

@@ -35,11 +35,13 @@ RSpec.describe Exercise, type: :model do
     end
 
     it 'should include created exercise' do
-      expect(Exercise.created_exercises(training_program.id, [first_training_exercise.id])).to include(first_exercise)
+      expect(Exercise.created_exercises(training_program.id, [first_training_exercise.id]).first)
+        .to include('id' => first_exercise.id)
     end
 
     it 'should not include non-created exercise' do
-      expect(Exercise.created_exercises(training_program.id, [first_training_exercise.id])).to_not include(second_exercise)
+      expect(Exercise.created_exercises(training_program.id, [first_training_exercise.id]).first)
+        .to_not include('id' => second_exercise.id)
     end
   end
 

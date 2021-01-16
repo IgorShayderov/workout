@@ -43,7 +43,7 @@ describe('vuex system module getters', () => {
     });
   });
 
-  describe('getPostHeaders', () => {
+  describe('getHeadersJSON', () => {
     test('returns post headers', () => {
       const expected = {
         'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ describe('vuex system module getters', () => {
       const _getters = { getToken: '_' };
       const state = {};
 
-      expect(getters.getPostHeaders(state, _getters)).toMatchObject(expected);
+      expect(getters.getHeadersJSON(state, _getters)).toMatchObject(expected);
     });
   });
 });

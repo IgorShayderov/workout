@@ -9,10 +9,14 @@ class Exercise < ApplicationRecord
   has_one_attached :image, dependent: :destroy
 
   scope :created_exercises, lambda { |training_program_id, exercises_ids|
-    joins(:training_program_exercises).where(training_program_exercises: { id: exercises_ids, training_program_id: training_program_id })
+    joins(:training_program_exercises)
+    .select('exercises.id, title, training_program_exercises.id AS training_program_exercise_id')
+    .where(training_program_exercises: { id: exercises_ids, training_program_id: training_program_id })
+    .as_json
   }
   scope :all_with_images, lambda {
-    with_attached_image.map do |exercise|
+    with_attached_image
+    .map do |exercise|
       image = exercise.image
 
       exercise_with_image = exercise.as_json

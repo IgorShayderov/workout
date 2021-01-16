@@ -25,7 +25,7 @@ export default {
     getToken(state) {
       return state.token;
     },
-    getPostHeaders(state, getters) {
+    getHeadersJSON(state, getters) {
       return {
         'Content-Type': 'application/json',
         'X-CSRF-Token': getters.getToken,

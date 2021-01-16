@@ -5,7 +5,7 @@ class ExercisesController < ApplicationController
   before_action :find_exercise, only: %i[update destroy]
 
   def index
-    render json: params[:training_program_id] ? @training_program.exercises : Exercise.all_with_images
+    render json: Exercise.all_with_images
   end
 
   def create

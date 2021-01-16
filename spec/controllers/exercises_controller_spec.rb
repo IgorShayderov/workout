@@ -12,22 +12,6 @@ RSpec.describe ExercisesController, type: :controller do
   before { login(user) }
 
   describe 'GET #index' do
-    context 'with params' do
-      let!(:training_program_exercise) do
-        create(:training_program_exercise,
-               training_program: training_program,
-               exercise: exercises.first)
-      end
-
-      before { get :index, params: { training_program_id: training_program.id } }
-
-      it_behaves_like 'exercises from request'
-
-      it 'returns list of available exercises' do
-        expect(response_body.length).to eq 1
-      end
-    end
-
     context 'without params' do
       before { get :index }
 

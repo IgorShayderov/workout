@@ -4,6 +4,21 @@ import trainingPrograms from 'store/training_programs';
 const { mutations } = trainingPrograms;
 
 describe('vuex system module mutations', () => {
+  describe('DELETE_TRAINING_PROGRAM_EXERCISE', () => {
+    test('deletes training program exercise', () => {
+      const state = {};
+      const trainingProgram = {
+        exercises: [ { training_program_exercise_id: 1 }, { training_program_exercise_id: 2 } ],
+      };
+      const trainingProgramExerciseId = 1;
+
+      mutations.DELETE_TRAINING_PROGRAM_EXERCISE(state, { trainingProgram, trainingProgramExerciseId });
+
+      expect(trainingProgram.exercises).toContainEqual({ training_program_exercise_id: 2 });
+      expect(trainingProgram.exercises).not.toContainEqual({ training_program_exercise_id: 1 });
+    });
+  });
+
   describe('SAVE_TRAINING_PROGRAM', () => {
     test('saves new training program', () => {
       const state = {

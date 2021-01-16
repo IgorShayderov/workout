@@ -7,7 +7,7 @@
       :key="index"
     >
       <input
-        data-testid="location"
+        data-test-id="location"
         type="radio" name="where_to_train" :value="availableLocation"
         class="form-location__radio-btn"
         :checked="location === availableLocation"

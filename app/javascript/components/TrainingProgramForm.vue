@@ -9,7 +9,7 @@
     <label>Title:
       <br>
       <input
-        data-testid="title"
+        data-test-id="title"
         class="training-program-form__title"
         type="text"
         v-model="formData.title"
@@ -21,7 +21,7 @@
       Description(optional):
       <br>
       <textarea
-        data-testid="description"
+        data-test-id="description"
         cols="30" rows="10"
         class="training-program-form__description"
         v-model="formData.description"

@@ -6,6 +6,12 @@ class TrainingProgramExercise < ApplicationRecord
 
   validate :validate_exercises_number, on: :create
 
+  scope :with_exercise_ids, lambda {
+    joins('JOIN exercises AS e ON e.id = exercise_id')
+    .select('training_program_exercises.id AS training_program_exercise_id, exercise_id AS id, e.title AS title')
+    .as_json
+  }
+
   private
 
   def validate_exercises_number
