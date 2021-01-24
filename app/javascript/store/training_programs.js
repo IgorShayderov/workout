@@ -1,27 +1,18 @@
+// for jest units-tests
 const gon = window.gon || {};
 
 import actions from './training_programs/training_programs_actions';
 
-const trainingPrograms = gon.training_programs ?
-  gon.training_programs.map((trainingProgram) => {
-    // defining properties in advance to use vue reactivity
-    trainingProgram.comments = [];
-
-    return trainingProgram;
-  }) : [];
+const trainingPrograms = gon.training_programs || [];
 
 export default {
   namespaced: true,
   state:
   {
     trainingPlans: [],
-    availableExercises: [],
     trainingPrograms,
   },
   getters: {
-    getAvailableExercises(state) {
-      return state.availableExercises;
-    },
     getTrainingPrograms(state) {
       return state.trainingPrograms;
     },
@@ -38,9 +29,6 @@ export default {
     getTrainingProgramById: (state) => (trainingProgramId) => {
       return state.trainingPrograms.find((program) => program.id.toString() === trainingProgramId.toString());
     },
-    getAvailableExerciseById: (state) => (exerciseId) => {
-      return state.availableExercises.find((exercise) => exercise.id.toString() === exerciseId.toString());
-    },
     getTrainingPlansByDate: (state) => (year, month, day) => {
       if (state.trainingPlans.length > 0) {
         const minDate = new Date(year, month - 1, day);
@@ -55,11 +43,13 @@ export default {
     },
   },
   mutations: {
+    DELETE_TRAINING_PROGRAM_EXERCISE(state, { trainingProgram, trainingProgramExerciseId }) {
+      trainingProgram.exercises = trainingProgram
+          .exercises
+          .filter((exercise) => exercise.training_program_exercise_id != trainingProgramExerciseId);
+    },
     SAVE_TRAINING_PROGRAM(state, trainingProgram) {
       state.trainingPrograms.push(trainingProgram);
-    },
-    SAVE_AVAILABLE_EXERCISES(state, exercises) {
-      state.availableExercises = exercises;
     },
     SAVE_TRAINING_PROGRAM_EXERCISES(state, { exercises, trainingProgram }) {
       trainingProgram.exercises = [ ...trainingProgram.exercises, ...exercises ];

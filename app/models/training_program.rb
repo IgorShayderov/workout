@@ -25,8 +25,8 @@ class TrainingProgram < ApplicationRecord
           result[:exercises_ids].push(new_exercise.id)
         end
       end
-    rescue ActiveRecord::RecordInvalid => e
-      result[:errors].push(e.message)
+    rescue ActiveRecord::RecordInvalid => error
+      result[:errors].push(error.message)
     end
 
     result

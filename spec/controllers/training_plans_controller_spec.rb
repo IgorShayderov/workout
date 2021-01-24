@@ -73,4 +73,18 @@ RSpec.describe TrainingPlansController, type: :controller do
       end
     end
   end
+
+  describe 'GET#calendar_rendering_data' do
+    before { get :calendar_rendering_data }
+
+    it 'return 200 status' do
+      expect(response).to be_successful
+    end
+
+    it 'return hash structure with certain attributes' do
+      %w[caption days weeks_count].each do |attr|
+        expect(response_body).to have_key(attr)
+      end
+    end
+  end
 end

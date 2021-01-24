@@ -25,13 +25,14 @@ RSpec.describe TrainingPlan, type: :model do
                              start_time: date + 1.day,
                              end_time: date + 1.day + 1.hour)
     end
+    let!(:plans) { TrainingPlan.plans_for_date(date) }
 
-    it 'should returns exercise with appropriate date' do
-      expect(TrainingPlan.plans_for_date(date)).to include(first_training_plan)
+    it 'should return exercise with appropriate date' do
+      expect(plans).to include(first_training_plan)
     end
 
-    it 'should not returns exercise with inappropriate date' do
-      expect(TrainingPlan.plans_for_date(date)).to_not include(second_training_plan)
+    it 'should not return exercise with inappropriate date' do
+      expect(plans).to_not include(second_training_plan)
     end
   end
 end

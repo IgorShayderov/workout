@@ -3,17 +3,6 @@ import trainingPrograms from 'store/training_programs';
 const { getters } = trainingPrograms;
 
 describe('vuex system module getters', () => {
-  describe('getAvailableExercises', () => {
-    test('returns available exercises', () => {
-      const state = {
-        availableExercises: [ 'exercise' ],
-      };
-      const expected = [ 'exercise' ];
-
-      expect(getters.getAvailableExercises(state)).toMatchObject(expected);
-    });
-  });
-
   describe('getTrainingPrograms', () => {
     test('returns training programs', () => {
       const state = {
@@ -70,28 +59,6 @@ describe('vuex system module getters', () => {
 
     test('returns undefined when training program wasn\'t found', () => {
       expect(getters.getTrainingProgramById(state)('100')).toBeUndefined();
-    });
-  });
-
-  describe('getAvailableExerciseById', () => {
-    const state = {
-      availableExercises: [ { id: '1' } ],
-    };
-
-    test('returns available exercise when argument is string', () => {
-      const expected = { id: '1' };
-
-      expect(getters.getAvailableExerciseById(state)('1')).toMatchObject(expected);
-    });
-
-    test('returns available exercise when argument is number', () => {
-      const expected = { id: '1' };
-
-      expect(getters.getAvailableExerciseById(state)(1)).toMatchObject(expected);
-    });
-
-    test('returns undefined when available exercise wasn\'t found', () => {
-      expect(getters.getAvailableExerciseById(state)('100')).toBeUndefined();
     });
   });
 

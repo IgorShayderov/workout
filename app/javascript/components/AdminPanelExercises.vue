@@ -49,7 +49,7 @@
               {{ exercise.image.filename }}
             </a>
           </td>
-          <td>
+          <td class="text-center">
             <button
               class="btn btn-primary"
               @click="updateExerciseForm(exercise.id)"
@@ -87,7 +87,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-
+// TODO файл должен появляться в форме, если фото прикреплено
 import AdminPanelExerciseForm from './AdminPanelExerciseForm';
 
 export default {

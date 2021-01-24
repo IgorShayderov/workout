@@ -21,10 +21,16 @@ $fa-font-path: '@fortawesome/fontawesome-free/webfonts';
 @import '@fortawesome/fontawesome-free/scss/brands';
 @import '@fortawesome/fontawesome-free/scss/v4-shims';
 
+html {
+  height: 100%;
+}
+
 body {
-  background: linear-gradient(to left,
+  background: linear-gradient(to bottom,
     hsla(221, 42%, 28%, 1),
     hsla(247, 32%, 49%, 1),
     hsla(274, 48%, 59%, 1),
     hsla(300, 49%, 69%, 1));
+  background-repeat: no-repeat;
+  height: 100%;
 }

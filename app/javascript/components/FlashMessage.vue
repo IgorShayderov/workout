@@ -43,18 +43,17 @@ export default {
 
 <style scoped>
 .flash-message {
-    background: linear-gradient(to left,
-    hsla(221, 42%, 28%, 1),
-    hsla(247, 32%, 49%, 1),
-    hsla(274, 48%, 59%, 1));
+  background-color:  hsla(274, 48%, 59%, 1);
+  color: white;
   width: 300px;
   height: 100px;
-  border: 1px dashed black;
+  border: 1px dashed white;
   border-radius: 10px;
   position: absolute;
   top: 1%;
   left: 50%;
   transform: translateX(-50%);
+  padding: 5px;
 }
 
 .flash-message__content {

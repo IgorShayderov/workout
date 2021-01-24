@@ -6,7 +6,6 @@ end
 
 FactoryBot.define do
   factory :exercise do
-    location { 'gym' }
     sequence(:title) { |n| "Exercise ##{n}" }
 
     trait :invalid do

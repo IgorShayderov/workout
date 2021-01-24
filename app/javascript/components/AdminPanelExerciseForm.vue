@@ -18,11 +18,7 @@
       >
     </label>
 
-    <FormLocation
-      :location="formData.location"
-      @change-location="changeLocation"
-    >
-    </FormLocation>
+    <br>
 
     <label>
       Image:
@@ -44,7 +40,6 @@ import { mapGetters, mapActions } from 'vuex';
 import formHelpers from '../mixins/formHelpers';
 
 import FormWrapper from './shared/FormWrapper';
-import FormLocation from './shared/FormLocation';
 
 export default {
   mixins: [ formHelpers ],
@@ -58,7 +53,6 @@ export default {
     return {
       formData: {
         title: '',
-        location: '',
         image: null,
       },
     };
@@ -67,10 +61,8 @@ export default {
     id(newIdValue) {
       if (newIdValue === 0) {
         this.formData.title = '';
-        this.formData.location = '';
       } else {
         this.formData.title = this.currentExercise.title;
-        this.formData.location = this.currentExercise.location;
       }
     },
   },
@@ -88,9 +80,6 @@ export default {
       this.clearErrors();
       this.clearForm();
       this.closeForm();
-    },
-    changeLocation(location) {
-      this.formData.location = location;
     },
     createExercise() {
       this.createAndSaveExercise(this.exerciseParams)
@@ -140,7 +129,6 @@ export default {
   },
   components: {
     FormWrapper,
-    FormLocation,
   },
 };
 </script>

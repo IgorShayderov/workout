@@ -33,18 +33,6 @@ describe('vuex admin_panel module actions', () => {
       return expect(actions.createAndSaveExercise({ commit, rootGetters }, exerciseData))
           .rejects.toBe(expected);
     });
-
-    test('throws error', async () => {
-      axios.mockImplementationOnce(() => {
-        throw new Error('_');
-      });
-
-      expect.assertions(2);
-      await actions.createAndSaveExercise({ commit, rootGetters }, exerciseData).catch((error) => {
-        expect(error.name).toEqual(expect.stringContaining('Error'));
-        expect(error.message).toEqual(expect.stringContaining('_'));
-      });
-    });
   });
 
   describe('updateAndSaveExercise', () => {
@@ -68,18 +56,6 @@ describe('vuex admin_panel module actions', () => {
       return expect(actions.updateAndSaveExercise({ commit, rootGetters }, { exerciseData, id }))
           .rejects.toBe(expected);
     });
-
-    test('throws error', async () => {
-      axios.mockImplementationOnce(() => {
-        throw new Error('_');
-      });
-
-      expect.assertions(2);
-      await actions.updateAndSaveExercise({ commit, rootGetters }, { exerciseData, id }).catch((error) => {
-        expect(error.name).toEqual(expect.stringContaining('Error'));
-        expect(error.message).toEqual(expect.stringContaining('_'));
-      });
-    });
   });
 
   describe('loadExercises', () => {
@@ -89,18 +65,6 @@ describe('vuex admin_panel module actions', () => {
       await actions.loadExercises({ commit, rootGetters });
 
       expect(commit).toHaveBeenCalledWith('SAVE_EXERCISES', [ '_' ]);
-    });
-
-    test('throws error', () => {
-      axios.mockImplementationOnce(() => {
-        throw new Error('_');
-      });
-
-      expect(() => {
-        actions.loadExercises({ commit, rootGetters });
-
-        expect(axios).toBeCalledTimes(1);
-      }).toThrowError('_');
     });
   });
 
@@ -113,18 +77,6 @@ describe('vuex admin_panel module actions', () => {
       await actions.deleteExercise({ commit, rootGetters }, id);
 
       expect(commit).toHaveBeenCalledWith('DELETE_EXERCISE', 1);
-    });
-
-    test('throws error', () => {
-      axios.mockImplementationOnce(() => {
-        throw new Error('_');
-      });
-
-      expect(() => {
-        actions.deleteExercise({ commit, rootGetters }, id );
-
-        expect(axios).toBeCalledTimes(1);
-      }).toThrowError('_');
     });
   });
 });

@@ -3,7 +3,6 @@
     class="exercises-addition"
   >
     <h1 class="text-center">Exercises</h1>
-
     <div class="exercises-slider">
 
         <div class="exercises-slider__roll-previous">
@@ -12,7 +11,7 @@
 
         <div class="exercises-list">
           <ExerciseView
-            v-for="(exercise, index) in getAvailableExercises"
+            v-for="(exercise, index) in getExercises"
             :key="index"
             :title="exercise.title"
             :id="exercise.id"
@@ -60,12 +59,21 @@
       <div class="program-exercises">
         <h2>Program exercises</h2>
 
-        <ol>
+        <ol class="program-exercises__list">
           <li
             v-for="(exercise, index) in trainingProgramExercises"
             :key="index"
+            class="program-exercises__list-item"
+            :data-test-id="exercise.id"
           >
-            {{ exercise.title }}
+            <span>{{ exercise.title }}</span>
+
+            <span
+              class="program-exercises__delete-item"
+              @click="deleteExercise(exercise)"
+            >
+              <i class="fas fa-times"></i>
+            </span>
           </li>
         </ol>
       </div>
@@ -91,12 +99,8 @@ import TrainingProgramComments from './TrainingProgramComments';
 export default {
   beforeRouteEnter(to, from, next) {
     next((vm) => {
-      if (vm.getAvailableExercises.length === 0) {
-        vm.addAvailableExercises(vm.trainingProgramId);
-      }
-
-      if (vm.trainingProgramExercises.length === 0) {
-        vm.loadTrainingProgramExercises(vm.trainingProgramId);
+      if (vm.getExercises.length === 0) {
+        vm.loadExercises();
       }
     });
   },
@@ -119,7 +123,10 @@ export default {
   },
   methods: {
     ...mapActions('trainingPrograms',
-        [ 'addAvailableExercises', 'loadTrainingProgramExercises', 'processTrainingProgramExercises' ],
+        [ 'processTrainingProgramExercises', 'deleteExerciseFromProgram' ],
+    ),
+    ...mapActions('adminPanel',
+        [ 'loadExercises' ],
     ),
     handleCommentError(errors) {
       this.errors = errors;
@@ -130,7 +137,7 @@ export default {
       this.showErrors = false;
     },
     addExerciseToList(exerciseId) {
-      const exerciseToAdd = this.getAvailableExerciseById(exerciseId);
+      const exerciseToAdd = this.getExerciseById(exerciseId);
 
       this.selectedExercises.push(exerciseToAdd);
     },
@@ -170,10 +177,24 @@ export default {
             this.clearSelectedExercisesList();
           });
     },
+    deleteExercise(exercise) {
+      this.deleteExerciseFromProgram({
+        trainingProgramId: this.trainingProgramId,
+        trainingProgramExerciseId: exercise.training_program_exercise_id,
+      })
+          .then(() => {
+            const messageAfterDelete = `Exercise ${exercise.title} has been successfully deleted`;
+
+            this.$root.$emit('flash-message', messageAfterDelete);
+          });
+    },
   },
   computed: {
     ...mapGetters('trainingPrograms',
         [ 'getTrainingProgramById', 'getAvailableExercises', 'getAvailableExerciseById' ],
+    ),
+    ...mapGetters('adminPanel',
+        [ 'getExercises', 'getExerciseById' ],
     ),
     trainingProgramExercises() {
       const trainingProgram = this.getTrainingProgramById(this.trainingProgramId);
@@ -204,7 +225,6 @@ export default {
 
 .exercises-list {
   display: flex;
-  /* overflow: hidden; */
 }
 
 .exercises-slider__roll-next,
@@ -216,5 +236,10 @@ export default {
 
 .picked-exercises, .program-exercises {
   margin: 0 2vw;
+}
+
+.program-exercises__delete-item {
+  cursor: pointer;
+  margin-left: 3px;
 }
 </style>

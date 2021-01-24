@@ -14,8 +14,12 @@ export default {
     },
   },
   mutations: {
-    SAVE_EXERCISES(state, exercises) {
-      state.exercises = [ ...state.exercises, ...exercises ];
+    DELETE_EXERCISE(state, id) {
+      const indexOfExercise = state.exercises.findIndex((exercise) => exercise.id === id);
+
+      if (indexOfExercise !== -1) {
+        state.exercises.splice(indexOfExercise, 1);
+      }
     },
     UPDATE_EXERCISE(state, { updatedExercise, id }) {
       const indexOfExercise = state.exercises.findIndex((exercise) => exercise.id === id);
@@ -24,12 +28,8 @@ export default {
         state.exercises.splice(indexOfExercise, 1, updatedExercise);
       }
     },
-    DELETE_EXERCISE(state, id) {
-      const indexOfExercise = state.exercises.findIndex((exercise) => exercise.id === id);
-
-      if (indexOfExercise !== -1) {
-        state.exercises.splice(indexOfExercise, 1);
-      }
+    SAVE_EXERCISES(state, exercises) {
+      state.exercises = [ ...state.exercises, ...exercises ];
     },
   },
   actions: {
@@ -40,7 +40,6 @@ export default {
           url: '/exercises',
           baseUrl: rootGetters['system/getRootPath'],
           data: exerciseData,
-          // headers: rootGetters['system/getPostHeaders'],
           headers: {
             'Content-Type': 'multipart/form-data',
             'X-CSRF-Token': rootGetters['system/getToken'],
@@ -64,6 +63,37 @@ export default {
             });
       });
     },
+    deleteExercise({ commit, rootGetters }, id) {
+      axios({
+        method: 'delete',
+        url: `/exercises/${id}`,
+        baseUrl: rootGetters['system/getRootPath'],
+        headers: rootGetters['system/getHeadersJSON'],
+      })
+          .then((response) => {
+            const { data } = response;
+
+            commit('DELETE_EXERCISE', data.id);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+    },
+    loadExercises({ commit, rootGetters }) {
+      axios({
+        method: 'get',
+        url: '/exercises',
+        baseUrl: rootGetters['system/getRootPath'],
+      })
+          .then((response) => {
+            const { data } = response;
+
+            commit('SAVE_EXERCISES', data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+    },
     updateAndSaveExercise({ commit, rootGetters }, { exerciseParams, id }) {
       return new Promise((resolve, reject) => {
         axios({
@@ -71,7 +101,7 @@ export default {
           url: `/exercises/${id}`,
           baseUrl: rootGetters['system/getRootPath'],
           data: exerciseParams,
-          headers: rootGetters['system/getPostHeaders'],
+          headers: rootGetters['system/getHeadersJSON'],
         })
             .then((response) => {
               const { data } = response;
@@ -89,37 +119,6 @@ export default {
               console.log(error);
             });
       });
-    },
-    loadExercises({ commit, rootGetters }) {
-      axios({
-        method: 'get',
-        url: '/exercises',
-        baseUrl: rootGetters['system/getRootPath'],
-      })
-          .then((response) => {
-            const { data } = response;
-
-            commit('SAVE_EXERCISES', data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-    },
-    deleteExercise({ commit, rootGetters }, id) {
-      axios({
-        method: 'delete',
-        url: `/exercises/${id}`,
-        baseUrl: rootGetters['system/getRootPath'],
-        headers: rootGetters['system/getPostHeaders'],
-      })
-          .then((response) => {
-            const { data } = response;
-
-            commit('DELETE_EXERCISE', data.id);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
     },
   },
 };

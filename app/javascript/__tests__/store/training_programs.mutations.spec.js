@@ -4,6 +4,21 @@ import trainingPrograms from 'store/training_programs';
 const { mutations } = trainingPrograms;
 
 describe('vuex system module mutations', () => {
+  describe('DELETE_TRAINING_PROGRAM_EXERCISE', () => {
+    test('deletes training program exercise', () => {
+      const state = {};
+      const trainingProgram = {
+        exercises: [ { training_program_exercise_id: 1 }, { training_program_exercise_id: 2 } ],
+      };
+      const trainingProgramExerciseId = 1;
+
+      mutations.DELETE_TRAINING_PROGRAM_EXERCISE(state, { trainingProgram, trainingProgramExerciseId });
+
+      expect(trainingProgram.exercises).toContainEqual({ training_program_exercise_id: 2 });
+      expect(trainingProgram.exercises).not.toContainEqual({ training_program_exercise_id: 1 });
+    });
+  });
+
   describe('SAVE_TRAINING_PROGRAM', () => {
     test('saves new training program', () => {
       const state = {
@@ -27,32 +42,6 @@ describe('vuex system module mutations', () => {
       mutations.SAVE_TRAINING_PROGRAM(state, trainingProgram);
 
       expect(state.trainingPrograms).toContain(existingTrainingProgram);
-    });
-  });
-
-  describe('SAVE_AVAILABLE_EXERCISES', () => {
-    test('saves available exercises', () => {
-      const state = {
-        availableExercises: [],
-      };
-      const exercises = [ { id: '1' } ];
-      const expected = { id: '1' };
-
-      mutations.SAVE_AVAILABLE_EXERCISES(state, exercises);
-
-      expect(state.availableExercises).toContainEqual(expected);
-    });
-
-    test('erase existing available exercises', () => {
-      const existingExercise = { id: '1' };
-      const state = {
-        availableExercises: [ existingExercise ],
-      };
-      const exercises = [ { id: '2' } ];
-
-      mutations.SAVE_AVAILABLE_EXERCISES(state, exercises);
-
-      expect(state.availableExercises).not.toContain(existingExercise);
     });
   });
 

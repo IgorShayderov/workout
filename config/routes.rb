@@ -7,10 +7,7 @@ Rails.application.routes.draw do
 
   resources :training_programs, only: %i[index create update destroy] do
     post 'add_exercises', on: :member
-
-    resources :exercises, only: %i[index] do
-      get 'available', on: :collection
-    end
+    delete 'remove_exercise/:exercise_id', action: :remove_exercise, on: :member
 
     resources :comments, shallow: true, only: %i[index create]
     resources :training_plans, only: %i[create]
@@ -18,8 +15,12 @@ Rails.application.routes.draw do
 
   resources :exercises, only: %i[index create update destroy]
 
+  get 'calendar_rendering_data', to: 'training_plans#calendar_rendering_data'
+
   get '/:year/:month/:day/training_plans',
       to: 'training_plans#index'
+
+  get '/is_admin', to: 'profiles#is_admin'
 
   # for vue-router historyApi
   get '/*path', to: 'training_programs#index',
