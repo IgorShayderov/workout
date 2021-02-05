@@ -52,10 +52,10 @@ export default {
       state.trainingPrograms.push(trainingProgram);
     },
     SAVE_TRAINING_PROGRAM_EXERCISES(state, { exercises, trainingProgram }) {
-      trainingProgram.exercises = [ ...trainingProgram.exercises, ...exercises ];
+      trainingProgram.exercises = [...trainingProgram.exercises, ...exercises];
     },
     SAVE_COMMENTS(state, { comments, trainingProgram }) {
-      trainingProgram.comments = [ ...trainingProgram.comments, ...comments ];
+      trainingProgram.comments = [...trainingProgram.comments, ...comments];
     },
     SAVE_TRAINING_PLAN(state, trainingPlan) {
       state.trainingPlans.push(trainingPlan);

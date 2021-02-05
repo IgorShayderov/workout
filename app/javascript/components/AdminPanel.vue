@@ -18,17 +18,22 @@ export default {
   },
   computed: {
     ...mapGetters('system',
-        [ 'getUserInfo' ],
+        ['getUserInfo'],
     ),
   },
   methods: {
     ...mapActions('system',
-        [ 'isUserAdmin' ],
+        ['isUserAdmin'],
     ),
     verifyUserIsAdmin() {
       return this.isUserAdmin()
           .then((isUserAdmin) => isUserAdmin);
     },
+  },
+  provide: function() {
+    return {
+      verifyUserIsAdmin: this.verifyUserIsAdmin,
+    };
   },
 };
 </script>

@@ -43,6 +43,11 @@ RSpec.describe Exercise, type: :model do
       expect(Exercise.created_exercises(training_program.id, [first_training_exercise.id]).first)
         .to_not include('id' => second_exercise.id)
     end
+
+    it 'should be hash' do
+      expect(Exercise.created_exercises(training_program.id, [first_training_exercise.id]).first)
+        .to be_instance_of(Hash)
+    end
   end
 
   describe '.all_with_images' do

@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     ...mapActions('system',
-        [ 'saveToken' ],
+        ['saveToken'],
     ),
     showFlashMessage(message) {
       this.flashMessage = message;
@@ -69,7 +69,7 @@ export default {
   },
   computed: {
     ...mapGetters('system',
-        [ 'getWrapperStatus' ],
+        ['getWrapperStatus'],
     ),
   },
   components: {
@@ -82,6 +82,10 @@ export default {
 
 <style lang="scss">
 $highlight-color: hsla(311, 98%, 34%, 1);
+
+:export {
+  hightlightColor: $highlight-color;
+}
 
 p {
   margin: 0;

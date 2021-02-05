@@ -26,7 +26,7 @@ export default {
             }
           })
           .catch((error) => {
-            console.log(error);
+            console.error(error);
           });
     });
   },
@@ -53,7 +53,7 @@ export default {
             }
           })
           .catch((error) => {
-            console.log(error);
+            console.error(error);
           });
     });
   },
@@ -70,7 +70,7 @@ export default {
             resolve(data);
           })
           .catch((error) => {
-            console.log(error);
+            console.error(error);
           });
     });
   },
@@ -90,7 +90,7 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
         });
   },
   loadTrainingProgramComments({ commit, getters, rootGetters }, trainingProgramId) {
@@ -110,7 +110,7 @@ export default {
           });
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
         });
   },
   processTrainingProgramExercises({ dispatch, rootGetters }, { trainingProgramId, exercises }) {
@@ -137,7 +137,7 @@ export default {
             resolve(data);
           })
           .catch((error) => {
-            console.log(error);
+            console.error(error);
           });
     });
   },
@@ -161,13 +161,13 @@ export default {
 
             if (!data.errors) {
               commit('SAVE_COMMENTS', {
-                comments: [ data ],
+                comments: [data],
                 trainingProgram,
               });
             }
           })
           .catch((error) => {
-            console.log(error);
+            console.error(error);
           });
     });
   },
@@ -204,7 +204,7 @@ export default {
             }
           })
           .catch((error) => {
-            console.log(error);
+            console.error(error);
           });
     });
   },

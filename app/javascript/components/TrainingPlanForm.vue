@@ -58,7 +58,7 @@ import formHelpers from '../mixins/formHelpers';
 import FormWrapper from './shared/FormWrapper';
 
 export default {
-  mixins: [ formHelpers ],
+  mixins: [formHelpers],
   props: {
     dateInfo: {
       type: Object,
@@ -80,7 +80,7 @@ export default {
   },
   methods: {
     ...mapActions('trainingPrograms',
-        [ 'saveTrainingPlan' ],
+        ['saveTrainingPlan'],
     ),
     calcDateFromTime(time) {
       const { year, month, day } = this.dateInfo;
@@ -91,7 +91,7 @@ export default {
     assignTrainingPlan() {
       if (!this.formData.selectedTrainingProgramId) {
         this.errors = {
-          training_program: [ 'can\'t be blank' ],
+          training_program: ['can\'t be blank'],
         };
       } else {
         const timeData = {
@@ -118,7 +118,7 @@ export default {
   },
   computed: {
     ...mapGetters('trainingPrograms',
-        [ 'getTrainingPrograms' ],
+        ['getTrainingPrograms'],
     ),
   },
   components: {

@@ -54,18 +54,17 @@ export default {
     return {
       requestDat: '',
       calendarData: {},
-      //
       date: new Date(),
       daysInWeek: 7,
-      weekDays: [ 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday' ],
-      monthNames: [ 'January', 'February', 'March', 'April', 'May', 'June',
+      weekDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      monthNames: ['January', 'February', 'March', 'April', 'May', 'June',
         'July', 'August', 'September', 'October', 'November', 'December',
       ],
     };
   },
   methods: {
     ...mapActions('trainingPrograms',
-        [ 'loadCalendarData' ],
+        ['loadCalendarData'],
     ),
     addTrainingPlans(event) {
       const day = event.target.dataset.count;

@@ -6,9 +6,9 @@ describe('vuex system module getters', () => {
   describe('getTrainingPrograms', () => {
     test('returns training programs', () => {
       const state = {
-        trainingPrograms: [ 'program' ],
+        trainingPrograms: ['program'],
       };
-      const expected = [ 'program' ];
+      const expected = ['program'];
 
       expect(getters.getTrainingPrograms(state)).toMatchObject(expected);
     });
@@ -17,9 +17,9 @@ describe('vuex system module getters', () => {
   describe('getCommentsByTrainingProgramId', () => {
     test('returns comments', () => {
       const state = {
-        trainingPrograms: [ { id: '1', comments: [ 'comment' ] } ],
+        trainingPrograms: [{ id: '1', comments: ['comment'] }],
       };
-      const expected = [ 'comment' ];
+      const expected = ['comment'];
       const _getters = {
         getTrainingProgramById: () => state.trainingPrograms[0],
       };
@@ -29,7 +29,7 @@ describe('vuex system module getters', () => {
 
     test('returns empty array when training program wasn\'t found', () => {
       const state = {
-        trainingPrograms: [ { id: '1', comments: [ 'comment' ] } ],
+        trainingPrograms: [{ id: '1', comments: ['comment'] }],
       };
       const expected = [];
       const _getters = {
@@ -42,7 +42,7 @@ describe('vuex system module getters', () => {
 
   describe('getTrainingProgramById', () => {
     const state = {
-      trainingPrograms: [ { id: '1' } ],
+      trainingPrograms: [{ id: '1' }],
     };
 
     test('returns training program when argument is string', () => {
@@ -90,8 +90,8 @@ describe('vuex system module getters', () => {
     });
 
     test.each([
-      [ 30, '2' ],
-      [ 31, '1' ],
+      [30, '2'],
+      [31, '1'],
     ])('returns training plans within the date', (_day, id) => {
       const state = {
         trainingPlans: trainingPlansStorage,
@@ -99,7 +99,7 @@ describe('vuex system module getters', () => {
       const expected = trainingPlansStorage.find((trainingPlan) => trainingPlan.id === id);
 
       expect(getters.getTrainingPlansByDate(state)(year, month, _day))
-          .toEqual(expect.arrayContaining([ expected ]));
+          .toEqual(expect.arrayContaining([expected]));
     });
   });
 });

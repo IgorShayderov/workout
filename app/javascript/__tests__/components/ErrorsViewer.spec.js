@@ -15,7 +15,7 @@ describe('ErrorsViewer component', () => {
   });
 
   test('when there are errors thrown, errors-viewer should be visible', async () => {
-    await wrapper.setProps({ errors: [ error ] });
+    await wrapper.setProps({ errors: [error] });
 
     expect(wrapper.find('.errors-viewer').isVisible()).toBe(true);
   });
@@ -25,13 +25,13 @@ describe('ErrorsViewer component', () => {
   });
 
   test('when there are errors thrown, they should be printed', async () => {
-    await wrapper.setProps({ errors: [ error ] });
+    await wrapper.setProps({ errors: [error] });
 
     expect(wrapper.text()).toContain(error);
   });
 
   test('should show errors when errors object passed', async () => {
-    await wrapper.setProps({ errors: { title: [ 'can\'t be blank' ] } });
+    await wrapper.setProps({ errors: { title: ['can\'t be blank'] } });
 
     expect(wrapper.text()).toContain('Title can\'t be blank');
   });

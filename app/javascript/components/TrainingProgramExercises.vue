@@ -11,8 +11,8 @@
 
         <div class="exercises-list">
           <ExerciseView
-            v-for="(exercise, index) in getExercises"
-            :key="index"
+            v-for="exercise in exercisesList"
+            :key="exercise.id"
             :title="exercise.title"
             :id="exercise.id"
             :data-id="exercise.id"
@@ -110,7 +110,7 @@ export default {
   },
   props: {
     trainingProgramId: {
-      type: [ Number, String ],
+      type: [Number, String],
       required: true,
     },
   },
@@ -123,10 +123,10 @@ export default {
   },
   methods: {
     ...mapActions('trainingPrograms',
-        [ 'processTrainingProgramExercises', 'deleteExerciseFromProgram' ],
+        ['processTrainingProgramExercises', 'deleteExerciseFromProgram'],
     ),
     ...mapActions('adminPanel',
-        [ 'loadExercises' ],
+        ['loadExercises'],
     ),
     handleCommentError(errors) {
       this.errors = errors;
@@ -191,11 +191,14 @@ export default {
   },
   computed: {
     ...mapGetters('trainingPrograms',
-        [ 'getTrainingProgramById', 'getAvailableExercises', 'getAvailableExerciseById' ],
+        ['getTrainingProgramById', 'getAvailableExercises', 'getAvailableExerciseById'],
     ),
     ...mapGetters('adminPanel',
-        [ 'getExercises', 'getExerciseById' ],
+        ['getExercises', 'getExerciseById'],
     ),
+    exercisesList() {
+      return this.getExercises.slice(0, 5);
+    },
     trainingProgramExercises() {
       const trainingProgram = this.getTrainingProgramById(this.trainingProgramId);
 

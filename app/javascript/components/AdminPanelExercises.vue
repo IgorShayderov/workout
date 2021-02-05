@@ -27,7 +27,7 @@
         <tr
           clas="exercise-row"
           v-for="(exercise, index) in filteredExercises"
-          :key="index"
+          :key="exercise.id"
           :data-exercise-id="exercise.id"
         >
           <td>{{ index + 1 }}</td>
@@ -98,6 +98,7 @@ export default {
       }
     });
   },
+  inject: ['verifyUserIsAdmin'],
   data() {
     return {
       newExerciseId: 0,
@@ -108,10 +109,10 @@ export default {
   },
   methods: {
     ...mapActions('adminPanel',
-        [ 'loadExercises', 'deleteExercise' ],
+        ['loadExercises', 'deleteExercise'],
     ),
     ...mapActions('system',
-        [ 'showWrapper', 'hideWrapper' ],
+        ['showWrapper', 'hideWrapper'],
     ),
     openExerciseForm() {
       this.shouldShowForm = true;
@@ -132,7 +133,7 @@ export default {
   },
   computed: {
     ...mapGetters('adminPanel',
-        [ 'getExercises' ],
+        ['getExercises'],
     ),
     filteredExercises() {
       const regExp = new RegExp(this.searchFilter, 'i');

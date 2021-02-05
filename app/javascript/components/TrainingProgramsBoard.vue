@@ -6,8 +6,8 @@
 
     <div class="training-programs">
       <TrainingProgram
-        v-for="(trainingProgram, index) in getTrainingPrograms"
-        :key="index"
+        v-for="trainingProgram in getTrainingPrograms"
+        :key="trainingProgram.id"
         :trainingProgram="trainingProgram"
         :data-id="trainingProgram.id"
       >
@@ -46,8 +46,6 @@ import TrainingProgram from './TrainingProgram';
 import TrainingProgramForm from './TrainingProgramForm';
 
 export default {
-  props: {
-  },
   data: function() {
     return {
       shouldShowForm: false,
@@ -55,7 +53,7 @@ export default {
   },
   methods: {
     ...mapActions('system',
-        [ 'showWrapper', 'hideWrapper' ],
+        ['showWrapper', 'hideWrapper'],
     ),
     showForm() {
       this.shouldShowForm = true;
@@ -68,7 +66,7 @@ export default {
   },
   computed: {
     ...mapGetters('trainingPrograms',
-        [ 'getTrainingPrograms' ],
+        ['getTrainingPrograms'],
     ),
   },
   components: {

@@ -33,7 +33,13 @@ document.addEventListener('turbolinks:load', () => {
       el: '#hello',
       store,
       router,
-      render: h => h(App, {}),
+      render: (h) => h(App, {}),
     });
   }
+});
+
+window.addEventListener('unhandledrejection', (event) => {
+  console.error('Unhandled promise rejection!');
+  console.info(event.promise);
+  console.error(event.reason);
 });

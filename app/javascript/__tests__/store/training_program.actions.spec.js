@@ -35,9 +35,9 @@ describe('vuex training programs module actions', () => {
     });
 
     test('rejects with error', () => {
-      const expected = [ 'error' ];
+      const expected = ['error'];
 
-      axios.mockImplementationOnce(() => Promise.resolve({ data: { errors: [ 'error' ] } }));
+      axios.mockImplementationOnce(() => Promise.resolve({ data: { errors: ['error'] } }));
 
       expect.assertions(1);
       return expect(actions.deleteExerciseFromProgram({ commit, getters, rootGetters }, data))

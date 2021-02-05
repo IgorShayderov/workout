@@ -76,7 +76,7 @@ export default {
   },
   methods: {
     ...mapActions('trainingPrograms',
-        [ 'loadTrainingProgramComments', 'saveComment' ],
+        ['loadTrainingProgramComments', 'saveComment'],
     ),
     addComment() {
       this.$emit('clear-errors');
@@ -97,7 +97,7 @@ export default {
   },
   computed: {
     ...mapGetters('trainingPrograms',
-        [ 'getCommentsByTrainingProgramId' ],
+        ['getCommentsByTrainingProgramId'],
     ),
     comments() {
       return this.getCommentsByTrainingProgramId(this.trainingProgramId);

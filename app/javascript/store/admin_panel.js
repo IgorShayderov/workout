@@ -29,7 +29,7 @@ export default {
       }
     },
     SAVE_EXERCISES(state, exercises) {
-      state.exercises = [ ...state.exercises, ...exercises ];
+      state.exercises = [...state.exercises, ...exercises];
     },
   },
   actions: {
@@ -55,11 +55,11 @@ export default {
                 reject(errors);
               } else {
                 resolve();
-                commit('SAVE_EXERCISES', [ data ]);
+                commit('SAVE_EXERCISES', [data]);
               }
             })
             .catch((error) => {
-              console.log(error);
+              console.error(error);
             });
       });
     },
@@ -76,7 +76,7 @@ export default {
             commit('DELETE_EXERCISE', data.id);
           })
           .catch((error) => {
-            console.log(error);
+            console.error(error);
           });
     },
     loadExercises({ commit, rootGetters }) {
@@ -91,7 +91,7 @@ export default {
             commit('SAVE_EXERCISES', data);
           })
           .catch((error) => {
-            console.log(error);
+            console.error(error);
           });
     },
     updateAndSaveExercise({ commit, rootGetters }, { exerciseParams, id }) {
@@ -116,7 +116,7 @@ export default {
               }
             })
             .catch((error) => {
-              console.log(error);
+              console.error(error);
             });
       });
     },

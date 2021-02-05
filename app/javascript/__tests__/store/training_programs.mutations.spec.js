@@ -8,7 +8,7 @@ describe('vuex system module mutations', () => {
     test('deletes training program exercise', () => {
       const state = {};
       const trainingProgram = {
-        exercises: [ { training_program_exercise_id: 1 }, { training_program_exercise_id: 2 } ],
+        exercises: [{ training_program_exercise_id: 1 }, { training_program_exercise_id: 2 }],
       };
       const trainingProgramExerciseId = 1;
 
@@ -35,7 +35,7 @@ describe('vuex system module mutations', () => {
     test('doesn\'t erase existing training programs', () => {
       const existingTrainingProgram = { id: '1' };
       const state = {
-        trainingPrograms: [ existingTrainingProgram ],
+        trainingPrograms: [existingTrainingProgram],
       };
       const trainingProgram = { id: '2' };
 
@@ -48,9 +48,9 @@ describe('vuex system module mutations', () => {
   describe('SAVE_TRAINING_PROGRAM_EXERCISES', () => {
     test('saves exercises assigned to training program', () => {
       const state = {
-        trainingPrograms: [ { id: '1', exercises: [] } ],
+        trainingPrograms: [{ id: '1', exercises: [] }],
       };
-      const exercises = [ { id: '10' } ];
+      const exercises = [{ id: '10' }];
       const trainingProgram = state.trainingPrograms[0];
 
       mutations.SAVE_TRAINING_PROGRAM_EXERCISES(state, { exercises, trainingProgram });
@@ -61,9 +61,9 @@ describe('vuex system module mutations', () => {
     test('doesn\'t erase existing exercises assigned to training program', () => {
       const existingExercise = { id: '11' };
       const state = {
-        trainingPrograms: [ { id: '1', exercises: [ existingExercise ] } ],
+        trainingPrograms: [{ id: '1', exercises: [existingExercise] }],
       };
-      const exercises = [ { id: '10' } ];
+      const exercises = [{ id: '10' }];
       const trainingProgram = state.trainingPrograms[0];
 
       mutations.SAVE_TRAINING_PROGRAM_EXERCISES(state, { exercises, trainingProgram });
@@ -75,9 +75,9 @@ describe('vuex system module mutations', () => {
   describe('SAVE_COMMENTS', () => {
     test('saves comments assigned to training program', () => {
       const state = {
-        trainingPrograms: [ { id: '1', comments: [] } ],
+        trainingPrograms: [{ id: '1', comments: [] }],
       };
-      const comments = [ { id: '10' } ];
+      const comments = [{ id: '10' }];
       const trainingProgram = state.trainingPrograms[0];
 
       mutations.SAVE_COMMENTS(state, { comments, trainingProgram });
@@ -88,9 +88,9 @@ describe('vuex system module mutations', () => {
     test('doesn\'t erase existing comments assigned to training program', () => {
       const existingComment = { id: '11' };
       const state = {
-        trainingPrograms: [ { id: '1', comments: [ existingComment ] } ],
+        trainingPrograms: [{ id: '1', comments: [existingComment] }],
       };
-      const comments = [ { id: '10' } ];
+      const comments = [{ id: '10' }];
       const trainingProgram = state.trainingPrograms[0];
 
       mutations.SAVE_COMMENTS(state, { comments, trainingProgram });
@@ -115,7 +115,7 @@ describe('vuex system module mutations', () => {
     test('doesn\'t erase existing training plans', () => {
       const existingTrainingPlan = { id: '1' };
       const state = {
-        trainingPlans: [ existingTrainingPlan ],
+        trainingPlans: [existingTrainingPlan],
       };
       const trainingPlan = { id: '2' };
 
