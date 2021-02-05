@@ -23,6 +23,7 @@
     </TrainingPlanForm>
 
     <button
+      data-test-id="add-training-plan-btn"
       class="btn btn-info mt-2"
       @click="showForm"
     >
@@ -39,15 +40,15 @@ import TrainingPlanForm from './TrainingPlanForm';
 export default {
   props: {
     day: {
-      type: [ String, Number ],
+      type: [String, Number],
       required: true,
     },
     month: {
-      type: [ String, Number ],
+      type: [String, Number],
       required: true,
     },
     year: {
-      type: [ String, Number ],
+      type: [String, Number],
       required: true,
     },
   },
@@ -63,10 +64,10 @@ export default {
   },
   methods: {
     ...mapActions('system',
-        [ 'showWrapper', 'hideWrapper' ],
+        ['showWrapper', 'hideWrapper'],
     ),
     ...mapActions('trainingPrograms',
-        [ 'loadTrainingPlans' ],
+        ['loadTrainingPlans'],
     ),
     showForm() {
       this.shouldShowForm = true;
@@ -79,7 +80,7 @@ export default {
   },
   computed: {
     ...mapGetters('trainingPrograms',
-        [ 'getTrainingPlansByDate', 'getTrainingProgramById' ],
+        ['getTrainingPlansByDate', 'getTrainingProgramById'],
     ),
     trainingPlans() {
       return this.getTrainingPlansByDate(this.year, this.month, this.day);
