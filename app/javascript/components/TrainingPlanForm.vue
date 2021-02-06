@@ -10,6 +10,7 @@
       <p>Training program:</p>
 
       <select
+        data-test-id="training-program-select"
         v-model="formData.selectedTrainingProgramId"
       >
         <option

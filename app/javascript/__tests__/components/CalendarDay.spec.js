@@ -92,7 +92,7 @@ describe('CalendayDay component', () => {
     expect(result).toContain(expected);
   });
 
-  describe('when form emits close-form', () => {
+  describe('form emits close-form', () => {
     let wrapper;
 
     beforeEach(() => {
@@ -128,7 +128,7 @@ describe('CalendayDay component', () => {
     });
   });
 
-  describe('when click on add training plan button', () => {
+  describe('click on add training plan button', () => {
     let wrapper;
 
     beforeEach(() => {
