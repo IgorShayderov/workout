@@ -4,6 +4,7 @@
 
     <label
       v-for="(availableLocation, index) in availableLocations"
+      :ref="`${availableLocation}-checkbox`"
       :key="index"
     >
       <input
@@ -28,7 +29,7 @@ export default {
   },
   data() {
     return {
-      availableLocations: [ 'gym', 'outdoors' ],
+      availableLocations: ['gym', 'outdoors'],
     };
   },
   filters: {

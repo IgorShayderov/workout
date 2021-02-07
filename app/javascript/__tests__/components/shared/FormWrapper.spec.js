@@ -9,6 +9,12 @@ const mountOptions = {
 };
 
 describe('FormWrapper component', () => {
+  let wrapper;
+
+  beforeEach(() => {
+    wrapper = mount(FormWrapper, mountOptions);
+  });
+
   afterEach(() => {
     jest.clearAllMocks();
   });
@@ -17,8 +23,6 @@ describe('FormWrapper component', () => {
     [false, false],
     [true, true],
   ])('form visibility is %s', async (expected, shouldShowForm) => {
-    const wrapper = mount(FormWrapper, { ...mountOptions });
-
     await wrapper.setProps({ shouldShowForm });
 
     const result = wrapper.isVisible();
@@ -27,7 +31,6 @@ describe('FormWrapper component', () => {
   });
 
   test('emit close form on click close button', async () => {
-    const wrapper = mount(FormWrapper, { ...mountOptions });
     const expected = 1;
 
     const closeButton = wrapper.find('.form__btn-close');
@@ -40,7 +43,6 @@ describe('FormWrapper component', () => {
   });
 
   test('emit submit on click submit button', async () => {
-    const wrapper = mount(FormWrapper, { ...mountOptions });
     const expected = 1;
 
     const submitButton = wrapper.find('.form__btn-submit');
@@ -53,7 +55,6 @@ describe('FormWrapper component', () => {
   });
 
   test('renders submit title', async () => {
-    const wrapper = mount(FormWrapper, { ...mountOptions });
     const expected = 'Submit title';
 
     await wrapper.setProps({ submitTitle: expected });
