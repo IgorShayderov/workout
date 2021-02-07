@@ -46,7 +46,7 @@ import FormLocation from './shared/FormLocation';
 import FormWrapper from './shared/FormWrapper';
 
 export default {
-  mixins: [ formHelpers ],
+  mixins: [formHelpers],
   data() {
     return {
       formData: {
@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     ...mapActions('trainingPrograms',
-        [ 'createAndSaveTrainingProgram' ],
+        ['createAndSaveTrainingProgram'],
     ),
     createTrainingProgram() {
       const trainingProgramParams = {

@@ -6,7 +6,7 @@ const mocks = {
 };
 
 describe('TrainingProgram component', () => {
-  beforeEach(() => {
+  afterEach(() => {
     jest.clearAllMocks();
   });
 
@@ -40,6 +40,18 @@ describe('TrainingProgram component', () => {
       const result = mocks.$router.length;
 
       expect(result).toBe(expected);
+    });
+
+    test('renders slot', () => {
+      const wrapper = mount(TrainingProgram, {
+        propsData: { trainingProgram: undefined, title: '_' },
+        slots: { body: 'Make new program' },
+      });
+      const expected = 'Make new program';
+
+      const result = wrapper.text();
+
+      expect(result).toContain(expected);
     });
   });
 
@@ -98,8 +110,6 @@ describe('TrainingProgram component', () => {
       await wrapper.trigger('click');
 
       const result = mocks.$router[0];
-
-      console.log(mocks.$router, 'router');
 
       expect(result).toStrictEqual(expected);
     });

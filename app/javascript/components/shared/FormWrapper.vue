@@ -40,7 +40,7 @@ export default {
       type: Boolean,
     },
     errors: {
-      type: [ Array, Object ],
+      type: [Array, Object],
       required: true,
     },
     submitTitle: {
