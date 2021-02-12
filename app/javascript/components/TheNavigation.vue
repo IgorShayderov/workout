@@ -1,7 +1,5 @@
 <template>
   <div class="toolbar">
-    <!-- TODO message with greeting should be showed only while user just logged in FlashMessage component -->
-
     <a
       class="toolbar__link"
       href="root"
@@ -38,7 +36,7 @@
 
     <a
       class="toolbar__link"
-      :href="getRootPath + 'users/sign_out'"
+      :href="`${getRootPath}users/sign_out`"
       data-method="delete"
     >
       Sign out
