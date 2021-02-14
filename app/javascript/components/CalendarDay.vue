@@ -19,8 +19,7 @@
       :shouldShowForm="shouldShowForm"
       @close-form="closeForm"
       :dateInfo="dateInfo"
-    >
-    </TrainingPlanForm>
+    />
 
     <button
       data-test-id="add-training-plan-btn"

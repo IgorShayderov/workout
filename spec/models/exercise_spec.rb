@@ -51,6 +51,7 @@ RSpec.describe Exercise, type: :model do
   end
 
   describe '.all_with_images' do
+    # TODO написать тест на order
     let!(:exercise_with_image) { create(:exercise, title: 'Exercise with image') }
     before { exercise_with_image.image.attach(create_file_blob) }
 

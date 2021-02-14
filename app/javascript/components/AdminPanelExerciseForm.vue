@@ -50,8 +50,6 @@
       </div>
     </label>
 
-
-
   </FormWrapper>
 </template>
 
@@ -93,7 +91,7 @@ export default {
   },
   methods: {
     ...mapActions('adminPanel',
-        ['createAndSaveExercise', 'updateAndSaveExercise'],
+        ['createAndSaveExercise', 'updateAndSaveExercise', 'processAttachedImageDeletion'],
     ),
     saveImage() {
       this.formData.image = this.$refs.exerciseImage.files[0];
@@ -125,10 +123,11 @@ export default {
       this.id > 0 ? this.updateExercise() : this.createExercise();
     },
     deleteAttachedImage() {
-      const shouldDeleteAttachedImage = window.confirm(`Do you want to delete ${this.currentExercise.image.filename}?`);
+      const { id, filename } = this.currentExercise.image;
+      const shouldDeleteAttachedImage = window.confirm(`Do you want to delete ${filename}?`);
 
       if (shouldDeleteAttachedImage) {
-        // delete image
+        this.processAttachedImageDeletion(id);
       }
     },
   },

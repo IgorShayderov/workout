@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# TODO delete attached image
 
 require 'rails_helper'
 
@@ -23,6 +24,8 @@ feature 'Admin can delete exercises', "
         within "[data-exercise-id='#{exercise.id}']" do
           click_button 'Delete'
         end
+
+        page.driver.browser.switch_to.alert.accept
 
         expect(page).to_not have_content(exercise.title)
       end

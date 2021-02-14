@@ -63,7 +63,7 @@ export default {
             });
       });
     },
-    deleteExercise({ commit, rootGetters }, id) {
+    processExerciseDeletion({ commit, rootGetters }, id) {
       axios({
         method: 'delete',
         url: `/exercises/${id}`,
@@ -114,6 +114,22 @@ export default {
                 resolve();
                 commit('UPDATE_EXERCISE', { updatedExercise: data, id });
               }
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+      });
+    },
+    processAttachedImageDeletion({ rootGetters }, attachmentId) {
+      return new Promise((resolve) => {
+        axios({
+          method: 'delete',
+          url: `/attachments/${attachmentId}`,
+          baseUrl: rootGetters['system/getRootPath'],
+          headers: rootGetters['system/getHeadersJSON'],
+        })
+            .then((response) => {
+              const { data } = response;
             })
             .catch((error) => {
               console.error(error);

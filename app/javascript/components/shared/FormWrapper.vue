@@ -25,8 +25,7 @@
 
       <ErrorsViewer
         :errors="errors"
-      >
-      </ErrorsViewer>
+      />
     </form>
   </div>
 </template>

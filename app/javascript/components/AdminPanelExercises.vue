@@ -40,7 +40,7 @@
 
             <button
               class="btn btn-danger"
-              @click="deleteExercise(exercise.id)"
+              @click="deleteExercise(exercise)"
             >
               Delete
             </button>
@@ -60,15 +60,13 @@
       :shouldShowForm="shouldShowForm"
       @close-form="closeExerciseForm"
       :id="exerciseId || newExerciseId"
-    >
-    </AdminPanelExerciseForm>
+    />
 
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-// TODO файл должен появляться в форме, если фото прикреплено
 import AdminPanelExerciseForm from './AdminPanelExerciseForm';
 
 export default {
@@ -90,7 +88,7 @@ export default {
   },
   methods: {
     ...mapActions('adminPanel',
-        ['loadExercises', 'deleteExercise'],
+        ['loadExercises', 'processExerciseDeletion'],
     ),
     ...mapActions('system',
         ['showWrapper', 'hideWrapper', 'getRootPath'],
@@ -110,6 +108,14 @@ export default {
     },
     applySearchFilter(newFilter) {
       this.searchFilter = newFilter;
+    },
+    deleteExercise(exercise) {
+      const { id, title } = exercise;
+      const shouldDeleteExercise = window.confirm(`Do you want to exercise ${title}?`);
+
+      if (shouldDeleteExercise) {
+        this.processExerciseDeletion(id);
+      }
     },
   },
   computed: {

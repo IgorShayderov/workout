@@ -25,6 +25,6 @@
       "ignoreStrings": true,
       "ignoreTemplateLiterals": true
     }],
-    "no-console": [{ "allow": ["warn", "error"] }]
+    "no-console": ["error", { "allow": ["warn", "error"] }]
   }
 }

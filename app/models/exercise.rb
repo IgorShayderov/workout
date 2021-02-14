@@ -15,7 +15,8 @@ class Exercise < ApplicationRecord
     .as_json
   }
   scope :all_with_images, lambda {
-    with_attached_image
+    order(:title, :created_at)
+    .with_attached_image
     .map do |exercise|
       image = exercise.image
 

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   end
 
   resources :exercises, only: %i[index create update destroy]
+  resources :attachments, only: %i[destroy]
 
   get 'calendar_rendering_data', to: 'training_plans#calendar_rendering_data'
 

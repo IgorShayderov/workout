@@ -10,8 +10,7 @@
         :key="trainingProgram.id"
         :trainingProgram="trainingProgram"
         :data-id="trainingProgram.id"
-      >
-      </TrainingProgram>
+      />
 
       <TrainingProgram
         class="text-center"
@@ -33,8 +32,7 @@
     <TrainingProgramForm
       :shouldShowForm="shouldShowForm"
       @close-form="closeForm"
-    >
-    </TrainingProgramForm>
+    />
 
   </div>
 </template>

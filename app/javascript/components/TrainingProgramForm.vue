@@ -31,8 +31,7 @@
     <FormLocation
       :location="formData.location"
       @change-location="changeLocation"
-    >
-    </FormLocation>
+    />
 
   </FormWrapper>
 </template>

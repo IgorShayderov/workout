@@ -74,7 +74,7 @@ describe('vuex admin_panel module actions', () => {
     test('successfully deteles exercise', async () => {
       axios.mockImplementationOnce(() => Promise.resolve({ data: { id: 1 } }));
 
-      await actions.deleteExercise({ commit, rootGetters }, id);
+      await actions.processExerciseDeletion({ commit, rootGetters }, id);
 
       expect(commit).toHaveBeenCalledWith('DELETE_EXERCISE', 1);
     });

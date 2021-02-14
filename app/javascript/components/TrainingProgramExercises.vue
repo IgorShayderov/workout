@@ -18,8 +18,7 @@
             :data-id="exercise.id"
             @selected-exercise="addExerciseToList"
             @unselected-exercise="removeExerciseFromList"
-          >
-          </ExerciseView>
+          />
         </div>
 
         <div class="exercises-slider__roll-next">
@@ -31,8 +30,7 @@
     <ErrorsViewer
       :showErrors="showErrors"
       :errors="errors"
-    >
-    </ErrorsViewer>
+    />
 
     <div class="exercises">
       <div class="picked-exercises">
@@ -83,8 +81,7 @@
       :trainingProgramId="trainingProgramId.toString()"
       @comment-error="handleCommentError($event)"
       @clear-errors="clearErrors"
-    >
-    </TrainingProgramComments>
+    />
 
   </div>
 </template>
