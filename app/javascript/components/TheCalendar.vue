@@ -2,7 +2,7 @@
   <div class="calendar">
     <h2 class="calendar__title">Calendar</h2>
     <table class="calendar__board">
-      <caption>{{ calendarData.caption }}</caption>
+      <caption class="calendar__current-date">{{ calendarData.caption }}</caption>
       <thead class="calendar__thead">
         <tr>
           <th
@@ -102,6 +102,11 @@ export default {
 
 .calendar__header, .calendar__day {
 
+}
+
+.calendar__current-date {
+  color: black;
+  font-weight: bold;
 }
 
 .calendar__header {

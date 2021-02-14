@@ -17,13 +17,11 @@
               test_id="search-input"
             >
           </th>
-          <th>Location</th>
-          <th class="text-center">Image</th>
           <th class="text-center">Actions</th>
         </tr>
       </thead>
 
-      <tbody>
+      <transition-group name="mild-float" tag="tbody">
         <tr
           clas="exercise-row"
           v-for="(exercise, index) in filteredExercises"
@@ -32,23 +30,6 @@
         >
           <td>{{ index + 1 }}</td>
           <td>{{ exercise.title }}</td>
-          <td>{{ exercise.location }}</td>
-          <td>
-            <!-- <img
-              class="exercise-row__image"
-              v-if="image !== undefined"
-              :src="image.url"
-              :alt="image.filename"
-            > -->
-
-            <a
-              v-if="exercise.image !== undefined"
-              target="_blank"
-              :href="exercise.image.url"
-            >
-              {{ exercise.image.filename }}
-            </a>
-          </td>
           <td class="text-center">
             <button
               class="btn btn-primary"
@@ -65,7 +46,7 @@
             </button>
           </td>
         </tr>
-      </tbody>
+      </transition-group>
     </table>
 
     <button
@@ -112,7 +93,7 @@ export default {
         ['loadExercises', 'deleteExercise'],
     ),
     ...mapActions('system',
-        ['showWrapper', 'hideWrapper'],
+        ['showWrapper', 'hideWrapper', 'getRootPath'],
     ),
     openExerciseForm() {
       this.shouldShowForm = true;
@@ -153,5 +134,18 @@ export default {
 .exercise-row__image {
   width: 150px;
   height: 150px;
+}
+
+.mild-float-enter {
+  transform: translateY(10px);
+  opacity: 0;
+}
+
+.mild-float-enter-active {
+  transition: all .3s ease;
+}
+
+.mild-float-move {
+  transition: all .5s ease-out;
 }
 </style>

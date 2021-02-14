@@ -32,7 +32,7 @@ export default {
             }
             break;
           default:
-            console.log('Unhandled type of the field.');
+            console.error('Unhandled type of the field.');
         }
       });
     },

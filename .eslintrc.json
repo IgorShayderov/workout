@@ -24,6 +24,7 @@
       "ignoreRegExpLiterals": true,
       "ignoreStrings": true,
       "ignoreTemplateLiterals": true
-    }]
+    }],
+    "no-console": [{ "allow": ["warn", "error"] }]
   }
 }

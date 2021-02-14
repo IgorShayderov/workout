@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   get '/:year/:month/:day/training_plans',
       to: 'training_plans#index'
 
-  get '/is_admin', to: 'profiles#is_admin'
+  get '/is_admin', to: 'profiles#admin?'
 
   # for vue-router historyApi
   get '/*path', to: 'training_programs#index',

@@ -20,16 +20,37 @@
 
     <br>
 
-    <label>
+    <label >
       Image:
       <br>
       <input
+        v-if="id === 0 || currentExercise.image === undefined"
         @change="saveImage"
         ref="exerciseImage"
         type="file"
         class="form__image-attach"
+        accept="image/*"
       >
+
+      <div v-else>
+        <a
+          class="form__image-link"
+          target="_blank"
+          :href="currentExercise.image.url"
+        >
+          {{ currentExercise.image.filename }}
+        </a>
+
+        <span
+          class="form__image-delete"
+          @click="deleteAttachedImage"
+        >
+          <i class="fas fa-times"></i>
+        </span>
+      </div>
     </label>
+
+
 
   </FormWrapper>
 </template>
@@ -42,10 +63,10 @@ import formHelpers from '../mixins/formHelpers';
 import FormWrapper from './shared/FormWrapper';
 
 export default {
-  mixins: [ formHelpers ],
+  mixins: [formHelpers],
   props: {
     id: {
-      type: [ Number ],
+      type: [Number],
       required: true,
     },
   },
@@ -61,6 +82,10 @@ export default {
     id(newIdValue) {
       if (newIdValue === 0) {
         this.formData.title = '';
+
+        if (typeof this.$refs.exerciseImage !== 'undefined') {
+          this.$refs.exerciseImage.value = null;
+        }
       } else {
         this.formData.title = this.currentExercise.title;
       }
@@ -68,12 +93,9 @@ export default {
   },
   methods: {
     ...mapActions('adminPanel',
-        [ 'createAndSaveExercise', 'updateAndSaveExercise' ],
+        ['createAndSaveExercise', 'updateAndSaveExercise'],
     ),
     saveImage() {
-      console.log(this.$refs.exerciseImage.files[0], 'this.$refs.exerciseImage.files[0]');
-      console.log(this.$refs.exerciseImage.files);
-
       this.formData.image = this.$refs.exerciseImage.files[0];
     },
     cleanUpAndClose() {
@@ -102,10 +124,17 @@ export default {
     exerciseFormSubmitHandler() {
       this.id > 0 ? this.updateExercise() : this.createExercise();
     },
+    deleteAttachedImage() {
+      const shouldDeleteAttachedImage = window.confirm(`Do you want to delete ${this.currentExercise.image.filename}?`);
+
+      if (shouldDeleteAttachedImage) {
+        // delete image
+      }
+    },
   },
   computed: {
     ...mapGetters('adminPanel',
-        [ 'getExerciseById' ],
+        ['getExerciseById'],
     ),
     currentExercise() {
       return this.getExerciseById(this.id);
@@ -137,7 +166,12 @@ export default {
 .form__title {
   margin: 5px 0 10px 0;
 }
+
 .form__image-attach {
   margin: 5px 0 10px 0;
+}
+
+.form__image-delete {
+  cursor: pointer;
 }
 </style>

@@ -1,5 +1,5 @@
 class ProfilesController < ApplicationController
-  def is_admin
+  def admin?
     render json: current_user.admin?
   end
 end

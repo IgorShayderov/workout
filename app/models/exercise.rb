@@ -25,7 +25,7 @@ class Exercise < ApplicationRecord
         exercise_with_image[:image] = {
           id: image.id,
           url: Rails.application.routes.url_helpers.rails_blob_url(image, only_path: true),
-          filename: image.blob.filename
+          filename: image.blob.filename,
         }
       end
 
