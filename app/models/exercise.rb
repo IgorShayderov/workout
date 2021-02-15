@@ -17,22 +17,24 @@ class Exercise < ApplicationRecord
   scope :all_with_images, lambda {
     order(:title, :created_at)
     .with_attached_image
-    .map do |exercise|
-      image = exercise.image
-
-      exercise_with_image = exercise.as_json
-
-      if image.attached?
-        exercise_with_image[:image] = {
-          id: image.id,
-          url: Rails.application.routes.url_helpers.rails_blob_url(image, only_path: true),
-          filename: image.blob.filename,
-        }
-      end
-
-      exercise_with_image
-    end
+    .map(&:with_image)
   }
 
   validates :title, uniqueness: true, presence: true
+
+  def with_image
+    image = self.image
+
+    exercise_with_image = self.as_json(except: %i[created_at updated_at])
+
+    if image.attached?
+      exercise_with_image[:image] = {
+        id: image.id,
+        url: Rails.application.routes.url_helpers.rails_blob_url(image, only_path: true),
+        filename: image.blob.filename,
+      }
+    end
+
+    exercise_with_image
+  end
 end

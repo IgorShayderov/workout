@@ -112,6 +112,7 @@ export default {
                 reject(errors);
               } else {
                 resolve();
+                // TODO скорее всего id лишний и уже содержится в data
                 commit('UPDATE_EXERCISE', { updatedExercise: data, id });
               }
             })
@@ -120,8 +121,8 @@ export default {
             });
       });
     },
-    processAttachedImageDeletion({ rootGetters }, attachmentId) {
-      return new Promise((resolve) => {
+    processAttachedImageDeletion({ commit, rootGetters }, { exercise, attachmentId }) {
+      return new Promise((resolve, reject) => {
         axios({
           method: 'delete',
           url: `/attachments/${attachmentId}`,
@@ -130,6 +131,19 @@ export default {
         })
             .then((response) => {
               const { data } = response;
+
+              if (data.errors) {
+                const { errors } = data;
+
+                reject(errors);
+              } else {
+                const exerciseWithoutAttachment = exercise;
+
+                delete exerciseWithoutAttachment.image;
+
+                commit('UPDATE_EXERCISE', { updatedExercise: exercise, id: exercise.id });
+                resolve();
+              }
             })
             .catch((error) => {
               console.error(error);

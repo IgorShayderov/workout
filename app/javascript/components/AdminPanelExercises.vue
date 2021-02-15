@@ -17,6 +17,7 @@
               test_id="search-input"
             >
           </th>
+          <th class="text-center">Image</th>
           <th class="text-center">Actions</th>
         </tr>
       </thead>
@@ -28,8 +29,29 @@
           :key="exercise.id"
           :data-exercise-id="exercise.id"
         >
+          <!-- INDEX -->
           <td>{{ index + 1 }}</td>
+
+          <!-- TITLE -->
           <td>{{ exercise.title }}</td>
+
+          <!-- IMAGE -->
+          <td class="exercise__image">
+            <span
+              v-if="exercise.image === undefined"
+              class="exercise__image-negative"
+            >
+              <i class="fas fa-2x fa-times"></i>
+            </span>
+            <span
+              v-else
+              class="exercise__image-positive"
+            >
+              <i class="fas fa-2x fa-check"></i>
+            </span>
+          </td>
+
+          <!-- ACTIONS -->
           <td class="text-center">
             <button
               class="btn btn-primary"
@@ -136,7 +158,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .exercise-row__image {
   width: 150px;
   height: 150px;
@@ -153,5 +175,17 @@ export default {
 
 .mild-float-move {
   transition: all .5s ease-out;
+}
+
+.exercise__image {
+  text-align: center;
+}
+
+.exercise__image-positive {
+  color: green;
+}
+
+.exercise__image-negative {
+  color: red;
 }
 </style>

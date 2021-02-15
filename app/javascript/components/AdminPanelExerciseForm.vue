@@ -127,7 +127,12 @@ export default {
       const shouldDeleteAttachedImage = window.confirm(`Do you want to delete ${filename}?`);
 
       if (shouldDeleteAttachedImage) {
-        this.processAttachedImageDeletion(id);
+        this.processAttachedImageDeletion({ attachmentId: id, exercise: this.currentExercise })
+            .then(() => {
+            },
+            (errors) => {
+              this.errors = errors;
+            });
       }
     },
   },

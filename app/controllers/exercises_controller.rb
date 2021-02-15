@@ -22,7 +22,7 @@ class ExercisesController < ApplicationController
 
   def update
     if @exercise.update(exercise_params)
-      render json: @exercise
+      render json: @exercise.with_image
     else
       render json: { errors: @exercise.errors }
     end
@@ -43,6 +43,6 @@ class ExercisesController < ApplicationController
   end
 
   def find_exercise
-    @exercise = Exercise.find(params[:id])
+    @exercise = Exercise.with_attached_image.find(params[:id])
   end
 end

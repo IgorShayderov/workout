@@ -6,7 +6,7 @@ shared_examples_for 'exercises from request' do
   end
 
   it 'returns all public fields' do
-    %w[id title created_at updated_at].each do |attr|
+    %w[id title].each do |attr|
       expect(exercise_response[attr]).to eq exercises.first.send(attr).as_json
     end
   end
