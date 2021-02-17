@@ -4,18 +4,13 @@
         :text="flashMessage"
         :shouldBeDisplayed="shouldShowFlashMessage"
         @hide-flash-message="hideFlashMessage"
-      >
-      </FlashMessage>
+      />
 
-    <TheNavigation>
-    </TheNavigation>
+    <TheNavigation/>
 
     <router-view></router-view>
 
-    <TheWrapper
-      :showWrapper="getWrapperStatus"
-    >
-    </TheWrapper>
+    <TheWrapper :showWrapper="getWrapperStatus"/>
   </div>
 </template>
 
