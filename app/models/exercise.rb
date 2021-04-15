@@ -30,7 +30,7 @@ class Exercise < ApplicationRecord
     if image.attached?
       exercise_with_image[:image] = {
         id: image.id,
-        url: Rails.application.routes.url_helpers.rails_blob_url(image, only_path: true),
+        url: rails_blob_url(image, only_path: true),
         filename: image.blob.filename,
       }
     end
