@@ -1,6 +1,3 @@
-// for jest unit-tests
-const gon = window.gon || {};
-
 import axios from 'axios';
 
 export default {

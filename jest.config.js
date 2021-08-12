@@ -24,4 +24,7 @@ module.exports = {
   'snapshotSerializers': [
     'jest-serializer-vue',
   ],
+  'globals': {
+    gon: {},
+  },
 };

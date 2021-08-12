@@ -1,6 +1,3 @@
-// for jest units-tests
-const gon = window.gon || {};
-
 import actions from './training_programs/training_programs_actions';
 
 const trainingPrograms = gon.training_programs || [];
