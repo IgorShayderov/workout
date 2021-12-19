@@ -5,7 +5,7 @@
   },
   "extends": [
     "eslint:recommended",
-    "plugin:vue/essential",
+    "plugin:vue/recommended",
     "google",
     "plugin:jest/recommended"
   ],
@@ -25,7 +25,7 @@
       "ignoreStrings": true,
       "ignoreTemplateLiterals": true
     }],
-    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "no-console": ["error", { "allow": ["warn", "error", "info"] }],
     "key-spacing": ["warn", {"align": {"on": "value"}, "multiLine": {"mode": "minimum"}}]
   }
 }
